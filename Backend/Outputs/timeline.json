@@ -1,0 +1,143 @@
+{
+  "summary": {
+    "total_tweets": 15000,
+    "total_originals": 1499,
+    "total_retweets": 13501,
+    "retweet_percentage": 90.01,
+    "original_percentage": 9.99,
+    "start_time": "2019-04-23 09:20",
+    "end_time": "2019-04-23 10:40",
+    "peak_time": "2019-04-23 09:55",
+    "peak_volume": 1038
+  },
+  "timeline": [
+    {
+      "time_bin": "2019-04-23 09:20",
+      "total_tweets": 558,
+      "original": 62,
+      "retweet": 496
+    },
+    {
+      "time_bin": "2019-04-23 09:25",
+      "total_tweets": 846,
+      "original": 89,
+      "retweet": 757
+    },
+    {
+      "time_bin": "2019-04-23 09:30",
+      "total_tweets": 863,
+      "original": 90,
+      "retweet": 773
+    },
+    {
+      "time_bin": "2019-04-23 09:35",
+      "total_tweets": 884,
+      "original": 89,
+      "retweet": 795
+    },
+    {
+      "time_bin": "2019-04-23 09:40",
+      "total_tweets": 936,
+      "original": 92,
+      "retweet": 844
+    },
+    {
+      "time_bin": "2019-04-23 09:45",
+      "total_tweets": 822,
+      "original": 79,
+      "retweet": 743
+    },
+    {
+      "time_bin": "2019-04-23 09:50",
+      "total_tweets": 959,
+      "original": 90,
+      "retweet": 869
+    },
+    {
+      "time_bin": "2019-04-23 09:55",
+      "total_tweets": 1038,
+      "original": 93,
+      "retweet": 945
+    },
+    {
+      "time_bin": "2019-04-23 10:00",
+      "total_tweets": 1018,
+      "original": 98,
+      "retweet": 920
+    },
+    {
+      "time_bin": "2019-04-23 10:05",
+      "total_tweets": 862,
+      "original": 81,
+      "retweet": 781
+    },
+    {
+      "time_bin": "2019-04-23 10:10",
+      "total_tweets": 914,
+      "original": 82,
+      "retweet": 832
+    },
+    {
+      "time_bin": "2019-04-23 10:15",
+      "total_tweets": 901,
+      "original": 94,
+      "retweet": 807
+    },
+    {
+      "time_bin": "2019-04-23 10:20",
+      "total_tweets": 936,
+      "original": 92,
+      "retweet": 844
+    },
+    {
+      "time_bin": "2019-04-23 10:25",
+      "total_tweets": 945,
+      "original": 112,
+      "retweet": 833
+    },
+    {
+      "time_bin": "2019-04-23 10:30",
+      "total_tweets": 911,
+      "original": 106,
+      "retweet": 805
+    },
+    {
+      "time_bin": "2019-04-23 10:35",
+      "total_tweets": 902,
+      "original": 97,
+      "retweet": 805
+    },
+    {
+      "time_bin": "2019-04-23 10:40",
+      "total_tweets": 705,
+      "original": 53,
+      "retweet": 652
+    }
+  ],
+  "top_intervals": [
+    {
+      "time_bin": "2019-04-23 09:55",
+      "total_tweets": 1038
+    },
+    {
+      "time_bin": "2019-04-23 10:00",
+      "total_tweets": 1018
+    },
+    {
+      "time_bin": "2019-04-23 09:50",
+      "total_tweets": 959
+    },
+    {
+      "time_bin": "2019-04-23 10:25",
+      "total_tweets": 945
+    },
+    {
+      "time_bin": "2019-04-23 10:20",
+      "total_tweets": 936
+    }
+  ],
+  "peak": {
+    "peak_time_bin": "2019-04-23 09:55",
+    "peak_tweet_count": 1038
+  }
+}

@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+<title>Trend — SMI</title>
+<link rel="stylesheet" href="assets/styles.css" />
+</head>
+<body>
+
+<header class="site-header" id="header"></header>
+
+<main class="container">
+  <div class="page-title-block reveal">
+    <span class="eyebrow">Twitter · Trend</span>
+    <h1>Trend</h1>
+    <p class="sub">The hashtags, mentions, words and phrases driving the conversation, and how the top terms moved over time.</p>
+  </div>
+
+  <div id="content">
+    <div class="state-msg">
+      <div class="spinner"></div>
+      <div>Loading analytics…</div>
+    </div>
+  </div>
+
+  <div id="limitations"></div>
+</main>
+
+<footer class="site-footer container">
+  SMI prototype — Analytics locally from Flask.
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="assets/app.js"></script>
+<script>
+(async function () {
+  SMI.renderHeader(document.getElementById("header"), { backHref: "twitter.html", backLabel: "Twitter" });
+  SMI.applyChartDefaults();
+  const content = document.getElementById("content");
+
+  let data;
+  try {
+    data = await SMI.getJSON("/api/trends");
+  } catch (err) {
+    SMI.renderError(content, {
+      title: "Trend data not available",
+      hint: "Couldn't reach /api/trends. Make sure the Flask backend is running and analytics.py has been run.",
+    });
+    return;
+  }
+
+  const hashtags = (data.hashtags || []).slice(0, 10);
+  const mentions = (data.mentions || []).slice(0, 10);
+  const topWords = (data.top_words || []).slice(0, 10);
+  const phrases = (data.phrases || []).slice(0, 10);
+  const trendsOverTime = data.trends_over_time || [];
+
+  content.innerHTML = `
+    <div class="kpi-grid">
+      <div class="kpi-card reveal">
+        <div class="label">Top hashtag</div>
+        <div class="value static-text">${SMI.escapeHTML(hashtags[0]?.hashtag || "—")}</div>
+      </div>
+      <div class="kpi-card reveal">
+        <div class="label">Top mention</div>
+        <div class="value static-text">${SMI.escapeHTML(mentions[0]?.username || "—")}</div>
+      </div>
+      <div class="kpi-card reveal">
+        <div class="label">Top word</div>
+        <div class="value static-text">${SMI.escapeHTML(topWords[0]?.word || "—")}</div>
+      </div>
+      <div class="kpi-card reveal">
+        <div class="label">Top phrase</div>
+        <div class="value static-text">${SMI.escapeHTML(phrases[0]?.phrase || "—")}</div>
+      </div>
+    </div>
+
+    <div class="charts-grid">
+      <div class="card reveal chart-panel" style="margin-bottom:0;">
+        <h3>Top hashtags</h3>
+        <div class="chart-wrap short"><canvas id="hashtagChart"></canvas></div>
+      </div>
+      <div class="card reveal chart-panel" style="margin-bottom:0;">
+        <h3>Top mentions</h3>
+        <div class="chart-wrap short"><canvas id="mentionChart"></canvas></div>
+      </div>
+      <div class="card reveal chart-panel" style="margin-bottom:0;">
+        <h3>Top words</h3>
+        <div class="chart-wrap short"><canvas id="wordChart"></canvas></div>
+      </div>
+      <div class="card reveal chart-panel" style="margin-bottom:0;">
+        <h3>Top phrases</h3>
+        <ul style="margin:0; padding-left:18px; color:var(--text-dim); font-size:14px; line-height:2;">
+          ${phrases.map(p => `<li><span style="color:var(--text)">${SMI.escapeHTML(p.phrase)}</span> — ${SMI.formatCompact(p.count)}</li>`).join("")}
+        </ul>
+      </div>
+    </div>
+
+    <div class="card reveal chart-panel" style="margin-bottom:0;">
+      <h3>Trending terms over time</h3>
+      <p class="chart-note">Mentions per interval for the top trending terms.</p>
+      <div class="chart-wrap"><canvas id="trendChart"></canvas></div>
+    </div>
+  `;
+
+  SMI.initReveal();
+
+  function hbar(id, labels, values) {
+    new Chart(document.getElementById(id), {
+      type: "bar",
+      data: {
+        labels,
+        datasets: [{
+          data: values,
+          backgroundColor: SMI.palette.accent2,
+          borderRadius: 6,
+          barThickness: 14,
+        }],
+      },
+      options: {
+        indexAxis: "y",
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: { legend: { display: false } },
+        scales: {
+          x: { beginAtZero: true },
+          y: { grid: { display: false } },
+        },
+      },
+    });
+  }
+
+  hbar("hashtagChart", hashtags.map(h => h.hashtag), hashtags.map(h => h.count));
+  hbar("mentionChart", mentions.map(m => m.username), mentions.map(m => m.count));
+  hbar("wordChart", topWords.map(w => w.word), topWords.map(w => w.count));
+
+  // Trend over time — multi-line, top 5 terms
+  const topTerms = trendsOverTime.slice(0, 5);
+  const allBins = Array.from(
+    new Set(topTerms.flatMap(t => (t.timeline || []).map(p => p.time_bin)))
+  ).sort();
+
+  const colors = [SMI.palette.accent2, "#c4b5fd", "#f0abfc", "#34d399", "#f87171"];
+
+  new Chart(document.getElementById("trendChart"), {
+    type: "line",
+    data: {
+      labels: allBins,
+      datasets: topTerms.map((t, i) => {
+        const byBin = Object.fromEntries((t.timeline || []).map(p => [p.time_bin, p.count]));
+        return {
+          label: t.term,
+          data: allBins.map(b => byBin[b] ?? 0),
+          borderColor: colors[i % colors.length],
+          backgroundColor: "transparent",
+          tension: 0.35,
+          pointRadius: 0,
+          borderWidth: 2,
+        };
+      }),
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      scales: {
+        x: { ticks: { maxTicksLimit: 8 } },
+        y: { beginAtZero: true },
+      },
+    },
+  });
+
+  SMI.renderLimitationsBanner(document.getElementById("limitations"));
+})();
+</script>
+</body>
+</html>

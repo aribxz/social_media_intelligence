@@ -1,0 +1,697 @@
+{
+  "hashtags": [
+    {
+      "hashtag": "#avengersendgame",
+      "count": 13478
+    },
+    {
+      "hashtag": "#captainamerica",
+      "count": 1019
+    },
+    {
+      "hashtag": "#blackwidow",
+      "count": 567
+    },
+    {
+      "hashtag": "#ironman",
+      "count": 517
+    },
+    {
+      "hashtag": "#captainmarvel",
+      "count": 441
+    },
+    {
+      "hashtag": "#avengers",
+      "count": 412
+    },
+    {
+      "hashtag": "#funkoavengers",
+      "count": 410
+    },
+    {
+      "hashtag": "#endgame",
+      "count": 270
+    },
+    {
+      "hashtag": "#hmvavengersendga",
+      "count": 250
+    },
+    {
+      "hashtag": "#contest",
+      "count": 199
+    },
+    {
+      "hashtag": "#contestalert",
+      "count": 193
+    },
+    {
+      "hashtag": "#thanos",
+      "count": 176
+    },
+    {
+      "hashtag": "#wintersoldier",
+      "count": 160
+    },
+    {
+      "hashtag": "#thor",
+      "count": 159
+    },
+    {
+      "hashtag": "#hawkeye",
+      "count": 156
+    },
+    {
+      "hashtag": "#sebastianstan",
+      "count": 143
+    },
+    {
+      "hashtag": "#retweet",
+      "count": 122
+    },
+    {
+      "hashtag": "#infinitygauntlet",
+      "count": 107
+    },
+    {
+      "hashtag": "#scarletwitch",
+      "count": 104
+    },
+    {
+      "hashtag": "#starlord",
+      "count": 103
+    }
+  ],
+  "mentions": [
+    {
+      "username": "@marvel",
+      "count": 2023
+    },
+    {
+      "username": "@avengers",
+      "count": 1917
+    },
+    {
+      "username": "@helloboon",
+      "count": 1456
+    },
+    {
+      "username": "@chrisevans",
+      "count": 929
+    },
+    {
+      "username": "@originalfunko",
+      "count": 820
+    },
+    {
+      "username": "@mcu_direct",
+      "count": 520
+    },
+    {
+      "username": "@marvelstudios",
+      "count": 479
+    },
+    {
+      "username": "@robertdowneyjr",
+      "count": 446
+    },
+    {
+      "username": "@ticketnew",
+      "count": 414
+    },
+    {
+      "username": "@boxlunchgifts",
+      "count": 402
+    },
+    {
+      "username": "@paytm",
+      "count": 298
+    },
+    {
+      "username": "@brandondavisbd",
+      "count": 266
+    },
+    {
+      "username": "@hmvtweets",
+      "count": 251
+    },
+    {
+      "username": "@oppomobileindia",
+      "count": 235
+    },
+    {
+      "username": "@_pvrcinemas",
+      "count": 219
+    },
+    {
+      "username": "@chrishemsworth",
+      "count": 213
+    },
+    {
+      "username": "@targrycn",
+      "count": 212
+    },
+    {
+      "username": "@brielarson",
+      "count": 200
+    },
+    {
+      "username": "@anthonymackie",
+      "count": 194
+    },
+    {
+      "username": "@markruffalo",
+      "count": 184
+    }
+  ],
+  "top_words": [
+    {
+      "word": "man",
+      "count": 2184
+    },
+    {
+      "word": "premiere",
+      "count": 1611
+    },
+    {
+      "word": "ads",
+      "count": 1457
+    },
+    {
+      "word": "everywhere",
+      "count": 1456
+    },
+    {
+      "word": "all",
+      "count": 1117
+    },
+    {
+      "word": "marvel",
+      "count": 1112
+    },
+    {
+      "word": "scarlett",
+      "count": 975
+    },
+    {
+      "word": "win",
+      "count": 952
+    },
+    {
+      "word": "cried",
+      "count": 896
+    },
+    {
+      "word": "chris",
+      "count": 890
+    },
+    {
+      "word": "like",
+      "count": 869
+    },
+    {
+      "word": "salute",
+      "count": 823
+    },
+    {
+      "word": "world",
+      "count": 790
+    },
+    {
+      "word": "johansson",
+      "count": 716
+    },
+    {
+      "word": "chance",
+      "count": 688
+    },
+    {
+      "word": "get",
+      "count": 678
+    },
+    {
+      "word": "carpet",
+      "count": 677
+    },
+    {
+      "word": "movie",
+      "count": 625
+    },
+    {
+      "word": "evans",
+      "count": 614
+    },
+    {
+      "word": "times",
+      "count": 603
+    }
+  ],
+  "phrases": [
+    {
+      "phrase": "man ads",
+      "count": 1456
+    },
+    {
+      "phrase": "ads everywhere",
+      "count": 1456
+    },
+    {
+      "phrase": "world premiere",
+      "count": 775
+    },
+    {
+      "phrase": "scarlett johansson",
+      "count": 714
+    },
+    {
+      "phrase": "chance win",
+      "count": 616
+    },
+    {
+      "phrase": "chris evans",
+      "count": 607
+    },
+    {
+      "phrase": "six times",
+      "count": 515
+    },
+    {
+      "phrase": "iron man",
+      "count": 502
+    },
+    {
+      "phrase": "black widow",
+      "count": 501
+    },
+    {
+      "phrase": "herself scarlett",
+      "count": 437
+    },
+    {
+      "phrase": "widow herself",
+      "count": 436
+    },
+    {
+      "phrase": "welcome party",
+      "count": 431
+    },
+    {
+      "phrase": "saying cried",
+      "count": 422
+    },
+    {
+      "phrase": "follow chance",
+      "count": 410
+    },
+    {
+      "phrase": "win exclusive",
+      "count": 409
+    },
+    {
+      "phrase": "man pop",
+      "count": 403
+    },
+    {
+      "phrase": "red carpet",
+      "count": 402
+    },
+    {
+      "phrase": "exclusive iron",
+      "count": 402
+    },
+    {
+      "phrase": "marvel studios",
+      "count": 334
+    },
+    {
+      "phrase": "get ready",
+      "count": 308
+    }
+  ],
+  "trends_over_time": [
+    {
+      "term": "#avengersendgame",
+      "timeline": [
+        {
+          "time_bin": "2019-04-23 09:20",
+          "count": 502
+        },
+        {
+          "time_bin": "2019-04-23 09:25",
+          "count": 775
+        },
+        {
+          "time_bin": "2019-04-23 09:30",
+          "count": 774
+        },
+        {
+          "time_bin": "2019-04-23 09:35",
+          "count": 780
+        },
+        {
+          "time_bin": "2019-04-23 09:40",
+          "count": 806
+        },
+        {
+          "time_bin": "2019-04-23 09:45",
+          "count": 760
+        },
+        {
+          "time_bin": "2019-04-23 09:50",
+          "count": 872
+        },
+        {
+          "time_bin": "2019-04-23 09:55",
+          "count": 943
+        },
+        {
+          "time_bin": "2019-04-23 10:00",
+          "count": 893
+        },
+        {
+          "time_bin": "2019-04-23 10:05",
+          "count": 787
+        },
+        {
+          "time_bin": "2019-04-23 10:10",
+          "count": 825
+        },
+        {
+          "time_bin": "2019-04-23 10:15",
+          "count": 808
+        },
+        {
+          "time_bin": "2019-04-23 10:20",
+          "count": 839
+        },
+        {
+          "time_bin": "2019-04-23 10:25",
+          "count": 842
+        },
+        {
+          "time_bin": "2019-04-23 10:30",
+          "count": 830
+        },
+        {
+          "time_bin": "2019-04-23 10:35",
+          "count": 819
+        },
+        {
+          "time_bin": "2019-04-23 10:40",
+          "count": 624
+        }
+      ]
+    },
+    {
+      "term": "#captainamerica",
+      "timeline": [
+        {
+          "time_bin": "2019-04-23 09:20",
+          "count": 49
+        },
+        {
+          "time_bin": "2019-04-23 09:25",
+          "count": 69
+        },
+        {
+          "time_bin": "2019-04-23 09:30",
+          "count": 57
+        },
+        {
+          "time_bin": "2019-04-23 09:35",
+          "count": 47
+        },
+        {
+          "time_bin": "2019-04-23 09:40",
+          "count": 64
+        },
+        {
+          "time_bin": "2019-04-23 09:45",
+          "count": 57
+        },
+        {
+          "time_bin": "2019-04-23 09:50",
+          "count": 70
+        },
+        {
+          "time_bin": "2019-04-23 09:55",
+          "count": 66
+        },
+        {
+          "time_bin": "2019-04-23 10:00",
+          "count": 64
+        },
+        {
+          "time_bin": "2019-04-23 10:05",
+          "count": 57
+        },
+        {
+          "time_bin": "2019-04-23 10:10",
+          "count": 59
+        },
+        {
+          "time_bin": "2019-04-23 10:15",
+          "count": 68
+        },
+        {
+          "time_bin": "2019-04-23 10:20",
+          "count": 66
+        },
+        {
+          "time_bin": "2019-04-23 10:25",
+          "count": 66
+        },
+        {
+          "time_bin": "2019-04-23 10:30",
+          "count": 55
+        },
+        {
+          "time_bin": "2019-04-23 10:35",
+          "count": 54
+        },
+        {
+          "time_bin": "2019-04-23 10:40",
+          "count": 51
+        }
+      ]
+    },
+    {
+      "term": "#blackwidow",
+      "timeline": [
+        {
+          "time_bin": "2019-04-23 09:20",
+          "count": 21
+        },
+        {
+          "time_bin": "2019-04-23 09:25",
+          "count": 36
+        },
+        {
+          "time_bin": "2019-04-23 09:30",
+          "count": 28
+        },
+        {
+          "time_bin": "2019-04-23 09:35",
+          "count": 31
+        },
+        {
+          "time_bin": "2019-04-23 09:40",
+          "count": 40
+        },
+        {
+          "time_bin": "2019-04-23 09:45",
+          "count": 36
+        },
+        {
+          "time_bin": "2019-04-23 09:50",
+          "count": 31
+        },
+        {
+          "time_bin": "2019-04-23 09:55",
+          "count": 34
+        },
+        {
+          "time_bin": "2019-04-23 10:00",
+          "count": 40
+        },
+        {
+          "time_bin": "2019-04-23 10:05",
+          "count": 42
+        },
+        {
+          "time_bin": "2019-04-23 10:10",
+          "count": 30
+        },
+        {
+          "time_bin": "2019-04-23 10:15",
+          "count": 24
+        },
+        {
+          "time_bin": "2019-04-23 10:20",
+          "count": 29
+        },
+        {
+          "time_bin": "2019-04-23 10:25",
+          "count": 40
+        },
+        {
+          "time_bin": "2019-04-23 10:30",
+          "count": 34
+        },
+        {
+          "time_bin": "2019-04-23 10:35",
+          "count": 38
+        },
+        {
+          "time_bin": "2019-04-23 10:40",
+          "count": 33
+        }
+      ]
+    },
+    {
+      "term": "#ironman",
+      "timeline": [
+        {
+          "time_bin": "2019-04-23 09:20",
+          "count": 17
+        },
+        {
+          "time_bin": "2019-04-23 09:25",
+          "count": 40
+        },
+        {
+          "time_bin": "2019-04-23 09:30",
+          "count": 29
+        },
+        {
+          "time_bin": "2019-04-23 09:35",
+          "count": 30
+        },
+        {
+          "time_bin": "2019-04-23 09:40",
+          "count": 37
+        },
+        {
+          "time_bin": "2019-04-23 09:45",
+          "count": 30
+        },
+        {
+          "time_bin": "2019-04-23 09:50",
+          "count": 33
+        },
+        {
+          "time_bin": "2019-04-23 09:55",
+          "count": 40
+        },
+        {
+          "time_bin": "2019-04-23 10:00",
+          "count": 24
+        },
+        {
+          "time_bin": "2019-04-23 10:05",
+          "count": 29
+        },
+        {
+          "time_bin": "2019-04-23 10:10",
+          "count": 25
+        },
+        {
+          "time_bin": "2019-04-23 10:15",
+          "count": 27
+        },
+        {
+          "time_bin": "2019-04-23 10:20",
+          "count": 36
+        },
+        {
+          "time_bin": "2019-04-23 10:25",
+          "count": 41
+        },
+        {
+          "time_bin": "2019-04-23 10:30",
+          "count": 27
+        },
+        {
+          "time_bin": "2019-04-23 10:35",
+          "count": 29
+        },
+        {
+          "time_bin": "2019-04-23 10:40",
+          "count": 27
+        }
+      ]
+    },
+    {
+      "term": "#captainmarvel",
+      "timeline": [
+        {
+          "time_bin": "2019-04-23 09:20",
+          "count": 15
+        },
+        {
+          "time_bin": "2019-04-23 09:25",
+          "count": 35
+        },
+        {
+          "time_bin": "2019-04-23 09:30",
+          "count": 26
+        },
+        {
+          "time_bin": "2019-04-23 09:35",
+          "count": 23
+        },
+        {
+          "time_bin": "2019-04-23 09:40",
+          "count": 25
+        },
+        {
+          "time_bin": "2019-04-23 09:45",
+          "count": 24
+        },
+        {
+          "time_bin": "2019-04-23 09:50",
+          "count": 25
+        },
+        {
+          "time_bin": "2019-04-23 09:55",
+          "count": 21
+        },
+        {
+          "time_bin": "2019-04-23 10:00",
+          "count": 28
+        },
+        {
+          "time_bin": "2019-04-23 10:05",
+          "count": 26
+        },
+        {
+          "time_bin": "2019-04-23 10:10",
+          "count": 28
+        },
+        {
+          "time_bin": "2019-04-23 10:15",
+          "count": 26
+        },
+        {
+          "time_bin": "2019-04-23 10:20",
+          "count": 33
+        },
+        {
+          "time_bin": "2019-04-23 10:25",
+          "count": 30
+        },
+        {
+          "time_bin": "2019-04-23 10:30",
+          "count": 25
+        },
+        {
+          "time_bin": "2019-04-23 10:35",
+          "count": 26
+        },
+        {
+          "time_bin": "2019-04-23 10:40",
+          "count": 25
+        }
+      ]
+    }
+  ]
+}

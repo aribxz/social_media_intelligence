@@ -1,0 +1,14 @@
+{
+  "geo_analysis_not_meaningful": true,
+  "retweets_dominate_dataset": true,
+  "sentiment_is_model_predicted": true,
+  "limited_time_window": true,
+  "notes": [
+    "Sentiment is model-predicted, not ground truth.",
+    "The Twitter dataset represents a limited sample/time window (~81 minutes).",
+    "Retweets heavily dominate the dataset (~90%).",
+    "Propagation analysis measures observable signals, not a complete network.",
+    "Geographic analysis is not meaningful due to insufficient coordinates.",
+    "Trends reflect this dataset and time period, not Twitter as a whole."
+  ]
+}

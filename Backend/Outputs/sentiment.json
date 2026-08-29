@@ -1,0 +1,447 @@
+{
+  "distribution": {
+    "counts": {
+      "Positive": 4650,
+      "Neutral": 9122,
+      "Negative": 1228
+    },
+    "percentages": {
+      "Positive": 31.0,
+      "Neutral": 60.81,
+      "Negative": 8.19
+    },
+    "total": 15000
+  },
+  "sentiment_over_time": [
+    {
+      "time_bin": "2019-04-23 09:20",
+      "Positive": 186,
+      "Neutral": 332,
+      "Negative": 40,
+      "positive_percentage": 33.33,
+      "neutral_percentage": 59.5,
+      "negative_percentage": 7.17
+    },
+    {
+      "time_bin": "2019-04-23 09:25",
+      "Positive": 282,
+      "Neutral": 498,
+      "Negative": 66,
+      "positive_percentage": 33.33,
+      "neutral_percentage": 58.87,
+      "negative_percentage": 7.8
+    },
+    {
+      "time_bin": "2019-04-23 09:30",
+      "Positive": 280,
+      "Neutral": 514,
+      "Negative": 69,
+      "positive_percentage": 32.44,
+      "neutral_percentage": 59.56,
+      "negative_percentage": 8.0
+    },
+    {
+      "time_bin": "2019-04-23 09:35",
+      "Positive": 299,
+      "Neutral": 502,
+      "Negative": 83,
+      "positive_percentage": 33.82,
+      "neutral_percentage": 56.79,
+      "negative_percentage": 9.39
+    },
+    {
+      "time_bin": "2019-04-23 09:40",
+      "Positive": 283,
+      "Neutral": 550,
+      "Negative": 103,
+      "positive_percentage": 30.24,
+      "neutral_percentage": 58.76,
+      "negative_percentage": 11.0
+    },
+    {
+      "time_bin": "2019-04-23 09:45",
+      "Positive": 283,
+      "Neutral": 482,
+      "Negative": 57,
+      "positive_percentage": 34.43,
+      "neutral_percentage": 58.64,
+      "negative_percentage": 6.93
+    },
+    {
+      "time_bin": "2019-04-23 09:50",
+      "Positive": 300,
+      "Neutral": 586,
+      "Negative": 73,
+      "positive_percentage": 31.28,
+      "neutral_percentage": 61.11,
+      "negative_percentage": 7.61
+    },
+    {
+      "time_bin": "2019-04-23 09:55",
+      "Positive": 316,
+      "Neutral": 651,
+      "Negative": 71,
+      "positive_percentage": 30.44,
+      "neutral_percentage": 62.72,
+      "negative_percentage": 6.84
+    },
+    {
+      "time_bin": "2019-04-23 10:00",
+      "Positive": 295,
+      "Neutral": 643,
+      "Negative": 80,
+      "positive_percentage": 28.98,
+      "neutral_percentage": 63.16,
+      "negative_percentage": 7.86
+    },
+    {
+      "time_bin": "2019-04-23 10:05",
+      "Positive": 252,
+      "Neutral": 540,
+      "Negative": 70,
+      "positive_percentage": 29.23,
+      "neutral_percentage": 62.65,
+      "negative_percentage": 8.12
+    },
+    {
+      "time_bin": "2019-04-23 10:10",
+      "Positive": 294,
+      "Neutral": 546,
+      "Negative": 74,
+      "positive_percentage": 32.17,
+      "neutral_percentage": 59.74,
+      "negative_percentage": 8.1
+    },
+    {
+      "time_bin": "2019-04-23 10:15",
+      "Positive": 287,
+      "Neutral": 525,
+      "Negative": 89,
+      "positive_percentage": 31.85,
+      "neutral_percentage": 58.27,
+      "negative_percentage": 9.88
+    },
+    {
+      "time_bin": "2019-04-23 10:20",
+      "Positive": 288,
+      "Neutral": 574,
+      "Negative": 74,
+      "positive_percentage": 30.77,
+      "neutral_percentage": 61.32,
+      "negative_percentage": 7.91
+    },
+    {
+      "time_bin": "2019-04-23 10:25",
+      "Positive": 265,
+      "Neutral": 611,
+      "Negative": 69,
+      "positive_percentage": 28.04,
+      "neutral_percentage": 64.66,
+      "negative_percentage": 7.3
+    },
+    {
+      "time_bin": "2019-04-23 10:30",
+      "Positive": 271,
+      "Neutral": 568,
+      "Negative": 72,
+      "positive_percentage": 29.75,
+      "neutral_percentage": 62.35,
+      "negative_percentage": 7.9
+    },
+    {
+      "time_bin": "2019-04-23 10:35",
+      "Positive": 266,
+      "Neutral": 547,
+      "Negative": 89,
+      "positive_percentage": 29.49,
+      "neutral_percentage": 60.64,
+      "negative_percentage": 9.87
+    },
+    {
+      "time_bin": "2019-04-23 10:40",
+      "Positive": 203,
+      "Neutral": 453,
+      "Negative": 49,
+      "positive_percentage": 28.79,
+      "neutral_percentage": 64.26,
+      "negative_percentage": 6.95
+    }
+  ],
+  "sentiment_trend": [
+    {
+      "time_bin": "2019-04-23 09:20",
+      "Positive": 0.3319,
+      "Neutral": 0.5286,
+      "Negative": 0.1395
+    },
+    {
+      "time_bin": "2019-04-23 09:25",
+      "Positive": 0.3351,
+      "Neutral": 0.5273,
+      "Negative": 0.1376
+    },
+    {
+      "time_bin": "2019-04-23 09:30",
+      "Positive": 0.3342,
+      "Neutral": 0.5319,
+      "Negative": 0.1339
+    },
+    {
+      "time_bin": "2019-04-23 09:35",
+      "Positive": 0.3433,
+      "Neutral": 0.5124,
+      "Negative": 0.1442
+    },
+    {
+      "time_bin": "2019-04-23 09:40",
+      "Positive": 0.3204,
+      "Neutral": 0.5285,
+      "Negative": 0.1511
+    },
+    {
+      "time_bin": "2019-04-23 09:45",
+      "Positive": 0.3344,
+      "Neutral": 0.5309,
+      "Negative": 0.1348
+    },
+    {
+      "time_bin": "2019-04-23 09:50",
+      "Positive": 0.3339,
+      "Neutral": 0.5192,
+      "Negative": 0.1468
+    },
+    {
+      "time_bin": "2019-04-23 09:55",
+      "Positive": 0.3238,
+      "Neutral": 0.5439,
+      "Negative": 0.1322
+    },
+    {
+      "time_bin": "2019-04-23 10:00",
+      "Positive": 0.3159,
+      "Neutral": 0.5413,
+      "Negative": 0.1429
+    },
+    {
+      "time_bin": "2019-04-23 10:05",
+      "Positive": 0.3135,
+      "Neutral": 0.5405,
+      "Negative": 0.146
+    },
+    {
+      "time_bin": "2019-04-23 10:10",
+      "Positive": 0.3334,
+      "Neutral": 0.5218,
+      "Negative": 0.1447
+    },
+    {
+      "time_bin": "2019-04-23 10:15",
+      "Positive": 0.3355,
+      "Neutral": 0.5095,
+      "Negative": 0.1551
+    },
+    {
+      "time_bin": "2019-04-23 10:20",
+      "Positive": 0.3202,
+      "Neutral": 0.5382,
+      "Negative": 0.1417
+    },
+    {
+      "time_bin": "2019-04-23 10:25",
+      "Positive": 0.317,
+      "Neutral": 0.544,
+      "Negative": 0.139
+    },
+    {
+      "time_bin": "2019-04-23 10:30",
+      "Positive": 0.3208,
+      "Neutral": 0.5396,
+      "Negative": 0.1397
+    },
+    {
+      "time_bin": "2019-04-23 10:35",
+      "Positive": 0.319,
+      "Neutral": 0.5272,
+      "Negative": 0.1538
+    },
+    {
+      "time_bin": "2019-04-23 10:40",
+      "Positive": 0.3041,
+      "Neutral": 0.5541,
+      "Negative": 0.1417
+    }
+  ],
+  "sentiment_activity": [
+    {
+      "time_bin": "2019-04-23 09:20",
+      "total_tweets": 558,
+      "Positive": 186,
+      "Neutral": 332,
+      "Negative": 40,
+      "positive_percentage": 33.33,
+      "neutral_percentage": 59.5,
+      "negative_percentage": 7.17
+    },
+    {
+      "time_bin": "2019-04-23 09:25",
+      "total_tweets": 846,
+      "Positive": 282,
+      "Neutral": 498,
+      "Negative": 66,
+      "positive_percentage": 33.33,
+      "neutral_percentage": 58.87,
+      "negative_percentage": 7.8
+    },
+    {
+      "time_bin": "2019-04-23 09:30",
+      "total_tweets": 863,
+      "Positive": 280,
+      "Neutral": 514,
+      "Negative": 69,
+      "positive_percentage": 32.44,
+      "neutral_percentage": 59.56,
+      "negative_percentage": 8.0
+    },
+    {
+      "time_bin": "2019-04-23 09:35",
+      "total_tweets": 884,
+      "Positive": 299,
+      "Neutral": 502,
+      "Negative": 83,
+      "positive_percentage": 33.82,
+      "neutral_percentage": 56.79,
+      "negative_percentage": 9.39
+    },
+    {
+      "time_bin": "2019-04-23 09:40",
+      "total_tweets": 936,
+      "Positive": 283,
+      "Neutral": 550,
+      "Negative": 103,
+      "positive_percentage": 30.24,
+      "neutral_percentage": 58.76,
+      "negative_percentage": 11.0
+    },
+    {
+      "time_bin": "2019-04-23 09:45",
+      "total_tweets": 822,
+      "Positive": 283,
+      "Neutral": 482,
+      "Negative": 57,
+      "positive_percentage": 34.43,
+      "neutral_percentage": 58.64,
+      "negative_percentage": 6.93
+    },
+    {
+      "time_bin": "2019-04-23 09:50",
+      "total_tweets": 959,
+      "Positive": 300,
+      "Neutral": 586,
+      "Negative": 73,
+      "positive_percentage": 31.28,
+      "neutral_percentage": 61.11,
+      "negative_percentage": 7.61
+    },
+    {
+      "time_bin": "2019-04-23 09:55",
+      "total_tweets": 1038,
+      "Positive": 316,
+      "Neutral": 651,
+      "Negative": 71,
+      "positive_percentage": 30.44,
+      "neutral_percentage": 62.72,
+      "negative_percentage": 6.84
+    },
+    {
+      "time_bin": "2019-04-23 10:00",
+      "total_tweets": 1018,
+      "Positive": 295,
+      "Neutral": 643,
+      "Negative": 80,
+      "positive_percentage": 28.98,
+      "neutral_percentage": 63.16,
+      "negative_percentage": 7.86
+    },
+    {
+      "time_bin": "2019-04-23 10:05",
+      "total_tweets": 862,
+      "Positive": 252,
+      "Neutral": 540,
+      "Negative": 70,
+      "positive_percentage": 29.23,
+      "neutral_percentage": 62.65,
+      "negative_percentage": 8.12
+    },
+    {
+      "time_bin": "2019-04-23 10:10",
+      "total_tweets": 914,
+      "Positive": 294,
+      "Neutral": 546,
+      "Negative": 74,
+      "positive_percentage": 32.17,
+      "neutral_percentage": 59.74,
+      "negative_percentage": 8.1
+    },
+    {
+      "time_bin": "2019-04-23 10:15",
+      "total_tweets": 901,
+      "Positive": 287,
+      "Neutral": 525,
+      "Negative": 89,
+      "positive_percentage": 31.85,
+      "neutral_percentage": 58.27,
+      "negative_percentage": 9.88
+    },
+    {
+      "time_bin": "2019-04-23 10:20",
+      "total_tweets": 936,
+      "Positive": 288,
+      "Neutral": 574,
+      "Negative": 74,
+      "positive_percentage": 30.77,
+      "neutral_percentage": 61.32,
+      "negative_percentage": 7.91
+    },
+    {
+      "time_bin": "2019-04-23 10:25",
+      "total_tweets": 945,
+      "Positive": 265,
+      "Neutral": 611,
+      "Negative": 69,
+      "positive_percentage": 28.04,
+      "neutral_percentage": 64.66,
+      "negative_percentage": 7.3
+    },
+    {
+      "time_bin": "2019-04-23 10:30",
+      "total_tweets": 911,
+      "Positive": 271,
+      "Neutral": 568,
+      "Negative": 72,
+      "positive_percentage": 29.75,
+      "neutral_percentage": 62.35,
+      "negative_percentage": 7.9
+    },
+    {
+      "time_bin": "2019-04-23 10:35",
+      "total_tweets": 902,
+      "Positive": 266,
+      "Neutral": 547,
+      "Negative": 89,
+      "positive_percentage": 29.49,
+      "neutral_percentage": 60.64,
+      "negative_percentage": 9.87
+    },
+    {
+      "time_bin": "2019-04-23 10:40",
+      "total_tweets": 705,
+      "Positive": 203,
+      "Neutral": 453,
+      "Negative": 49,
+      "positive_percentage": 28.79,
+      "neutral_percentage": 64.26,
+      "negative_percentage": 6.95
+    }
+  ],
+  "note": "Sentiment is model-predicted, not ground truth. The Avengers dataset has no sentiment labels; predictions come from a TF-IDF + Logistic Regression model trained on a separate labeled Twitter sentiment corpus."
+}

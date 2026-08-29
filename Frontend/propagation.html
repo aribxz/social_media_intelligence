@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+<title>Propagation — SMI</title>
+<link rel="stylesheet" href="assets/styles.css" />
+</head>
+<body>
+
+<header class="site-header" id="header"></header>
+
+<main class="container">
+  <div class="page-title-block reveal">
+    <span class="eyebrow">Twitter · Propagation</span>
+    <h1>Propagation</h1>
+    <p class="sub">How far content traveled — the balance of originals to retweets, and what got amplified most.</p>
+  </div>
+
+  <div id="content">
+    <div class="state-msg">
+      <div class="spinner"></div>
+      <div>Loading analytics…</div>
+    </div>
+  </div>
+
+  <div id="limitations"></div>
+</main>
+
+<section class="container team-network">
+  <h2 class="reveal">Project network</h2>
+  <p class="cap-sub reveal">Propogated by.</p>
+  <div id="teamNet" class="net-wrap"></div>
+</section>
+
+<footer class="site-footer container">
+  SMI Prototype - Made by CSE3 Students.
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="assets/app.js"></script>
+<script>
+(async function () {
+  SMI.renderHeader(document.getElementById("header"), { backHref: "twitter.html", backLabel: "Twitter" });
+  SMI.applyChartDefaults();
+  const content = document.getElementById("content");
+
+  let data;
+  try {
+    data = await SMI.getJSON("/api/propagation");
+  } catch (err) {
+    SMI.renderError(content, {
+      title: "Propagation data not available",
+      hint: "Couldn't reach /api/propagation. Make sure the Flask backend is running and analytics.py has been run.",
+    });
+    return;
+  }
+
+  const ratio = data.ratio || {};
+  const summary = data.summary || {};
+  const topOriginals = data.top_original_tweets || [];
+  const repeated = data.repeated_content || [];
+  const timeline = data.propagation_timeline || [];
+
+  content.innerHTML = `
+    <div class="kpi-grid">
+      <div class="kpi-card reveal">
+        <div class="label">Total tweets</div>
+        <div class="value" id="kpi-total">0</div>
+      </div>
+      <div class="kpi-card reveal">
+        <div class="label">Originals</div>
+        <div class="value" id="kpi-orig">0</div>
+      </div>
+      <div class="kpi-card reveal">
+        <div class="label">Retweets</div>
+        <div class="value" id="kpi-rt">0</div>
+      </div>
+      <div class="kpi-card reveal">
+        <div class="label">Top retweeted user</div>
+        <div class="value static-text">${SMI.escapeHTML(summary.top_retweeted_user || "—")}</div>
+      </div>
+    </div>
+
+    <div class="card reveal chart-panel" style="margin-bottom:28px;">
+      <h3>Propagation network</h3>
+      <p class="chart-note">Hub = the most-retweeted account; spokes = top original authors and key mentioned accounts. Illustrative only — not a full retweet graph, since the dataset lacks complete network edges.</p>
+      <div id="net" class="net-wrap"></div>
+    </div>
+
+    <div class="charts-grid">
+      <div class="card reveal chart-panel" style="margin-bottom:0;">
+        <h3>Originals vs. retweets</h3>
+        <p class="chart-note">${ratio.original_percentage}% original, ${ratio.retweet_percentage}% retweet.</p>
+        <div class="chart-wrap short"><canvas id="ratioChart"></canvas></div>
+      </div>
+      <div class="card reveal chart-panel" style="margin-bottom:0;">
+        <h3>Propagation over time</h3>
+        <p class="chart-note">Originals vs. retweets per interval.</p>
+        <div class="chart-wrap short"><canvas id="timelineChart"></canvas></div>
+      </div>
+    </div>
+
+    <div class="card reveal chart-panel">
+      <h3>Top original tweets</h3>
+      <p class="chart-note">Ranked by retweet count.</p>
+      <table class="data-table">
+        <thead><tr><th>User</th><th>Text</th><th>Retweets</th><th>Favorites</th></tr></thead>
+        <tbody>
+          ${topOriginals.map(t => `
+            <tr>
+              <td>@${SMI.escapeHTML(t.user)}</td>
+              <td class="truncate">${SMI.escapeHTML(t.text)}</td>
+              <td>${SMI.formatCompact(t.retweet_count)}</td>
+              <td>${SMI.formatCompact(t.favorite_count)}</td>
+            </tr>`).join("")}
+        </tbody>
+      </table>
+    </div>
+
+    <div class="card reveal chart-panel" style="margin-bottom:0;">
+      <h3>Most repeated content</h3>
+      <p class="chart-note">Content strings that recur most often in the dataset.</p>
+      <table class="data-table">
+        <thead><tr><th>Content</th><th>Occurrences</th></tr></thead>
+        <tbody>
+          ${repeated.map(r => `
+            <tr>
+              <td class="truncate">${SMI.escapeHTML(r.content)}</td>
+              <td>${SMI.formatCompact(r.occurrence_count)}</td>
+            </tr>`).join("")}
+        </tbody>
+      </table>
+    </div>
+  `;
+
+  SMI.initReveal();
+  SMI.animateCount(document.getElementById("kpi-total"), (ratio.total_originals || 0) + (ratio.total_retweets || 0));
+  SMI.animateCount(document.getElementById("kpi-orig"), ratio.total_originals || 0);
+  SMI.animateCount(document.getElementById("kpi-rt"), ratio.total_retweets || 0);
+
+  new Chart(document.getElementById("ratioChart"), {
+    type: "doughnut",
+    data: {
+      labels: ["Original", "Retweet"],
+      datasets: [{
+        data: [ratio.total_originals || 0, ratio.total_retweets || 0],
+        backgroundColor: [SMI.palette.accent2, "rgba(139,92,246,0.25)"],
+        borderColor: SMI.palette.bg,
+        borderWidth: 3,
+      }],
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      cutout: "68%",
+      plugins: { legend: { position: "bottom" } },
+    },
+  });
+
+  new Chart(document.getElementById("timelineChart"), {
+    type: "bar",
+    data: {
+      labels: timeline.map(t => t.time_bin),
+      datasets: [
+        { label: "Originals", data: timeline.map(t => t.originals), backgroundColor: SMI.palette.accent2, stack: "s" },
+        { label: "Retweets", data: timeline.map(t => t.retweets), backgroundColor: "rgba(139,92,246,0.28)", stack: "s" },
+      ],
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      scales: {
+        x: { stacked: true, ticks: { maxTicksLimit: 6 } },
+        y: { stacked: true, beginAtZero: true },
+      },
+    },
+  });
+
+  buildNetwork(data);
+  buildTeamNetwork(
+    document.getElementById("teamNet"),
+    ["Neeraj", "Nikhil", "Arib", "Mansi", "Kunal", "Digvijay"]
+  );
+
+  SMI.renderLimitationsBanner(document.getElementById("limitations"));
+})();
+
+function buildNetwork(data) {
+  const container = document.getElementById("net");
+  if (!container) return;
+
+  const hub = (data.summary && data.summary.top_retweeted_user) || null;
+  const users = (data.top_original_tweets || []).map(t => t.user).filter(Boolean);
+  const mentions = (data.repeated_content || [])
+    .map(c => (c.content || "").match(/@(\w+)/))
+    .filter(Boolean)
+    .map(m => m[1]);
+
+  const names = [];
+  if (hub) names.push(hub);
+  users.forEach(u => { if (!names.includes(u)) names.push(u); });
+  mentions.forEach(m => { if (!names.includes(m)) names.push(m); });
+
+  const spokes = names.filter(n => n !== hub).slice(0, 12);
+  const nodeNames = hub ? [hub, ...spokes] : spokes;
+
+  if (nodeNames.length < 2) {
+    container.innerHTML = '<p class="chart-note">Not enough account data to draw a network.</p>';
+    return;
+  }
+
+  const NS = "http://www.w3.org/2000/svg";
+  const W = 820, H = 460, cx = W / 2, cy = H / 2;
+  const svg = document.createElementNS(NS, "svg");
+  svg.setAttribute("viewBox", `0 0 ${W} ${H}`);
+  svg.setAttribute("class", "net-svg");
+
+  const pos = {};
+  nodeNames.forEach(name => {
+    if (name === hub) {
+      pos[name] = { x: cx, y: cy, hub: true };
+    } else {
+      const idx = spokes.indexOf(name);
+      const ang = (idx / Math.max(spokes.length, 1)) * Math.PI * 2 - Math.PI / 2;
+      const rx = 330, ry = 172;
+      pos[name] = { x: cx + Math.cos(ang) * rx, y: cy + Math.sin(ang) * ry, hub: false };
+    }
+  });
+
+  // Edges: hub -> each spoke (curved) + a ring connecting spokes.
+  const edgeLayer = document.createElementNS(NS, "g");
+  spokes.forEach((name, i) => {
+    const a = pos[hub], b = pos[name];
+    const mx = (a.x + b.x) / 2, my = (a.y + b.y) / 2;
+    const dx = b.x - a.x, dy = b.y - a.y;
+    const len = Math.hypot(dx, dy) || 1;
+    const nx = -dy / len, ny = dx / len;
+    const curve = 46;
+    const cxp = mx + nx * curve, cyp = my + ny * curve;
+    const d = `M ${a.x} ${a.y} Q ${cxp} ${cyp} ${b.x} ${b.y}`;
+
+    const base = document.createElementNS(NS, "path");
+    base.setAttribute("d", d);
+    base.setAttribute("class", "net-edge");
+    const pid = "edge" + i;
+    base.setAttribute("id", pid);
+    edgeLayer.appendChild(base);
+
+    const pulse = document.createElementNS(NS, "circle");
+    pulse.setAttribute("r", "3");
+    pulse.setAttribute("class", "net-pulse");
+    const anim = document.createElementNS(NS, "animateMotion");
+    anim.setAttribute("dur", (2 + Math.random() * 1.6).toFixed(2) + "s");
+    anim.setAttribute("repeatCount", "indefinite");
+    anim.setAttribute("begin", (Math.random() * 2).toFixed(2) + "s");
+    const mp = document.createElementNS(NS, "mpath");
+    mp.setAttribute("href", "#" + pid);
+    mp.setAttributeNS("http://www.w3.org/1999/xlink", "href", "#" + pid);
+    anim.appendChild(mp);
+    pulse.appendChild(anim);
+    edgeLayer.appendChild(pulse);
+  });
+
+  const ring = document.createElementNS(NS, "g");
+  for (let i = 0; i < spokes.length; i++) {
+    const a = pos[spokes[i]], b = pos[spokes[(i + 1) % spokes.length]];
+    const base = document.createElementNS(NS, "path");
+    base.setAttribute("d", `M ${a.x} ${a.y} L ${b.x} ${b.y}`);
+    base.setAttribute("class", "net-edge ring");
+    ring.appendChild(base);
+  }
+
+  svg.appendChild(edgeLayer);
+  svg.appendChild(ring);
+
+  const nodeLayer = document.createElementNS(NS, "g");
+  nodeNames.forEach(name => {
+    const p = pos[name];
+    const g = document.createElementNS(NS, "g");
+    g.setAttribute("class", "net-node" + (p.hub ? " hub" : ""));
+    g.setAttribute("transform", `translate(${p.x},${p.y})`);
+
+    const c = document.createElementNS(NS, "circle");
+    c.setAttribute("r", p.hub ? 21 : 11);
+    c.setAttribute("class", "net-dot");
+
+    const t = document.createElementNS(NS, "text");
+    t.setAttribute("class", "net-label");
+    t.setAttribute("text-anchor", "middle");
+    t.setAttribute("y", p.hub ? 40 : 26);
+    t.textContent = "@" + name;
+
+    const title = document.createElementNS(NS, "title");
+    title.textContent = "@" + name + (p.hub ? " (most-retweeted)" : "");
+
+    g.appendChild(title);
+    g.appendChild(c);
+    g.appendChild(t);
+    nodeLayer.appendChild(g);
+  });
+  svg.appendChild(nodeLayer);
+  container.appendChild(svg);
+}
+
+function buildTeamNetwork(container, names) {
+  if (!container || !names || names.length === 0) return;
+
+  const NS = "http://www.w3.org/2000/svg";
+  const W = 820, H = 420, cx = W / 2, cy = H / 2;
+  const svg = document.createElementNS(NS, "svg");
+  svg.setAttribute("viewBox", `0 0 ${W} ${H}`);
+  svg.setAttribute("class", "net-svg");
+
+  const hub = { x: cx, y: cy };
+  const n = names.length;
+  const pos = {};
+  names.forEach((name, i) => {
+    const ang = (i / n) * Math.PI * 2 - Math.PI / 2;
+    const rx = 330, ry = 150;
+    pos[name] = { x: cx + Math.cos(ang) * rx, y: cy + Math.sin(ang) * ry };
+  });
+
+  const edgeLayer = document.createElementNS(NS, "g");
+  names.forEach((name, i) => {
+    const b = pos[name];
+    const mx = (hub.x + b.x) / 2, my = (hub.y + b.y) / 2;
+    const dx = b.x - hub.x, dy = b.y - hub.y, len = Math.hypot(dx, dy) || 1;
+    const nx = -dy / len, ny = dx / len, curve = 44;
+    const cxp = mx + nx * curve, cyp = my + ny * curve;
+    const d = `M ${hub.x} ${hub.y} Q ${cxp} ${cyp} ${b.x} ${b.y}`;
+
+    const base = document.createElementNS(NS, "path");
+    base.setAttribute("d", d);
+    base.setAttribute("class", "net-edge");
+    const pid = "tedge" + i;
+    base.setAttribute("id", pid);
+    edgeLayer.appendChild(base);
+
+    const pulse = document.createElementNS(NS, "circle");
+    pulse.setAttribute("r", "3");
+    pulse.setAttribute("class", "net-pulse");
+    const anim = document.createElementNS(NS, "animateMotion");
+    anim.setAttribute("dur", (2 + Math.random() * 1.6).toFixed(2) + "s");
+    anim.setAttribute("repeatCount", "indefinite");
+    anim.setAttribute("begin", (Math.random() * 2).toFixed(2) + "s");
+    const mp = document.createElementNS(NS, "mpath");
+    mp.setAttribute("href", "#" + pid);
+    mp.setAttributeNS("http://www.w3.org/1999/xlink", "href", "#" + pid);
+    anim.appendChild(mp);
+    pulse.appendChild(anim);
+    edgeLayer.appendChild(pulse);
+  });
+
+  const ring = document.createElementNS(NS, "g");
+  for (let i = 0; i < n; i++) {
+    const a = pos[names[i]], b = pos[names[(i + 1) % n]];
+    const base = document.createElementNS(NS, "path");
+    base.setAttribute("d", `M ${a.x} ${a.y} L ${b.x} ${b.y}`);
+    base.setAttribute("class", "net-edge ring");
+    ring.appendChild(base);
+  }
+  svg.appendChild(edgeLayer);
+  svg.appendChild(ring);
+
+  const nodeLayer = document.createElementNS(NS, "g");
+
+  const gh = document.createElementNS(NS, "g");
+  gh.setAttribute("class", "net-node hub");
+  gh.setAttribute("transform", `translate(${hub.x},${hub.y})`);
+  const ch = document.createElementNS(NS, "circle");
+  ch.setAttribute("r", "22");
+  ch.setAttribute("class", "net-dot");
+  const th = document.createElementNS(NS, "text");
+  th.setAttribute("class", "net-label");
+  th.setAttribute("text-anchor", "middle");
+  th.setAttribute("y", "42");
+  th.textContent = "SMI";
+  gh.appendChild(ch);
+  gh.appendChild(th);
+  nodeLayer.appendChild(gh);
+
+  names.forEach(name => {
+    const p = pos[name];
+    const g = document.createElementNS(NS, "g");
+    g.setAttribute("class", "net-node");
+    g.setAttribute("transform", `translate(${p.x},${p.y})`);
+    const c = document.createElementNS(NS, "circle");
+    c.setAttribute("r", "12");
+    c.setAttribute("class", "net-dot");
+    const t = document.createElementNS(NS, "text");
+    t.setAttribute("class", "net-label");
+    t.setAttribute("text-anchor", "middle");
+    t.setAttribute("y", "26");
+    t.textContent = name;
+    const title = document.createElementNS(NS, "title");
+    title.textContent = name;
+    g.appendChild(title);
+    g.appendChild(c);
+    g.appendChild(t);
+    nodeLayer.appendChild(g);
+  });
+  svg.appendChild(nodeLayer);
+  container.appendChild(svg);
+}
+</script>
+</body>
+</html>

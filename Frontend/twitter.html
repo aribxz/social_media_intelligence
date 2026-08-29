@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+<title>Twitter Analytics — SMI</title>
+<link rel="stylesheet" href="assets/styles.css" />
+</head>
+<body>
+
+<header class="site-header" id="header"></header>
+
+<main class="container">
+  <div class="page-title-block reveal">
+    <span class="eyebrow">Twitter</span>
+    <h1>Twitter Analytics</h1>
+    <p class="sub">Four views into how the conversation spread, what people felt, when it happened, and what it was about.</p>
+  </div>
+
+  <div class="option-grid">
+    <a class="option-card reveal" href="propagation.html">
+      <div class="icon-wrap" aria-hidden="true">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
+          <circle cx="6" cy="6" r="2.4"/><circle cx="18" cy="6" r="2.4"/><circle cx="6" cy="18" r="2.4"/><circle cx="18" cy="18" r="2.4"/>
+          <path d="M8 6h8M6 8v8M18 8v8M8 18h8"/>
+        </svg>
+      </div>
+      <h3>Propagation</h3>
+      <p>How content spreads — originals vs retweets, top amplified tweets.</p>
+    </a>
+
+    <a class="option-card reveal" href="sentiment.html">
+      <div class="icon-wrap" aria-hidden="true">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
+          <circle cx="12" cy="12" r="9"/>
+          <path d="M8.5 14.5c1 1 2.2 1.5 3.5 1.5s2.5-.5 3.5-1.5"/>
+          <path d="M8.5 9.5h.01M15.5 9.5h.01"/>
+        </svg>
+      </div>
+      <h3>Sentiment analysis</h3>
+      <p>Model-predicted positive, neutral and negative tone over time.</p>
+    </a>
+
+    <a class="option-card reveal" href="timeline.html">
+      <div class="icon-wrap" aria-hidden="true">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
+          <circle cx="12" cy="12" r="9"/>
+          <path d="M12 7v5l3.5 2"/>
+        </svg>
+      </div>
+      <h3>Timeline analysis</h3>
+      <p>Tweet volume over time, with peaks and busiest intervals.</p>
+    </a>
+
+    <a class="option-card reveal" href="trend.html">
+      <div class="icon-wrap" aria-hidden="true">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
+          <path d="M3 17l6-6 4 4 8-9"/>
+          <path d="M15 6h6v6"/>
+        </svg>
+      </div>
+      <h3>Trend</h3>
+      <p>Top hashtags, mentions, words and phrases driving the conversation.</p>
+    </a>
+  </div>
+</main>
+
+<footer class="site-footer container">
+  SMI prototype — Made by IMSEC Students.
+</footer>
+
+<script src="assets/app.js"></script>
+<script>
+  SMI.renderHeader(document.getElementById("header"), { backHref: "index.html", backLabel: "Home" });
+  SMI.initReveal();
+</script>
+</body>
+</html>

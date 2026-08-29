@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+<title>Timeline Analysis — SMI</title>
+<link rel="stylesheet" href="assets/styles.css" />
+</head>
+<body>
+
+<header class="site-header" id="header"></header>
+
+<main class="container">
+  <div class="page-title-block reveal">
+    <span class="eyebrow">Twitter · Timeline</span>
+    <h1>Timeline Analysis</h1>
+    <p class="sub">Tweet volume across the observed window, including the peak interval and busiest periods.</p>
+  </div>
+
+  <div id="content">
+    <div class="state-msg">
+      <div class="spinner"></div>
+      <div>Loading analytics…</div>
+    </div>
+  </div>
+
+  <div id="limitations"></div>
+</main>
+
+<footer class="site-footer container">
+  SMI prototype — Avengers Endgame Dataset.
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="assets/app.js"></script>
+<script>
+(async function () {
+  SMI.renderHeader(document.getElementById("header"), { backHref: "twitter.html", backLabel: "Twitter" });
+  SMI.applyChartDefaults();
+  const content = document.getElementById("content");
+
+  let data;
+  try {
+    data = await SMI.getJSON("/api/timeline");
+  } catch (err) {
+    SMI.renderError(content, {
+      title: "Timeline data not available",
+      hint: "Couldn't reach /api/timeline. Make sure the Flask backend is running and analytics.py has been run.",
+    });
+    return;
+  }
+
+  const s = data.summary || {};
+  const timeline = data.timeline || [];
+  const topIntervals = data.top_intervals || [];
+
+  content.innerHTML = `
+    <div class="kpi-grid">
+      <div class="kpi-card reveal">
+        <div class="label">Total tweets</div>
+        <div class="value" id="kpi-total">0</div>
+      </div>
+      <div class="kpi-card reveal">
+        <div class="label">Originals</div>
+        <div class="value" id="kpi-orig">0</div>
+      </div>
+      <div class="kpi-card reveal">
+        <div class="label">Retweets</div>
+        <div class="value" id="kpi-rt">0</div>
+      </div>
+      <div class="kpi-card reveal">
+        <div class="label">Peak volume</div>
+        <div class="value" id="kpi-peak">0</div>
+      </div>
+    </div>
+
+    <div class="card reveal chart-panel">
+      <h3>Tweet volume over time</h3>
+      <p class="chart-note">Peak: ${SMI.escapeHTML(s.peak_time || "—")} · Window: ${SMI.escapeHTML(s.start_time || "—")} to ${SMI.escapeHTML(s.end_time || "—")}</p>
+      <div class="chart-wrap"><canvas id="volumeChart"></canvas></div>
+    </div>
+
+    <div class="card reveal chart-panel">
+      <h3>Originals vs. retweets</h3>
+      <p class="chart-note">Composition of tweet volume per interval.</p>
+      <div class="chart-wrap"><canvas id="stackChart"></canvas></div>
+    </div>
+
+    <div class="card reveal chart-panel" style="margin-bottom:0;">
+      <h3>Top intervals by volume</h3>
+      <p class="chart-note">Busiest time bins in the dataset.</p>
+      <table class="data-table">
+        <thead><tr><th>Time</th><th>Total tweets</th></tr></thead>
+        <tbody>
+          ${topIntervals.map(t => `<tr><td>${SMI.escapeHTML(t.time_bin)}</td><td>${SMI.formatCompact(t.total_tweets)}</td></tr>`).join("")}
+        </tbody>
+      </table>
+    </div>
+  `;
+
+  SMI.initReveal();
+  SMI.animateCount(document.getElementById("kpi-total"), s.total_tweets || 0);
+  SMI.animateCount(document.getElementById("kpi-orig"), s.total_originals || 0);
+  SMI.animateCount(document.getElementById("kpi-rt"), s.total_retweets || 0);
+  SMI.animateCount(document.getElementById("kpi-peak"), s.peak_volume || 0);
+
+  const labels = timeline.map(t => t.time_bin);
+
+  new Chart(document.getElementById("volumeChart"), {
+    type: "line",
+    data: {
+      labels,
+      datasets: [{
+        label: "Total tweets",
+        data: timeline.map(t => t.total_tweets),
+        borderColor: SMI.palette.accent2,
+        backgroundColor: (ctx) => {
+          const { chart } = ctx;
+          const { ctx: c, chartArea } = chart;
+          if (!chartArea) return "transparent";
+          return SMI.violetGradient(c, chartArea);
+        },
+        fill: true,
+        tension: 0.35,
+        pointRadius: 0,
+        borderWidth: 2,
+      }],
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: { legend: { display: false } },
+      scales: {
+        x: { ticks: { maxTicksLimit: 8 } },
+        y: { beginAtZero: true },
+      },
+    },
+  });
+
+  new Chart(document.getElementById("stackChart"), {
+    type: "bar",
+    data: {
+      labels,
+      datasets: [
+        { label: "Original", data: timeline.map(t => t.original), backgroundColor: SMI.palette.accent2, stack: "s" },
+        { label: "Retweet", data: timeline.map(t => t.retweet), backgroundColor: "rgba(139,92,246,0.28)", stack: "s" },
+      ],
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      scales: {
+        x: { stacked: true, ticks: { maxTicksLimit: 8 } },
+        y: { stacked: true, beginAtZero: true },
+      },
+    },
+  });
+
+  SMI.renderLimitationsBanner(document.getElementById("limitations"));
+})();
+</script>
+</body>
+</html>

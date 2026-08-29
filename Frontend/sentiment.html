@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+<title>Sentiment Analysis — SMI</title>
+<link rel="stylesheet" href="assets/styles.css" />
+</head>
+<body>
+
+<header class="site-header" id="header"></header>
+
+<main class="container">
+  <div class="page-title-block reveal">
+    <span class="eyebrow">Twitter · Sentiment</span>
+    <h1>Sentiment Analysis</h1>
+    <p class="sub">Model-predicted tone of the conversation — positive, neutral and negative — over the observed window.</p>
+  </div>
+
+  <div id="content">
+    <div class="state-msg">
+      <div class="spinner"></div>
+      <div>Loading analytics…</div>
+    </div>
+  </div>
+
+  <div id="limitations"></div>
+</main>
+
+<footer class="site-footer container">
+  SMI prototype - SIH Hackathon Internal Round
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="assets/app.js"></script>
+<script>
+(async function () {
+  SMI.renderHeader(document.getElementById("header"), { backHref: "twitter.html", backLabel: "Twitter" });
+  SMI.applyChartDefaults();
+  const content = document.getElementById("content");
+
+  let data;
+  try {
+    data = await SMI.getJSON("/api/sentiment");
+  } catch (err) {
+    SMI.renderError(content, {
+      title: "Sentiment data not available",
+      hint: "Couldn't reach /api/sentiment. Make sure the Flask backend is running and analytics.py has been run.",
+    });
+    return;
+  }
+
+  const dist = data.distribution || {};
+  const counts = dist.counts || {};
+  const overTime = data.sentiment_over_time || [];
+  const trend = data.sentiment_trend || [];
+
+  content.innerHTML = `
+    <div class="kpi-grid">
+      <div class="kpi-card reveal">
+        <div class="label">Total tweets</div>
+        <div class="value" id="kpi-total">0</div>
+      </div>
+      <div class="kpi-card reveal">
+        <div class="label">Positive</div>
+        <div class="value" id="kpi-pos" style="background:linear-gradient(135deg,var(--text),var(--positive));-webkit-background-clip:text;background-clip:text;">0</div>
+      </div>
+      <div class="kpi-card reveal">
+        <div class="label">Neutral</div>
+        <div class="value" id="kpi-neu">0</div>
+      </div>
+      <div class="kpi-card reveal">
+        <div class="label">Negative</div>
+        <div class="value" id="kpi-neg" style="background:linear-gradient(135deg,var(--text),var(--negative));-webkit-background-clip:text;background-clip:text;">0</div>
+      </div>
+    </div>
+
+    <div class="charts-grid">
+      <div class="card reveal chart-panel" style="margin-bottom:0;">
+        <h3>Overall distribution</h3>
+        <p class="chart-note">Model-predicted sentiment, not ground truth.</p>
+        <div class="chart-wrap short"><canvas id="distChart"></canvas></div>
+      </div>
+      <div class="card reveal chart-panel" style="margin-bottom:0;">
+        <h3>Model confidence over time</h3>
+        <p class="chart-note">Average model confidence per interval — not human certainty.</p>
+        <div class="chart-wrap short"><canvas id="confChart"></canvas></div>
+      </div>
+    </div>
+
+    <div class="card reveal chart-panel" style="margin-bottom:0;">
+      <h3>Sentiment over time</h3>
+      <p class="chart-note">Share of positive / neutral / negative tweets per interval.</p>
+      <div class="chart-wrap"><canvas id="overTimeChart"></canvas></div>
+    </div>
+  `;
+
+  SMI.initReveal();
+  SMI.animateCount(document.getElementById("kpi-total"), dist.total || 0);
+  SMI.animateCount(document.getElementById("kpi-pos"), counts.Positive || 0);
+  SMI.animateCount(document.getElementById("kpi-neu"), counts.Neutral || 0);
+  SMI.animateCount(document.getElementById("kpi-neg"), counts.Negative || 0);
+
+  new Chart(document.getElementById("distChart"), {
+    type: "doughnut",
+    data: {
+      labels: ["Positive", "Neutral", "Negative"],
+      datasets: [{
+        data: [counts.Positive || 0, counts.Neutral || 0, counts.Negative || 0],
+        backgroundColor: [SMI.palette.positive, SMI.palette.neutral, SMI.palette.negative],
+        borderColor: SMI.palette.bg,
+        borderWidth: 3,
+      }],
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      cutout: "68%",
+      plugins: { legend: { position: "bottom" } },
+    },
+  });
+
+  const labels = overTime.map(t => t.time_bin);
+
+  new Chart(document.getElementById("overTimeChart"), {
+    type: "line",
+    data: {
+      labels,
+      datasets: [
+        { label: "Positive", data: overTime.map(t => t.Positive), borderColor: SMI.palette.positive, backgroundColor: "rgba(52,211,153,0.12)", fill: true, tension: 0.35, pointRadius: 0, borderWidth: 2, stack: "s" },
+        { label: "Neutral", data: overTime.map(t => t.Neutral), borderColor: SMI.palette.neutral, backgroundColor: "rgba(168,85,247,0.12)", fill: true, tension: 0.35, pointRadius: 0, borderWidth: 2, stack: "s" },
+        { label: "Negative", data: overTime.map(t => t.Negative), borderColor: SMI.palette.negative, backgroundColor: "rgba(248,113,113,0.12)", fill: true, tension: 0.35, pointRadius: 0, borderWidth: 2, stack: "s" },
+      ],
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      scales: {
+        x: { ticks: { maxTicksLimit: 8 } },
+        y: { beginAtZero: true, stacked: true },
+      },
+    },
+  });
+
+  new Chart(document.getElementById("confChart"), {
+    type: "line",
+    data: {
+      labels: trend.map(t => t.time_bin),
+      datasets: [
+        { label: "Positive confidence", data: trend.map(t => t.Positive), borderColor: SMI.palette.positive, backgroundColor: "transparent", tension: 0.35, pointRadius: 0, borderWidth: 2 },
+        { label: "Neutral confidence", data: trend.map(t => t.Neutral), borderColor: SMI.palette.neutral, backgroundColor: "transparent", tension: 0.35, pointRadius: 0, borderWidth: 2 },
+        { label: "Negative confidence", data: trend.map(t => t.Negative), borderColor: SMI.palette.negative, backgroundColor: "transparent", tension: 0.35, pointRadius: 0, borderWidth: 2 },
+      ],
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      scales: {
+        x: { ticks: { maxTicksLimit: 6 } },
+        y: { min: 0, max: 1 },
+      },
+    },
+  });
+
+  const noteEl = document.createElement("p");
+  noteEl.className = "chart-note reveal";
+  noteEl.style.marginTop = "-12px";
+  noteEl.textContent = data.note || "";
+  content.insertBefore(noteEl, content.firstChild);
+
+  SMI.renderLimitationsBanner(document.getElementById("limitations"));
+})();
+</script>
+</body>
+</html>
