@@ -35,7 +35,12 @@ body {
   -webkit-font-smoothing: antialiased;
   min-height: 100vh;
   overflow-x: hidden;
+  animation: page-fade-in 650ms var(--ease) both;
 }
+@keyframes page-fade-in { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+body.is-leaving { opacity: 0; transform: translateY(-6px); transition: opacity 320ms var(--ease), transform 320ms var(--ease); }
+@keyframes page-fade-in { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+body.is-leaving { opacity: 0; transform: translateY(-6px); transition: opacity 320ms var(--ease), transform 320ms var(--ease); }
 h1, h2, h3, h4 { font-weight: 700; letter-spacing: -0.02em; margin: 0 0 0.4em 0; color: var(--text); }
 a { color: inherit; text-decoration: none; }
 p { color: var(--text-dim); margin: 0 0 1em 0; }
@@ -59,12 +64,10 @@ p { color: var(--text-dim); margin: 0 0 1em 0; }
 
 /* ---------------- Header ---------------- */
 .site-header {
-  position: sticky; top: 0; z-index: 40;
+  position: relative;
   display: flex; align-items: center; justify-content: space-between;
-  padding: 18px 28px;
-  background: rgba(10, 10, 15, 0.75);
-  backdrop-filter: blur(10px);
-  border-bottom: 1px solid var(--border);
+  padding: 26px 28px 0 28px;
+  background: transparent;
 }
 .brand { display: flex; align-items: center; gap: 10px; font-weight: 700; letter-spacing: 0.08em; font-size: 14px; text-transform: uppercase; color: var(--text); }
 .brand .dot { width: 8px; height: 8px; border-radius: 50%; background: linear-gradient(135deg, var(--accent), var(--accent-2)); box-shadow: 0 0 12px var(--accent); }
@@ -630,10 +633,42 @@ function initAmbientBackground(canvasId) {
   step();
 }
 
+/* ---------------- Page transition (works with back/forward too) ---------------- */
+function initPageTransition() {
+  if (prefersReducedMotion) return;
+
+  window.addEventListener("pageshow", (e) => {
+    if (e.persisted) {
+      document.body.classList.remove("is-leaving");
+      document.body.style.animation = "none";
+      void document.body.offsetWidth;
+      document.body.style.animation = "";
+    }
+  });
+
+  document.addEventListener("click", (e) => {
+    const a = e.target.closest("a[href]");
+    if (!a) return;
+    const href = a.getAttribute("href");
+    if (!href || href.startsWith("http") || href.startsWith("#") ||
+        href.startsWith("mailto:") || href.startsWith("javascript:") ||
+        a.target === "_blank" || e.metaKey || e.ctrlKey || e.shiftKey) return;
+    e.preventDefault();
+    if (document.body.classList.contains("is-leaving")) return;
+    document.body.classList.add("is-leaving");
+    let navigated = false;
+    const go = () => { if (navigated) return; navigated = true; window.location.href = a.href; };
+    document.body.addEventListener("transitionend", go, { once: true });
+    setTimeout(go, 360);
+  });
+}
+
 (function () {
   renderHeader(document.getElementById("header"), "home");
   initAmbientBackground("bgCanvas");
+  initPageTransition();
   initReveal();
+  applyChartDefaults();
   document.body.classList.add("page-loaded");
 })();
 
