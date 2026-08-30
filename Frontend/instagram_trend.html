@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Instagram Trend Analysis — SMI</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+<title>Instagram Trend Analysis â€” SMI</title>
 
 <style>
 :root {
@@ -180,13 +180,45 @@ body.page-loaded .fade-in { animation: page-fade 700ms var(--ease) both; }
 footer.site-footer { position: relative; z-index: 2; padding: 40px 0 60px 0; text-align: center; color: var(--text-dim); font-size: 12.5px; }
 
 /* ---------------- Responsive / motion ---------------- */
-@media (max-width: 640px) {
-  .container { padding: 0 18px; }
-  .site-header { padding: 14px 18px; }
-  .kpi-grid { grid-template-columns: 1fr 1fr; }
-  .charts-grid { grid-template-columns: 1fr; }
-  .tab-nav { overflow-x: auto; max-width: 100%; }
+
+/* Tablet */
+@media (max-width: 960px) {
+  .container { padding: 0 22px; }
+  .site-header { padding: 16px 22px; }
+  .charts-grid { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
 }
+
+/* Large phone and below */
+@media (max-width: 760px) {
+  .page-title-block { padding: 40px 0 22px; }
+  .card { padding: 20px; }
+  .kpi-grid { grid-template-columns: repeat(2, 1fr); }
+  .charts-grid { grid-template-columns: 1fr; }
+  .chart-wrap { height: 280px; }
+  .chart-wrap.short { height: 240px; }
+  .site-header { flex-wrap: wrap; gap: 10px; }
+  .data-table { display: block; width: 100%; overflow-x: auto; }
+}
+
+/* Small phone */
+@media (max-width: 480px) {
+  .container { padding: 0 16px; }
+  .site-header { padding: 12px 16px; }
+  .site-header .brand { font-size: 12px; }
+  .kpi-grid { grid-template-columns: 1fr 1fr; }
+  .kpi-card { padding: 16px; }
+  .kpi-card .value { font-size: 22px; }
+  .chart-wrap { height: 240px; }
+  .chart-wrap.short { height: 210px; }
+  .page-title-block h1 { font-size: 26px; }
+  .option-card, .platform-card { padding: 22px 18px; }
+}
+
+/* Very small phone */
+@media (max-width: 360px) {
+  .kpi-grid { grid-template-columns: 1fr; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.001ms !important; animation-iteration-count: 1 !important;
@@ -226,26 +258,26 @@ footer.site-footer { position: relative; z-index: 2; padding: 40px 0 60px 0; tex
 
 <main class="container">
   <div class="page-title-block reveal">
-    <span class="eyebrow">Instagram · Trend</span>
+    <span class="eyebrow">Instagram Â· Trend</span>
     <h1>Trend Analysis</h1>
     <p class="sub">Top hashtags, mentions, content categories, media types, and posting patterns.</p>
   </div>
 
   <div id="content">
-    <div class="state-msg"><div class="spinner"></div><div>Loading analytics…</div></div>
+    <div class="state-msg"><div class="spinner"></div><div>Loading analyticsâ€¦</div></div>
   </div>
 
   <div id="limitations"></div>
 </main>
 
 <footer class="site-footer container">
-  SMI prototype — Made by IMSEC Students.
+  SMI prototype â€” Made by IMSEC Students.
 </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
 /* ============================================================
-   SMI — shared page helpers (inlined per file, kept identical
+   SMI â€” shared page helpers (inlined per file, kept identical
    across pages for consistency)
    ============================================================ */
 const API_BASE = "http://127.0.0.1:5000";
@@ -272,12 +304,12 @@ function escapeHTML(str) {
 }
 
 function formatCompact(n) {
-  if (n === null || n === undefined || isNaN(n)) return "—";
+  if (n === null || n === undefined || isNaN(n)) return "â€”";
   return new Intl.NumberFormat("en-US", { maximumFractionDigits: 0 }).format(n);
 }
 
 function renderLoading(container, messages) {
-  const msgs = messages && messages.length ? messages : ["Loading analytics…"];
+  const msgs = messages && messages.length ? messages : ["Loading analyticsâ€¦"];
   container.innerHTML = '<div class="state-msg"><div class="spinner"></div><div class="loading-msg" id="loadingMsg">' + escapeHTML(msgs[0]) + '</div></div>';
   if (msgs.length > 1 && !prefersReducedMotion) {
     let i = 0;
@@ -532,7 +564,7 @@ function initPageTransition() {
   const created = {};
 
   async function load() {
-    renderLoading(content, ["Loading analytics…", "Counting hashtags…", "Building visuals…"]);
+    renderLoading(content, ["Loading analyticsâ€¦", "Counting hashtagsâ€¦", "Building visualsâ€¦"]);
     let data;
     try {
       data = await getJSON("/api/instagram/trends");
@@ -720,7 +752,7 @@ function initPageTransition() {
         for (let h = 0; h < 24; h++) {
           const v = (r.hours && r.hours[String(h)]) || 0;
           const alpha = 0.06 + (v / maxVal) * 0.85;
-          html += `<div class="heatmap-cell" style="background-color:rgba(139,92,246,${alpha.toFixed(2)})" title="${escapeHTML(r.day_of_week)} ${h}:00 — ${formatCompact(v)} posts"></div>`;
+          html += `<div class="heatmap-cell" style="background-color:rgba(139,92,246,${alpha.toFixed(2)})" title="${escapeHTML(r.day_of_week)} ${h}:00 â€” ${formatCompact(v)} posts"></div>`;
         }
       });
       grid.innerHTML = html;
@@ -767,3 +799,4 @@ function initPageTransition() {
 </script>
 </body>
 </html>
+
