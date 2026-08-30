@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
-<title>Instagram Timeline Analysis -" SMI</title>
+<title>Instagram Timeline Analysis - SMI</title>
 
 <style>
 :root {
@@ -249,7 +249,7 @@ footer.site-footer { position: relative; z-index: 2; padding: 40px 0 60px 0; tex
   <div class="page-title-block reveal">
     <span class="eyebrow">Instagram · Timeline</span>
     <h1>Timeline Analysis</h1>
-    <p class="sub">Post volume across the observed window -" including the peak day, busiest intervals, and media-type composition.</p>
+    <p class="sub">Post volume across the observed window - including the peak day, busiest intervals, and media-type composition.</p>
   </div>
 
   <div id="content">
@@ -266,7 +266,7 @@ footer.site-footer { position: relative; z-index: 2; padding: 40px 0 60px 0; tex
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
 /* ============================================================
-   SMI -" shared page helpers (inlined per file, kept identical
+   SMI - shared page helpers (inlined per file, kept identical
    across pages for consistency)
    ============================================================ */
 const API_BASE = "http://127.0.0.1:5000";
@@ -592,13 +592,13 @@ function initPageTransition() {
 
       <div class="card reveal chart-panel">
         <h3>Post volume over time</h3>
-        <p class="chart-note">Peak: ${escapeHTML(s.peak_date || "-"")} · Window: ${escapeHTML(s.start_date || "-"")} to ${escapeHTML(s.end_date || "-"")}</p>
+        <p class="chart-note">Peak: ${escapeHTML(s.peak_date || "-")} · Window: ${escapeHTML(s.start_date || "-")} to ${escapeHTML(s.end_date || "-")}</p>
         <div class="chart-wrap"><canvas id="volumeChart"></canvas></div>
       </div>
 
       <div class="card reveal chart-panel">
         <h3>Media-type composition</h3>
-        <p class="chart-note">Reels ${s.reel_percentage ?? "-""}% · Images ${s.image_percentage ?? "-""}% · Carousels ${s.carousel_percentage ?? "-""}%</p>
+        <p class="chart-note">Reels ${s.reel_percentage ?? "-"}% · Images ${s.image_percentage ?? "-"}% · Carousels ${s.carousel_percentage ?? "-"}%</p>
         <div class="chart-wrap"><canvas id="mediaChart"></canvas></div>
       </div>
 

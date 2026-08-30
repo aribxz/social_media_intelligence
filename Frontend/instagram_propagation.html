@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
-<title>Instagram Propagation -" SMI</title>
+<title>Instagram Propagation - SMI</title>
 
 <style>
 :root {
@@ -255,7 +255,7 @@ footer.site-footer { position: relative; z-index: 2; padding: 40px 0 60px 0; tex
   <div class="page-title-block reveal">
     <span class="eyebrow">Instagram · Propagation</span>
     <h1>Propagation</h1>
-    <p class="sub">How content traveled -" reach, the engagement funnel, and what got amplified most.</p>
+    <p class="sub">How content traveled - reach, the engagement funnel, and what got amplified most.</p>
   </div>
 
   <div id="content">
@@ -272,7 +272,7 @@ footer.site-footer { position: relative; z-index: 2; padding: 40px 0 60px 0; tex
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
 /* ============================================================
-   SMI -" shared page helpers (inlined per file, kept identical
+   SMI - shared page helpers (inlined per file, kept identical
    across pages for consistency)
    ============================================================ */
 const API_BASE = "http://127.0.0.1:5000";
@@ -598,7 +598,7 @@ function initPageTransition() {
         </div>
         <div class="kpi-card reveal">
           <div class="label">Top media type</div>
-          <div class="value static-text">${escapeHTML(s.top_media_type_by_reach || "-"")}</div>
+          <div class="value static-text">${escapeHTML(s.top_media_type_by_reach || "-")}</div>
         </div>
       </div>
 
@@ -635,7 +635,7 @@ function initPageTransition() {
                   <td>${formatCompact(p.reach)}</td>
                   <td>${formatCompact(p.likes)}</td>
                   <td>${formatCompact(p.shares)}</td>
-                  <td>${p.engagement_rate ?? "-""}%</td>
+                  <td>${p.engagement_rate ?? "-"}%</td>
                 </tr>`).join("")}
             </tbody>
           </table>
@@ -655,7 +655,7 @@ function initPageTransition() {
                   <td>${escapeHTML(a.account_type)}</td>
                   <td>${formatCompact(a.total_posts)}</td>
                   <td>${formatCompact(a.total_reach)}</td>
-                  <td>${a.avg_engagement_rate ?? "-""}%</td>
+                  <td>${a.avg_engagement_rate ?? "-"}%</td>
                   <td>${formatCompact(a.followers)}</td>
                 </tr>`).join("")}
             </tbody>

@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
-<title>Instagram Engagement -" SMI</title>
+<title>Instagram Engagement - SMI</title>
 
 <style>
 :root {
@@ -270,7 +270,7 @@ footer.site-footer { position: relative; z-index: 2; padding: 40px 0 60px 0; tex
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
 /* ============================================================
-   SMI -" shared page helpers (inlined per file, kept identical
+   SMI - shared page helpers (inlined per file, kept identical
    across pages for consistency)
    ============================================================ */
 const API_BASE = "http://127.0.0.1:5000";
@@ -608,7 +608,7 @@ function initPageTransition() {
         </div>
         <div class="card reveal chart-panel" style="margin-bottom:0;">
           <h3>Account type distribution</h3>
-          <p class="chart-note">Who's posting -" brand, creator, and beyond.</p>
+          <p class="chart-note">Who's posting - brand, creator, and beyond.</p>
           <div class="chart-wrap short"><canvas id="accountChart"></canvas></div>
         </div>
       </div>
@@ -620,13 +620,13 @@ function initPageTransition() {
           <div class="cta-box">
             <div class="cta-title">Without CTA</div>
             <div class="cta-stat"><span>Posts</span><b>${formatCompact(ctaNo.posts)}</b></div>
-            <div class="cta-stat"><span>Avg engagement rate</span><b>${ctaNo.avg_engagement_rate ?? "-""}%</b></div>
+            <div class="cta-stat"><span>Avg engagement rate</span><b>${ctaNo.avg_engagement_rate ?? "-"}%</b></div>
             <div class="cta-stat"><span>Avg reach</span><b>${formatCompact(ctaNo.avg_reach)}</b></div>
           </div>
           <div class="cta-box">
             <div class="cta-title">With CTA</div>
             <div class="cta-stat"><span>Posts</span><b>${formatCompact(ctaYes.posts)}</b></div>
-            <div class="cta-stat"><span>Avg engagement rate</span><b>${ctaYes.avg_engagement_rate ?? "-""}%</b></div>
+            <div class="cta-stat"><span>Avg engagement rate</span><b>${ctaYes.avg_engagement_rate ?? "-"}%</b></div>
             <div class="cta-stat"><span>Avg reach</span><b>${formatCompact(ctaYes.avg_reach)}</b></div>
           </div>
         </div>

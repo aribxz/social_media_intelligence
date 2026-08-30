@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
-<title>Instagram Sentiment Analysis -" SMI</title>
+<title>Instagram Sentiment Analysis - SMI</title>
 
 <style>
 :root {
@@ -343,7 +343,7 @@ body.mood-negative .signal-glyph { color: var(--negative); }
 <div class="modal-backdrop" id="aboutModal" aria-hidden="true">
   <div class="modal-box">
     <h3>About SMI</h3>
-    <p>SMI is a research prototype built for the SIH hackathon internal round. It analyzes Instagram posts -" 30,000 posts across the sampled window -" to surface engagement, sentiment and trend signals. Captions are synthetic; sentiment is VADER-predicted, not ground truth.</p>
+    <p>SMI is a research prototype built for the SIH hackathon internal round. It analyzes Instagram posts - 30,000 posts across the sampled window - to surface engagement, sentiment and trend signals. Captions are synthetic; sentiment is VADER-predicted, not ground truth.</p>
     <button class="modal-close" id="modalCloseBtn" type="button">Close</button>
   </div>
 </div>
@@ -352,7 +352,7 @@ body.mood-negative .signal-glyph { color: var(--negative); }
   <div class="page-title-block reveal">
     <span class="eyebrow">Instagram · Sentiment</span>
     <h1>Sentiment Analysis</h1>
-    <p class="sub">VADER-predicted tone of the captions -" positive, neutral and negative -" over the observed window.</p>
+    <p class="sub">VADER-predicted tone of the captions - positive, neutral and negative - over the observed window.</p>
   </div>
 
   <div id="content">
@@ -369,7 +369,7 @@ body.mood-negative .signal-glyph { color: var(--negative); }
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
 /* ============================================================
-   SMI -" shared page helpers (inlined per file, kept identical
+   SMI - shared page helpers (inlined per file, kept identical
    across pages for consistency)
    ============================================================ */
 const API_BASE = "http://127.0.0.1:5000";
@@ -667,7 +667,7 @@ function initPageTransition() {
   (function initGlyphs() {
     const layer = document.getElementById("signalGlyphs");
     if (!layer || prefersReducedMotion) return;
-    const symbols = ["+", "-"", "~", "+", "~"];
+    const symbols = ["+", "-", "~", "+", "~"];
     for (let i = 0; i < 14; i++) {
       const el = document.createElement("div");
       el.className = "signal-glyph";
