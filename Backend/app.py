@@ -19,6 +19,19 @@ FRONTEND_DIR = PROJECT_DIR / "Frontend"
 
 app = Flask(__name__)
 
+@app.after_request
+def after_request(response):
+    response.headers.add("Access-Control-Allow-Origin", "*")
+    response.headers.add("Access-Control-Allow-Headers", "Content-Type, Authorization")
+    response.headers.add("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
+    return response
+
+
+@app.route("/api/<path:path>", methods=["OPTIONS"])
+@app.route("/api/instagram/<path:path>", methods=["OPTIONS"])
+def handle_options(path=None):
+    return ("", 204)
+
 FILES = {
     # Twitter
     "timeline": "timeline.json",

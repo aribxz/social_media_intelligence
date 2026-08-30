@@ -303,7 +303,7 @@ footer.site-footer { position: relative; z-index: 2; padding: 40px 0 60px 0; tex
    SMI - shared page helpers (inlined per file, kept identical
    across pages for consistency)
    ============================================================ */
-const API_BASE = "http://127.0.0.1:5000";
+const API_BASE = (window.location.protocol === "file:") ? "http://127.0.0.1:5000" : window.location.origin;
 const prefersReducedMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 const palette = {
@@ -314,10 +314,13 @@ const palette = {
 };
 
 async function getJSON(path) {
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), 8000);
   let res;
-  try { res = await fetch(API_BASE + path); }
-  catch (err) { throw new Error("network"); }
-  if (!res.ok) throw new Error("http_" + res.status);
+  try { res = await fetch(API_BASE + path, { signal: controller.signal }); }
+  catch (err) { clearTimeout(timeout); throw new Error(err.name === "AbortError" ? "timeout" : "network: " + err.message); }
+  clearTimeout(timeout);
+  if (!res.ok) throw new Error("http_" + res.status + " @ " + path);
   return res.json();
 }
 

@@ -372,7 +372,7 @@ body.mood-negative .signal-glyph { color: var(--negative); }
    SMI - shared page helpers (inlined per file, kept identical
    across pages for consistency)
    ============================================================ */
-const API_BASE = "http://127.0.0.1:5000";
+const API_BASE = (window.location.protocol === "file:") ? "http://127.0.0.1:5000" : window.location.origin;
 const prefersReducedMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 const palette = {
@@ -383,10 +383,13 @@ const palette = {
 };
 
 async function getJSON(path) {
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), 8000);
   let res;
-  try { res = await fetch(API_BASE + path); }
-  catch (err) { throw new Error("network"); }
-  if (!res.ok) throw new Error("http_" + res.status);
+  try { res = await fetch(API_BASE + path, { signal: controller.signal }); }
+  catch (err) { clearTimeout(timeout); throw new Error(err.name === "AbortError" ? "timeout" : "network: " + err.message); }
+  clearTimeout(timeout);
+  if (!res.ok) throw new Error("http_" + res.status + " @ " + path);
   return res.json();
 }
 
@@ -681,6 +684,14 @@ function initPageTransition() {
     }
   })();
 
+  // global error surface for debugging
+  window.addEventListener("error", (e)=>{
+    try{ const c=document.getElementById("content"); if(c) c.innerHTML=`<div class="state-msg error"><div>JS Error</div><div class="hint">${escapeHTML(e.message + " @ " + (e.filename||"") + ":" + (e.lineno||""))}</div></div>`; }catch(_){}
+  });
+  window.addEventListener("unhandledrejection", (e)=>{
+    try{ const c=document.getElementById("content"); if(c) c.innerHTML=`<div class="state-msg error"><div>Promise Error</div><div class="hint">${escapeHTML(String(e.reason||e.message||e))}</div></div>`; }catch(_){}
+  });
+
   async function load() {
     renderLoading(content, ["Scoring captions...", "Aggregating sentiment...", "Building visuals..."]);
     let data;
@@ -688,12 +699,17 @@ function initPageTransition() {
       data = await getJSON("/api/instagram/sentiment");
     } catch (err) {
       renderError(content, {
-        title: "Sentiment data not available",
-        hint: "Couldn't reach /api/instagram/sentiment. Make sure the Flask backend is running and analytics.py has been run.",
+        title: "Sentiment data not available (" + String(err.message||err) + ")",
+        hint: "Couldn't reach /api/instagram/sentiment. Make sure the Flask backend is running on http://127.0.0.1:5000 and instagram_analytics.py has been run. Try: fetch('http://127.0.0.1:5000/api/instagram/sentiment').then(r=>r.json()).then(console.log)",
       }, load);
       return;
     }
-    render(data);
+    try{ render(data); }catch(err){
+      renderError(content, {
+        title: "Render failed: " + String(err.message||err),
+        hint: String(err.stack||"").slice(0,600),
+      }, load);
+    }
   }
 
   function render(data) {
