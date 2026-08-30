@@ -4,11 +4,174 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
 <title>Sentiment Analysis — SMI</title>
-<link rel="stylesheet" href="assets/styles.css" />
+<style>
+:root{
+  --bg:#0a0a0f; --surface:#121019; --surface-2:#171324; --border:#2a2440;
+  --accent:#8b5cf6; --accent-2:#a855f7; --accent-soft:rgba(139,92,246,.12);
+  --text:#e7e5f0; --text-dim:#9a93b3;
+  --positive:#34d399; --neutral:#a855f7; --negative:#f87171;
+  --mood:#a855f7;
+  --ease:cubic-bezier(.22,1,.36,1); --dur-fast:180ms; --dur-med:320ms; --dur-slow:650ms;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;position:relative;z-index:0;background:var(--bg);color:var(--text);
+  font-family:"Inter","Geist",system-ui,-apple-system,"Segoe UI",sans-serif;
+  line-height:1.55;-webkit-font-smoothing:antialiased;min-height:100vh;overflow-x:hidden;
+  animation:page-fade-in var(--dur-slow) var(--ease) both;
+}
+@keyframes page-fade-in{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+body.is-leaving{opacity:0;transform:translateY(-6px);transition:opacity .32s var(--ease),transform .32s var(--ease)}
+h1,h2,h3,h4{font-weight:700;letter-spacing:-.02em;margin:0 0 .4em 0;color:var(--text)}
+a{color:inherit;text-decoration:none}
+p{color:var(--text-dim);margin:0 0 1em 0}
+.container{max-width:1180px;margin:0 auto;padding:0 28px;position:relative;z-index:1}
+
+/* ---------------- ambient background ---------------- */
+#bg-canvas{position:fixed;inset:0;z-index:-2;pointer-events:none}
+#signal-field{position:fixed;inset:0;z-index:-1;pointer-events:none;overflow:hidden}
+.signal-glyph{position:absolute;bottom:-40px;opacity:0;animation:signal-rise linear infinite}
+@keyframes signal-rise{0%{transform:translateY(0) scale(.8) rotate(0deg);opacity:0}8%{opacity:.5}85%{opacity:.3}100%{transform:translateY(-115vh) scale(1.05) rotate(8deg);opacity:0}}
+.mood-glow{position:fixed;top:-10%;left:50%;width:800px;height:800px;transform:translateX(-50%);background:radial-gradient(circle,color-mix(in srgb,var(--mood) 26%,transparent),transparent 65%);filter:blur(20px);z-index:-2;pointer-events:none;transition:background 900ms var(--ease);animation:mood-breathe 8s ease-in-out infinite}
+@keyframes mood-breathe{0%,100%{opacity:.75;transform:translateX(-50%) scale(1)}50%{opacity:1;transform:translateX(-50%) scale(1.06)}}
+
+/* ---------------- header (subtle, no bar) ---------------- */
+.site-header{position:relative;z-index:40;display:flex;align-items:center;justify-content:space-between;padding:26px 28px 0 28px;background:transparent}
+.site-header .brand{display:flex;align-items:center;gap:9px;font-weight:700;letter-spacing:.08em;font-size:13px;text-transform:uppercase;color:var(--text-dim);opacity:.9}
+.site-header .brand .dot{width:7px;height:7px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent-2));box-shadow:0 0 10px var(--accent)}
+.site-nav{display:flex;align-items:center;gap:26px}
+.site-nav a,.site-nav button{background:none;border:none;padding:0;font-family:inherit;cursor:pointer;font-size:13.5px;font-weight:500;color:var(--text-dim);position:relative;transition:color var(--dur-fast) var(--ease)}
+.site-nav a::after,.site-nav button::after{content:"";position:absolute;left:0;right:0;bottom:-4px;height:1px;background:var(--accent-2);transform:scaleX(0);transform-origin:right;transition:transform var(--dur-fast) var(--ease)}
+.site-nav a:hover,.site-nav button:hover{color:var(--text)}
+.site-nav a:hover::after,.site-nav button:hover::after{transform:scaleX(1);transform-origin:left}
+.site-nav a:focus-visible,.site-nav button:focus-visible{outline:2px solid var(--accent-2);outline-offset:3px}
+
+/* ---------------- about modal ---------------- */
+.about-overlay{position:fixed;inset:0;z-index:100;display:none;align-items:center;justify-content:center;background:rgba(6,6,10,.6);backdrop-filter:blur(4px);padding:24px}
+.about-overlay.open{display:flex;animation:overlay-in var(--dur-fast) var(--ease) both}
+@keyframes overlay-in{from{opacity:0}to{opacity:1}}
+.about-modal{max-width:440px;width:100%;background:linear-gradient(160deg,var(--surface),var(--surface-2));border:1px solid var(--border);border-radius:18px;padding:28px 26px;position:relative;animation:modal-in var(--dur-med) var(--ease) both}
+@keyframes modal-in{from{opacity:0;transform:translateY(10px) scale(.98)}to{opacity:1;transform:none}}
+.about-modal h3{font-size:18px;margin-bottom:10px}
+.about-modal p{font-size:13.5px;margin-bottom:0}
+.about-close{position:absolute;top:14px;right:14px;width:28px;height:28px;border-radius:50%;border:1px solid var(--border);background:transparent;color:var(--text-dim);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:color var(--dur-fast) var(--ease),border-color var(--dur-fast) var(--ease)}
+.about-close:hover{color:var(--text);border-color:var(--accent)}
+
+/* ---------------- page title ---------------- */
+.page-title-block{padding:52px 0 8px 0}
+.page-title-block .eyebrow{display:inline-block;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent-2);margin-bottom:10px}
+.page-title-block h1{font-size:clamp(28px,4vw,40px)}
+.page-title-block .sub{max-width:620px;font-size:15px}
+
+.reveal{opacity:0;transform:translateY(16px);transition:opacity var(--dur-slow) var(--ease),transform var(--dur-slow) var(--ease)}
+.reveal.is-visible{opacity:1;transform:translateY(0)}
+
+/* ---------------- pulse hero ---------------- */
+.pulse-card{
+  position:relative;margin:24px 0 36px 0;padding:34px 28px;border-radius:22px;border:1px solid var(--border);
+  background:linear-gradient(160deg,var(--surface),var(--surface-2));overflow:hidden;
+  display:grid;grid-template-columns:220px 1fr;gap:36px;align-items:center;
+}
+.pulse-card::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 85% 20%,color-mix(in srgb,var(--mood) 14%,transparent),transparent 60%);pointer-events:none;transition:background 900ms var(--ease)}
+.pulse-ring-wrap{position:relative;width:200px;height:200px;justify-self:center}
+.pulse-ring-wrap svg{width:100%;height:100%;transform:rotate(-90deg)}
+.pulse-ring-wrap.breathing svg{animation:ring-breathe 5s ease-in-out infinite}
+@keyframes ring-breathe{0%,100%{transform:rotate(-90deg) scale(1)}50%{transform:rotate(-90deg) scale(1.025)}}
+.ring-seg{fill:none;stroke-linecap:round;transition:stroke-width var(--dur-fast) var(--ease),opacity var(--dur-fast) var(--ease)}
+.ring-track{fill:none;stroke:var(--border);stroke-width:14;opacity:.5}
+.pulse-center{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;pointer-events:none}
+.pulse-center .score{font-size:34px;font-weight:800;letter-spacing:-.02em}
+.pulse-center .score.positive{color:var(--positive)}
+.pulse-center .score.negative{color:var(--negative)}
+.pulse-center .score.neutral{color:var(--neutral)}
+.pulse-center .score-label{font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--text-dim);margin-top:4px}
+
+.pulse-side h2{font-size:15px;text-transform:uppercase;letter-spacing:.1em;color:var(--text-dim);margin-bottom:4px}
+.pulse-side .headline{font-size:22px;font-weight:700;margin-bottom:16px}
+.pulse-mini-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.mini-stat{padding:12px 14px;border-radius:14px;border:1px solid var(--border);background:rgba(10,10,15,.35);cursor:default;transition:transform var(--dur-fast) var(--ease),border-color var(--dur-fast) var(--ease),background var(--dur-fast) var(--ease)}
+.mini-stat[data-key]{cursor:pointer}
+.mini-stat:hover,.mini-stat.active{transform:translateY(-2px);border-color:var(--accent)}
+.mini-stat .label{font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--text-dim);display:flex;align-items:center;gap:6px;margin-bottom:6px}
+.mini-stat .swatch{width:7px;height:7px;border-radius:50%;display:inline-block}
+.mini-stat .num{font-size:19px;font-weight:700}
+
+/* ---------------- tab nav ---------------- */
+.tab-nav{position:relative;display:inline-flex;gap:4px;padding:5px;border:1px solid var(--border);border-radius:999px;background:var(--surface);margin-bottom:22px}
+.tab-btn{position:relative;z-index:1;padding:9px 18px;border-radius:999px;border:none;background:transparent;color:var(--text-dim);font-family:inherit;font-size:13.5px;font-weight:600;cursor:pointer;display:flex;align-items:center;gap:7px;transition:color var(--dur-fast) var(--ease)}
+.tab-btn.active{color:var(--text)}
+.tab-btn:focus-visible{outline:2px solid var(--accent-2);outline-offset:2px}
+.tab-indicator{position:absolute;top:5px;bottom:5px;left:5px;border-radius:999px;background:linear-gradient(135deg,var(--accent),var(--accent-2));z-index:0;transition:transform var(--dur-med) var(--ease),width var(--dur-med) var(--ease);box-shadow:0 4px 16px -4px rgba(139,92,246,.6)}
+
+/* ---------------- panels / cards ---------------- */
+.panel{display:none}
+.panel.active{display:block;animation:panel-in var(--dur-med) var(--ease) both}
+@keyframes panel-in{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.card{background:linear-gradient(180deg,var(--surface),var(--surface-2));border:1px solid var(--border);border-radius:16px;padding:24px;position:relative}
+.chart-panel h3{font-size:15px;font-weight:600;color:var(--text);margin-bottom:4px}
+.chart-panel .chart-note{font-size:13px;color:var(--text-dim);margin-bottom:14px}
+.chart-wrap{position:relative;height:340px}
+.charts-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:20px}
+
+/* ---------------- states ---------------- */
+.state-msg{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:70px 20px;color:var(--text-dim);text-align:center}
+.state-msg .spinner{width:26px;height:26px;border-radius:50%;border:2px solid var(--border);border-top-color:var(--accent);animation:spin 800ms linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.state-msg .cycling{font-size:13px;min-height:18px}
+.state-msg.error{color:var(--negative)}
+.state-msg .hint{font-size:12.5px;color:var(--text-dim);max-width:420px}
+.retry-btn{margin-top:6px;padding:9px 20px;border-radius:999px;border:1px solid var(--border);background:transparent;color:var(--text);font-family:inherit;font-size:13px;font-weight:600;cursor:pointer;transition:border-color var(--dur-fast) var(--ease),background var(--dur-fast) var(--ease)}
+.retry-btn:hover{border-color:var(--accent);background:var(--accent-soft)}
+
+/* skeleton gauge while loading */
+.skeleton-ring{width:120px;height:120px;border-radius:50%;border:14px solid var(--border);border-top-color:var(--accent);animation:spin 1.4s linear infinite;opacity:.7}
+
+/* ---------------- limitations ---------------- */
+.limitations-banner{margin-top:30px;margin-bottom:20px;padding:16px 20px;border:1px solid var(--border);border-left:3px solid var(--accent);border-radius:12px;background:var(--surface);font-size:13px;color:var(--text-dim)}
+.limitations-banner strong{color:var(--text);display:block;margin-bottom:6px;font-size:13px}
+.limitations-banner ul{margin:6px 0 0 0;padding-left:18px}
+.limitations-banner li{margin-bottom:3px}
+
+footer.site-footer{padding:40px 0 60px 0;text-align:center;color:var(--text-dim);font-size:12.5px}
+
+/* ---------------- responsive ---------------- */
+@media (max-width:760px){
+  .pulse-card{grid-template-columns:1fr;text-align:center}
+  .pulse-ring-wrap{width:170px;height:170px}
+  .pulse-mini-grid{grid-template-columns:repeat(2,1fr)}
+  .tab-nav{width:100%;overflow-x:auto}
+  .chart-wrap{height:280px}
+}
+@media (max-width:480px){
+  .container{padding:0 16px}
+  .site-header{padding:12px 16px}
+  .brand-tag{display:none}
+  .pulse-card{padding:24px 18px}
+}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.001ms !important;animation-iteration-count:1 !important;transition-duration:.001ms !important;scroll-behavior:auto !important}
+  .reveal{transform:none !important}
+  #signal-field,.mood-glow,.pulse-ring-wrap.breathing svg{display:none !important;animation:none !important}
+}
+</style>
 </head>
 <body>
 
+<canvas id="bg-canvas" aria-hidden="true"></canvas>
+<div id="signal-field" aria-hidden="true"></div>
+<div class="mood-glow" aria-hidden="true"></div>
+
 <header class="site-header" id="header"></header>
+
+<div class="about-overlay" id="aboutOverlay">
+  <div class="about-modal">
+    <button class="about-close" id="aboutClose" type="button" aria-label="Close">&times;</button>
+    <h3>About SMI</h3>
+    <p>SMI (Social Media Intelligence) is a research prototype built for the SIH hackathon internal round. It analyzes a sample of public Twitter data — 15,000 tweets across an 81-minute window — to surface propagation, sentiment and trend signals. Sentiment labels are model-predicted, not ground truth.</p>
+  </div>
+</div>
 
 <main class="container">
   <div class="page-title-block reveal">
@@ -19,8 +182,8 @@
 
   <div id="content">
     <div class="state-msg">
-      <div class="spinner"></div>
-      <div>Loading analytics…</div>
+      <div class="skeleton-ring" aria-hidden="true"></div>
+      <div class="cycling" id="loadingCycle">Fetching tweets…</div>
     </div>
   </div>
 
@@ -32,143 +195,437 @@
 </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script src="assets/app.js"></script>
 <script>
-(async function () {
-  SMI.renderHeader(document.getElementById("header"), { backHref: "twitter.html", backLabel: "Twitter" });
-  SMI.applyChartDefaults();
-  const content = document.getElementById("content");
+(function(){
+"use strict";
 
-  let data;
-  try {
-    data = await SMI.getJSON("/api/sentiment");
-  } catch (err) {
-    SMI.renderError(content, {
-      title: "Sentiment data not available",
-      hint: "Couldn't reach /api/sentiment. Make sure the Flask backend is running and analytics.py has been run.",
-    });
+const API_BASE = "http://127.0.0.1:5000";
+const prefersReducedMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+const palette = {
+  bg:"#0a0a0f", surface:"#121019", border:"#2a2440",
+  accent:"#8b5cf6", accent2:"#a855f7", text:"#e7e5f0", textDim:"#9a93b3",
+  positive:"#34d399", neutral:"#a855f7", negative:"#f87171",
+};
+
+/* ---------------- small shared helpers ---------------- */
+function escapeHTML(str){
+  if(str===null||str===undefined) return "";
+  return String(str).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
+}
+
+function renderHeader(container,{homeHref="index.html"}={}){
+  container.innerHTML = `
+    <div class="brand"><span class="dot"></span><span>SMI</span></div>
+    <nav class="site-nav">
+      <a href="${homeHref}">Home</a>
+      <button type="button" id="aboutTrigger">About</button>
+    </nav>`;
+  const trigger = document.getElementById("aboutTrigger");
+  const overlay = document.getElementById("aboutOverlay");
+  const close = document.getElementById("aboutClose");
+  if(trigger && overlay){
+    trigger.addEventListener("click", ()=>overlay.classList.add("open"));
+    close.addEventListener("click", ()=>overlay.classList.remove("open"));
+    overlay.addEventListener("click", (e)=>{ if(e.target===overlay) overlay.classList.remove("open"); });
+    document.addEventListener("keydown", (e)=>{ if(e.key==="Escape") overlay.classList.remove("open"); });
+  }
+}
+
+function initReveal(root=document){
+  const items = root.querySelectorAll(".reveal");
+  if(!items.length) return;
+  if(prefersReducedMotion || !("IntersectionObserver" in window)){
+    items.forEach(el=>el.classList.add("is-visible"));
     return;
   }
+  const obs = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add("is-visible"); obs.unobserve(e.target);} });
+  },{threshold:.12});
+  items.forEach((el,i)=>{ el.style.transitionDelay = `${Math.min(i,10)*60}ms`; obs.observe(el); });
+}
+
+function initPageTransition(){
+  if(prefersReducedMotion) return;
+  document.addEventListener("click",(e)=>{
+    const a = e.target.closest("a[href]");
+    if(!a) return;
+    const href = a.getAttribute("href");
+    if(!href || href.startsWith("http") || href.startsWith("#") || href.startsWith("mailto:") || href.startsWith("javascript:")) return;
+    e.preventDefault();
+    document.body.classList.add("is-leaving");
+    let navigated=false;
+    const go=()=>{ if(navigated) return; navigated=true; window.location.href=a.href; };
+    document.body.addEventListener("transitionend",go,{once:true});
+    setTimeout(go,380);
+  });
+}
+
+function animateCount(el,target,opts={}){
+  const duration = prefersReducedMotion?0:(opts.duration||900);
+  const decimals = opts.decimals||0, suffix=opts.suffix||"", prefix=opts.prefix||"";
+  if(!duration){ el.textContent = `${prefix}${target.toFixed(decimals)}${suffix}`; return; }
+  const start = performance.now();
+  function tick(now){
+    const p = Math.min((now-start)/duration,1);
+    const eased = 1-Math.pow(1-p,3);
+    el.textContent = `${prefix}${(target*eased).toFixed(decimals)}${suffix}`;
+    if(p<1) requestAnimationFrame(tick); else el.textContent = `${prefix}${target.toFixed(decimals)}${suffix}`;
+  }
+  requestAnimationFrame(tick);
+}
+
+async function getJSON(path){
+  const res = await fetch(`${API_BASE}${path}`);
+  if(!res.ok) throw new Error(`http_${res.status}`);
+  return res.json();
+}
+
+function applyChartDefaults(){
+  if(typeof Chart==="undefined") return;
+  Chart.defaults.color = palette.textDim;
+  Chart.defaults.font.family = "Inter, Geist, system-ui, -apple-system, 'Segoe UI', sans-serif";
+  Chart.defaults.font.size = 12;
+  Chart.defaults.plugins.legend.labels.color = palette.text;
+  Chart.defaults.plugins.tooltip.backgroundColor = "#171324";
+  Chart.defaults.plugins.tooltip.titleColor = palette.text;
+  Chart.defaults.plugins.tooltip.bodyColor = palette.textDim;
+  Chart.defaults.plugins.tooltip.borderColor = palette.border;
+  Chart.defaults.plugins.tooltip.borderWidth = 1;
+  Chart.defaults.plugins.tooltip.padding = 10;
+  Chart.defaults.plugins.tooltip.cornerRadius = 8;
+  Chart.defaults.scale.grid.color = "rgba(42, 36, 64, 0.5)";
+  Chart.defaults.scale.grid.borderColor = palette.border;
+  Chart.defaults.animation.duration = prefersReducedMotion?0:700;
+  Chart.defaults.animation.easing = "easeOutQuart";
+}
+
+/* ---------------- ambient mesh background ---------------- */
+function initMeshBackground(){
+  if(prefersReducedMotion) return;
+  const canvas = document.getElementById("bg-canvas");
+  const ctx = canvas.getContext("2d");
+  let w=0,h=0,dpr=1;
+  function resize(){
+    dpr = window.devicePixelRatio||1; w=window.innerWidth; h=window.innerHeight;
+    canvas.width=w*dpr; canvas.height=h*dpr; canvas.style.width=w+"px"; canvas.style.height=h+"px";
+    ctx.setTransform(dpr,0,0,dpr,0,0);
+  }
+  resize(); window.addEventListener("resize",resize);
+  const count = Math.max(30,Math.min(60,Math.floor((w*h)/24000)));
+  const parts=[];
+  for(let i=0;i<count;i++){
+    parts.push({x:Math.random()*w,y:Math.random()*h,r:Math.random()*2.2+1.2,
+      vx:(Math.random()-0.5)*0.28,vy:(Math.random()-0.5)*0.28,
+      a:Math.random()*0.18+0.12,tw:Math.random()*Math.PI*2,ts:0.01+Math.random()*0.02});
+  }
+  const LINK=150;
+  function frame(){
+    ctx.clearRect(0,0,w,h);
+    for(let i=0;i<parts.length;i++){
+      for(let j=i+1;j<parts.length;j++){
+        const dx=parts[i].x-parts[j].x, dy=parts[i].y-parts[j].y;
+        const d=Math.hypot(dx,dy);
+        if(d<LINK){
+          ctx.beginPath(); ctx.moveTo(parts[i].x,parts[i].y); ctx.lineTo(parts[j].x,parts[j].y);
+          ctx.strokeStyle = `rgba(139, 92, 246, ${(0.10*(1-d/LINK)).toFixed(3)})`;
+          ctx.lineWidth=1; ctx.stroke();
+        }
+      }
+    }
+    for(const p of parts){
+      p.x+=p.vx; p.y+=p.vy; p.tw+=p.ts;
+      if(p.x<-10)p.x=w+10; if(p.x>w+10)p.x=-10; if(p.y<-10)p.y=h+10; if(p.y>h+10)p.y=-10;
+      const alpha = p.a*(0.65+0.35*Math.sin(p.tw));
+      ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+      ctx.fillStyle = `rgba(168, 85, 247, ${alpha.toFixed(3)})`; ctx.fill();
+    }
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+}
+
+/* ---------------- drifting engagement glyphs, tinted by mood ---------------- */
+function initSignalField(moodHex){
+  if(prefersReducedMotion) return;
+  const field = document.getElementById("signal-field");
+  if(!field) return;
+  field.innerHTML = "";
+  const color = moodHex || palette.accent2;
+  const glyphs = [
+    `<svg width="16" height="16" viewBox="0 0 24 24" fill="${color}" opacity="0.8"><path d="M12 21s-7.5-4.7-10-9.3C.4 8.4 2 5 5.4 4.4c2-.35 3.9.6 4.9 2.2 1-1.6 2.9-2.55 4.9-2.2C18.6 5 20.2 8.4 18.6 11.7 15.5 16.3 12 21 12 21Z"/></svg>`,
+    `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="${color}" stroke-width="2" opacity="0.8"><path d="M17 2l4 4-4 4"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><path d="M7 22l-4-4 4-4"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>`,
+    `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="${color}" stroke-width="2" opacity="0.8"><path d="M21 11.5a8.5 8.5 0 0 1-8.5 8.5 8.4 8.4 0 0 1-3.9-.94L3 21l1.94-5.6A8.5 8.5 0 1 1 21 11.5Z"/></svg>`,
+  ];
+  const count = 10;
+  for(let i=0;i<count;i++){
+    const el = document.createElement("div");
+    el.className = "signal-glyph";
+    el.innerHTML = glyphs[i%glyphs.length];
+    el.style.left = `${Math.random()*100}%`;
+    const dur = 15+Math.random()*12;
+    el.style.animationDuration = `${dur}s`;
+    el.style.animationDelay = `${-Math.random()*dur}s`;
+    field.appendChild(el);
+  }
+}
+
+/* ---------------- loading message cycler ---------------- */
+function startLoadingCycle(){
+  const el = document.getElementById("loadingCycle");
+  if(!el) return ()=>{};
+  const msgs = ["Fetching tweets…","Scoring sentiment…","Aggregating intervals…","Building visuals…"];
+  let i=0;
+  const id = setInterval(()=>{ i=(i+1)%msgs.length; el.textContent = msgs[i]; }, 1100);
+  return ()=>clearInterval(id);
+}
+
+/* ---------------- error state ---------------- */
+function renderError(container, opts, onRetry){
+  const title = opts.title || "Data not available";
+  const hint = opts.hint || "This endpoint returned nothing. Make sure the Flask backend is running and analytics.py has been run to generate outputs.";
+  container.innerHTML = `
+    <div class="state-msg error reveal is-visible">
+      <div>${escapeHTML(title)}</div>
+      <div class="hint">${escapeHTML(hint)}</div>
+      <button class="retry-btn" id="retryBtn" type="button">Try again</button>
+    </div>`;
+  document.getElementById("retryBtn").addEventListener("click", onRetry);
+}
+
+/* ---------------- multi-segment ring gauge ---------------- */
+function buildRingSVG(pos,neu,neg){
+  const total = Math.max(pos+neu+neg, 1);
+  const R = 80, C = 2*Math.PI*R, SW = 14;
+  const posLen = (pos/total)*C, neuLen = (neu/total)*C, negLen = (neg/total)*C;
+  return `
+    <svg viewBox="0 0 200 200">
+      <circle class="ring-track" cx="100" cy="100" r="${R}" />
+      <circle class="ring-seg" cx="100" cy="100" r="${R}" stroke="${palette.positive}" stroke-width="${SW}"
+        stroke-dasharray="${posLen} ${C-posLen}" stroke-dashoffset="0" data-key="Positive" />
+      <circle class="ring-seg" cx="100" cy="100" r="${R}" stroke="${palette.neutral}" stroke-width="${SW}"
+        stroke-dasharray="${neuLen} ${C-neuLen}" stroke-dashoffset="${-posLen}" data-key="Neutral" />
+      <circle class="ring-seg" cx="100" cy="100" r="${R}" stroke="${palette.negative}" stroke-width="${SW}"
+        stroke-dasharray="${negLen} ${C-negLen}" stroke-dashoffset="${-(posLen+neuLen)}" data-key="Negative" />
+    </svg>`;
+}
+
+/* ---------------- tabs ---------------- */
+function initTabs(navEl, panels, defaultId){
+  const buttons = Array.from(navEl.querySelectorAll(".tab-btn"));
+  const indicator = navEl.querySelector(".tab-indicator");
+
+  function moveIndicator(btn){
+    indicator.style.width = `${btn.offsetWidth}px`;
+    indicator.style.transform = `translateX(${btn.offsetLeft - 5}px)`;
+  }
+
+  function activate(id){
+    buttons.forEach(b=>b.classList.toggle("active", b.dataset.tab===id));
+    Object.keys(panels).forEach(k=>panels[k].classList.toggle("active", k===id));
+    const btn = buttons.find(b=>b.dataset.tab===id);
+    if(btn) moveIndicator(btn);
+    if(typeof panels[id]._onShow === "function"){ panels[id]._onShow(); panels[id]._onShow = null; }
+  }
+
+  buttons.forEach(b=>b.addEventListener("click", ()=>activate(b.dataset.tab)));
+  window.addEventListener("resize", ()=>{
+    const active = buttons.find(b=>b.classList.contains("active"));
+    if(active) moveIndicator(active);
+  });
+
+  activate(defaultId);
+}
+
+/* ---------------- main ---------------- */
+async function load(){
+  const content = document.getElementById("content");
+  const stopCycle = startLoadingCycle();
+
+  let data;
+  try{
+    data = await getJSON("/api/sentiment");
+  }catch(err){
+    stopCycle();
+    renderError(content, {
+      title: "Sentiment data not available",
+      hint: "Couldn't reach /api/sentiment. Make sure the Flask backend is running and analytics.py has been run.",
+    }, load);
+    return;
+  }
+  stopCycle();
 
   const dist = data.distribution || {};
   const counts = dist.counts || {};
   const overTime = data.sentiment_over_time || [];
   const trend = data.sentiment_trend || [];
+  const total = dist.total || (counts.Positive||0)+(counts.Neutral||0)+(counts.Negative||0) || 1;
+
+  const pos = counts.Positive||0, neu = counts.Neutral||0, neg = counts.Negative||0;
+  const net = Math.round(((pos-neg)/total)*100);
+  const netAbs = Math.abs(net);
+  const mood = net>4 ? "positive" : net<-4 ? "negative" : "neutral";
+  const moodHex = mood==="positive"?palette.positive:mood==="negative"?palette.negative:palette.neutral;
+  document.documentElement.style.setProperty("--mood", moodHex);
+  initSignalField(moodHex);
 
   content.innerHTML = `
-    <div class="kpi-grid">
-      <div class="kpi-card reveal">
-        <div class="label">Total tweets</div>
-        <div class="value" id="kpi-total">0</div>
+    <div class="pulse-card reveal is-visible">
+      <div class="pulse-ring-wrap breathing">
+        ${buildRingSVG(pos,neu,neg)}
+        <div class="pulse-center">
+          <div class="score ${mood}" id="netScore">0</div>
+          <div class="score-label">Net sentiment</div>
+        </div>
       </div>
-      <div class="kpi-card reveal">
-        <div class="label">Positive</div>
-        <div class="value" id="kpi-pos" style="background:linear-gradient(135deg,var(--text),var(--positive));-webkit-background-clip:text;background-clip:text;">0</div>
-      </div>
-      <div class="kpi-card reveal">
-        <div class="label">Neutral</div>
-        <div class="value" id="kpi-neu">0</div>
-      </div>
-      <div class="kpi-card reveal">
-        <div class="label">Negative</div>
-        <div class="value" id="kpi-neg" style="background:linear-gradient(135deg,var(--text),var(--negative));-webkit-background-clip:text;background-clip:text;">0</div>
+      <div class="pulse-side">
+        <h2>Overview</h2>
+        <div class="headline">${escapeHTML(data.note ? data.note : (mood==="positive" ? "The conversation is leaning positive." : mood==="negative" ? "The conversation is leaning negative." : "The conversation is broadly neutral."))}</div>
+        <div class="pulse-mini-grid">
+          <div class="mini-stat">
+            <div class="label">Total</div>
+            <div class="num" id="kpi-total">0</div>
+          </div>
+          <div class="mini-stat" data-key="Positive">
+            <div class="label"><span class="swatch" style="background:${palette.positive}"></span>Positive</div>
+            <div class="num" id="kpi-pos">0</div>
+          </div>
+          <div class="mini-stat" data-key="Neutral">
+            <div class="label"><span class="swatch" style="background:${palette.neutral}"></span>Neutral</div>
+            <div class="num" id="kpi-neu">0</div>
+          </div>
+          <div class="mini-stat" data-key="Negative">
+            <div class="label"><span class="swatch" style="background:${palette.negative}"></span>Negative</div>
+            <div class="num" id="kpi-neg">0</div>
+          </div>
+        </div>
       </div>
     </div>
 
-    <div class="charts-grid">
-      <div class="card reveal chart-panel" style="margin-bottom:0;">
+    <div class="tab-nav reveal is-visible" id="tabNav">
+      <div class="tab-indicator"></div>
+      <button class="tab-btn" data-tab="dist" type="button">Distribution</button>
+      <button class="tab-btn" data-tab="timeline" type="button">Timeline</button>
+      <button class="tab-btn" data-tab="confidence" type="button">Confidence</button>
+    </div>
+
+    <div class="panel" id="panel-dist">
+      <div class="card chart-panel reveal is-visible">
         <h3>Overall distribution</h3>
         <p class="chart-note">Model-predicted sentiment, not ground truth.</p>
-        <div class="chart-wrap short"><canvas id="distChart"></canvas></div>
-      </div>
-      <div class="card reveal chart-panel" style="margin-bottom:0;">
-        <h3>Model confidence over time</h3>
-        <p class="chart-note">Average model confidence per interval — not human certainty.</p>
-        <div class="chart-wrap short"><canvas id="confChart"></canvas></div>
+        <div class="chart-wrap"><canvas id="distChart"></canvas></div>
       </div>
     </div>
 
-    <div class="card reveal chart-panel" style="margin-bottom:0;">
-      <h3>Sentiment over time</h3>
-      <p class="chart-note">Share of positive / neutral / negative tweets per interval.</p>
-      <div class="chart-wrap"><canvas id="overTimeChart"></canvas></div>
+    <div class="panel" id="panel-timeline">
+      <div class="card chart-panel reveal is-visible">
+        <h3>Sentiment over time</h3>
+        <p class="chart-note">Share of positive / neutral / negative tweets per interval.</p>
+        <div class="chart-wrap"><canvas id="overTimeChart"></canvas></div>
+      </div>
+    </div>
+
+    <div class="panel" id="panel-confidence">
+      <div class="card chart-panel reveal is-visible">
+        <h3>Model confidence over time</h3>
+        <p class="chart-note">Average model confidence per interval — not human certainty.</p>
+        <div class="chart-wrap"><canvas id="confChart"></canvas></div>
+      </div>
     </div>
   `;
 
-  SMI.initReveal();
-  SMI.animateCount(document.getElementById("kpi-total"), dist.total || 0);
-  SMI.animateCount(document.getElementById("kpi-pos"), counts.Positive || 0);
-  SMI.animateCount(document.getElementById("kpi-neu"), counts.Neutral || 0);
-  SMI.animateCount(document.getElementById("kpi-neg"), counts.Negative || 0);
+  initReveal();
+  animateCount(document.getElementById("kpi-total"), total, {duration: 900});
+  animateCount(document.getElementById("kpi-pos"), pos, {duration: 900});
+  animateCount(document.getElementById("kpi-neu"), neu, {duration: 900});
+  animateCount(document.getElementById("kpi-neg"), neg, {duration: 900});
+  animateCount(document.getElementById("netScore"), net, {duration: 1100, prefix: net>0?"+":""});
 
-  new Chart(document.getElementById("distChart"), {
-    type: "doughnut",
-    data: {
-      labels: ["Positive", "Neutral", "Negative"],
-      datasets: [{
-        data: [counts.Positive || 0, counts.Neutral || 0, counts.Negative || 0],
-        backgroundColor: [SMI.palette.positive, SMI.palette.neutral, SMI.palette.negative],
-        borderColor: SMI.palette.bg,
-        borderWidth: 3,
-      }],
-    },
-    options: {
-      responsive: true,
-      maintainAspectRatio: false,
-      cutout: "68%",
-      plugins: { legend: { position: "bottom" } },
-    },
+  // hovering a mini-stat highlights the matching ring segment
+  document.querySelectorAll(".mini-stat[data-key]").forEach((el)=>{
+    const seg = document.querySelector(`.ring-seg[data-key="${el.dataset.key}"]`);
+    if(!seg) return;
+    el.addEventListener("mouseenter", ()=>{
+      el.classList.add("active");
+      document.querySelectorAll(".ring-seg").forEach(s=>{ s.style.opacity = s===seg ? "1" : "0.35"; s.style.strokeWidth = s===seg ? "17" : "14"; });
+    });
+    el.addEventListener("mouseleave", ()=>{
+      el.classList.remove("active");
+      document.querySelectorAll(".ring-seg").forEach(s=>{ s.style.opacity="1"; s.style.strokeWidth="14"; });
+    });
   });
 
-  const labels = overTime.map(t => t.time_bin);
+  const panels = {
+    dist: document.getElementById("panel-dist"),
+    timeline: document.getElementById("panel-timeline"),
+    confidence: document.getElementById("panel-confidence"),
+  };
 
-  new Chart(document.getElementById("overTimeChart"), {
-    type: "line",
-    data: {
-      labels,
-      datasets: [
-        { label: "Positive", data: overTime.map(t => t.Positive), borderColor: SMI.palette.positive, backgroundColor: "rgba(52,211,153,0.12)", fill: true, tension: 0.35, pointRadius: 0, borderWidth: 2, stack: "s" },
-        { label: "Neutral", data: overTime.map(t => t.Neutral), borderColor: SMI.palette.neutral, backgroundColor: "rgba(168,85,247,0.12)", fill: true, tension: 0.35, pointRadius: 0, borderWidth: 2, stack: "s" },
-        { label: "Negative", data: overTime.map(t => t.Negative), borderColor: SMI.palette.negative, backgroundColor: "rgba(248,113,113,0.12)", fill: true, tension: 0.35, pointRadius: 0, borderWidth: 2, stack: "s" },
-      ],
-    },
-    options: {
-      responsive: true,
-      maintainAspectRatio: false,
-      scales: {
-        x: { ticks: { maxTicksLimit: 8 } },
-        y: { beginAtZero: true, stacked: true },
+  panels.dist._onShow = ()=>{
+    new Chart(document.getElementById("distChart"), {
+      type: "doughnut",
+      data: {
+        labels: ["Positive","Neutral","Negative"],
+        datasets: [{ data:[pos,neu,neg], backgroundColor:[palette.positive,palette.neutral,palette.negative], borderColor: palette.bg, borderWidth:3 }],
       },
-    },
-  });
+      options: { responsive:true, maintainAspectRatio:false, cutout:"68%", plugins:{ legend:{ position:"bottom" } } },
+    });
+  };
 
-  new Chart(document.getElementById("confChart"), {
-    type: "line",
-    data: {
-      labels: trend.map(t => t.time_bin),
-      datasets: [
-        { label: "Positive confidence", data: trend.map(t => t.Positive), borderColor: SMI.palette.positive, backgroundColor: "transparent", tension: 0.35, pointRadius: 0, borderWidth: 2 },
-        { label: "Neutral confidence", data: trend.map(t => t.Neutral), borderColor: SMI.palette.neutral, backgroundColor: "transparent", tension: 0.35, pointRadius: 0, borderWidth: 2 },
-        { label: "Negative confidence", data: trend.map(t => t.Negative), borderColor: SMI.palette.negative, backgroundColor: "transparent", tension: 0.35, pointRadius: 0, borderWidth: 2 },
-      ],
-    },
-    options: {
-      responsive: true,
-      maintainAspectRatio: false,
-      scales: {
-        x: { ticks: { maxTicksLimit: 6 } },
-        y: { min: 0, max: 1 },
+  panels.timeline._onShow = ()=>{
+    const labels = overTime.map(t=>t.time_bin);
+    new Chart(document.getElementById("overTimeChart"), {
+      type: "line",
+      data: {
+        labels,
+        datasets: [
+          { label:"Positive", data:overTime.map(t=>t.Positive), borderColor:palette.positive, backgroundColor:"rgba(52,211,153,0.12)", fill:true, tension:.35, pointRadius:0, borderWidth:2, stack:"s" },
+          { label:"Neutral", data:overTime.map(t=>t.Neutral), borderColor:palette.neutral, backgroundColor:"rgba(168,85,247,0.12)", fill:true, tension:.35, pointRadius:0, borderWidth:2, stack:"s" },
+          { label:"Negative", data:overTime.map(t=>t.Negative), borderColor:palette.negative, backgroundColor:"rgba(248,113,113,0.12)", fill:true, tension:.35, pointRadius:0, borderWidth:2, stack:"s" },
+        ],
       },
-    },
-  });
+      options: { responsive:true, maintainAspectRatio:false, scales:{ x:{ ticks:{ maxTicksLimit:8 } }, y:{ beginAtZero:true, stacked:true } } },
+    });
+  };
 
-  const noteEl = document.createElement("p");
-  noteEl.className = "chart-note reveal";
-  noteEl.style.marginTop = "-12px";
-  noteEl.textContent = data.note || "";
-  content.insertBefore(noteEl, content.firstChild);
+  panels.confidence._onShow = ()=>{
+    new Chart(document.getElementById("confChart"), {
+      type: "line",
+      data: {
+        labels: trend.map(t=>t.time_bin),
+        datasets: [
+          { label:"Positive confidence", data:trend.map(t=>t.Positive), borderColor:palette.positive, backgroundColor:"transparent", tension:.35, pointRadius:0, borderWidth:2 },
+          { label:"Neutral confidence", data:trend.map(t=>t.Neutral), borderColor:palette.neutral, backgroundColor:"transparent", tension:.35, pointRadius:0, borderWidth:2 },
+          { label:"Negative confidence", data:trend.map(t=>t.Negative), borderColor:palette.negative, backgroundColor:"transparent", tension:.35, pointRadius:0, borderWidth:2 },
+        ],
+      },
+      options: { responsive:true, maintainAspectRatio:false, scales:{ x:{ ticks:{ maxTicksLimit:6 } }, y:{ min:0, max:1 } } },
+    });
+  };
 
-  SMI.renderLimitationsBanner(document.getElementById("limitations"));
+  initTabs(document.getElementById("tabNav"), panels, "dist");
+
+  // limitations banner
+  try{
+    const lim = await getJSON("/api/limitations");
+    const notes = lim.notes || [];
+    const limEl = document.getElementById("limitations");
+    limEl.innerHTML = `
+      <div class="limitations-banner reveal is-visible">
+        <strong>Limitations of this analysis</strong>
+        <ul>${notes.map(n=>`<li>${escapeHTML(n)}</li>`).join("")}</ul>
+      </div>`;
+  }catch(err){ /* silently omit banner if unavailable */ }
+}
+
+renderHeader(document.getElementById("header"), { homeHref:"index.html" });
+initReveal();
+initPageTransition();
+initMeshBackground();
+initSignalField();
+applyChartDefaults();
+load();
+
 })();
 </script>
 </body>

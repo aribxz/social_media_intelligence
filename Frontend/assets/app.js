@@ -120,16 +120,22 @@ const SMI = (() => {
 
   /* ---------------- Header ---------------- */
 
-  function renderHeader(container, { backHref, backLabel = "Back", tag } = {}) {
+  function renderHeader(container) {
+    const navLinks = [
+      { href: "index.html", label: "Home" },
+      { href: "about.html", label: "About" },
+    ];
+    const current = (location.pathname.split("/").pop() || "index.html").split("?")[0];
+    const nav = navLinks
+      .map((l) => `<a class="nav-link${l.href === current ? " active" : ""}" href="${l.href}">${escapeHTML(l.label)}</a>`)
+      .join("");
+
     container.innerHTML = `
       <div class="brand">
         <span class="dot"></span>
         <span>SMI</span>
       </div>
-      <div class="header-right">
-        ${tag ? `<span class="brand-tag">${escapeHTML(tag)}</span>` : ""}
-        ${backHref ? `<a class="back-link" href="${backHref}">&larr; ${backLabel}</a>` : ""}
-      </div>
+      <nav class="header-nav" aria-label="Primary">${nav}</nav>
     `;
   }
 

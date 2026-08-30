@@ -117,40 +117,6 @@ def sentiment():
 def limitations():
     return jsonify(load_output("limitations"))
 
-
-# ---------------------------------------------------------------------------
-# Instagram endpoints
-# ---------------------------------------------------------------------------
-
-@app.get("/api/instagram/timeline")
-def instagram_timeline():
-    return jsonify(load_output("instagram_timeline"))
-
-
-@app.get("/api/instagram/trends")
-def instagram_trends():
-    return jsonify(load_output("instagram_trends"))
-
-
-@app.get("/api/instagram/propagation")
-def instagram_propagation():
-    return jsonify(load_output("instagram_propagation"))
-
-
-@app.get("/api/instagram/sentiment")
-def instagram_sentiment():
-    return jsonify(load_output("instagram_sentiment"))
-
-
-@app.get("/api/instagram/engagement")
-def instagram_engagement():
-    return jsonify(load_output("instagram_engagement"))
-
-
-@app.get("/api/instagram/limitations")
-def instagram_limitations():
-    return jsonify(load_output("instagram_limitations"))
-
 # FRONTEND
 @app.get("/")
 def home():
