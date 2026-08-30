@@ -240,11 +240,39 @@ footer.site-footer { position: relative; z-index: 2; padding: 40px 0 60px 0; tex
 .cta-box .cta-stat:last-child { border-bottom: none; }
 .cta-box .cta-stat b { color: var(--text); font-weight: 600; }
 
+/* ——— Pulse hero (borrowed from Twitter sentiment, adapted for engagement) ——— */
+.pulse-card{position:relative;margin:24px 0 32px 0;padding:34px 28px;border-radius:22px;border:1px solid var(--border);background:linear-gradient(160deg,var(--surface),var(--surface-2));overflow:hidden;display:grid;grid-template-columns:220px 1fr;gap:36px;align-items:center}
+.pulse-card::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 85% 20%,rgba(139,92,246,0.12),transparent 60%);pointer-events:none}
+.pulse-ring-wrap{position:relative;width:200px;height:200px;justify-self:center}
+.pulse-ring-wrap svg{width:100%;height:100%;transform:rotate(-90deg)}
+.pulse-ring-wrap.breathing svg{animation:ring-breathe 5s ease-in-out infinite}
+@keyframes ring-breathe{0%,100%{transform:rotate(-90deg) scale(1)}50%{transform:rotate(-90deg) scale(1.025)}}
+.ring-seg{fill:none;stroke-linecap:round;transition:stroke-width var(--dur-fast) var(--ease),opacity var(--dur-fast) var(--ease)}
+.ring-track{fill:none;stroke:var(--border);stroke-width:14;opacity:.5}
+.pulse-center{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;pointer-events:none}
+.pulse-center .score{font-size:34px;font-weight:800;letter-spacing:-.02em;color:var(--accent-2)}
+.pulse-center .score-label{font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--text-dim);margin-top:4px}
+.pulse-side h2{font-size:14px;text-transform:uppercase;letter-spacing:.1em;color:var(--text-dim);margin-bottom:4px}
+.pulse-side .headline{font-size:20px;font-weight:700;margin-bottom:16px;color:var(--text)}
+.pulse-mini-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.mini-stat{padding:12px 14px;border-radius:14px;border:1px solid var(--border);background:rgba(10,10,15,.35);cursor:default;transition:transform var(--dur-fast) var(--ease),border-color var(--dur-fast) var(--ease),background var(--dur-fast) var(--ease)}
+.mini-stat[data-key]{cursor:pointer}
+.mini-stat:hover,.mini-stat.active{transform:translateY(-2px);border-color:var(--accent);background:rgba(139,92,246,.08)}
+.mini-stat .label{font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--text-dim);display:flex;align-items:center;gap:6px;margin-bottom:6px}
+.mini-stat .swatch{width:7px;height:7px;border-radius:50%;display:inline-block}
+.mini-stat .num{font-size:19px;font-weight:700;color:var(--text)}
+@media (max-width:760px){.pulse-card{grid-template-columns:1fr;text-align:center}.pulse-ring-wrap{width:170px;height:170px}.pulse-mini-grid{grid-template-columns:repeat(2,1fr)}}
+.signal-glyphs{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.signal-glyph{position:absolute;font-size:13px;font-weight:700;opacity:0.13;animation:glyph-drift 16s linear infinite;color:var(--accent-2)}
+@keyframes glyph-drift{0%{transform:translateY(0) rotate(0deg)}100%{transform:translateY(-140vh) rotate(20deg)}}
+
+
 </style>
 </head>
 <body>
 <canvas id="bgCanvas" aria-hidden="true"></canvas>
 <div class="aurora" aria-hidden="true"><span class="a1"></span><span class="a2"></span></div>
+<div class="signal-glyphs" id="signalGlyphs" aria-hidden="true"></div>
 <div class="noise-overlay" aria-hidden="true"></div>
 
 <header class="site-header" id="header"></header>
@@ -570,6 +598,20 @@ function initPageTransition() {
     render(data);
   }
 
+  function buildRingSVG(buckets){
+    const total = Math.max(buckets.reduce((s,b)=>s+(b.count||0),0),1);
+    const R=80, C=2*Math.PI*R, SW=14;
+    let offset=0;
+    const colors=["#8b5cf6","#a855f7","#c4b5fd","#7c3aed","#6d28d9"];
+    let segs="";
+    buckets.forEach((b,i)=>{
+      const len=(b.count/total)*C;
+      segs+=`<circle class="ring-seg" cx="100" cy="100" r="${R}" stroke="${colors[i%colors.length]}" stroke-width="${SW}" stroke-dasharray="${len} ${C-len}" stroke-dashoffset="${-offset}" data-key="${escapeHTML(b.bucket)}" />`;
+      offset+=len;
+    });
+    return `<svg viewBox="0 0 200 200"><circle class="ring-track" cx="100" cy="100" r="${R}" />${segs}</svg>`;
+  }
+
   function render(data) {
     const hourly = data.hourly_distribution || [];
     const dow = data.day_of_week_distribution || [];
@@ -580,113 +622,254 @@ function initPageTransition() {
     const hourlyByHour = {};
     hourly.forEach(h => { hourlyByHour[h.hour] = h.posts; });
     const hours = Array.from({ length: 24 }, (_, i) => i);
-
     const dowSorted = [...dow].sort((a, b) => dayOrder.indexOf(a.day) - dayOrder.indexOf(b.day));
-
     const ctaNo = cta.find(c => Number(c.has_call_to_action) === 0) || {};
     const ctaYes = cta.find(c => Number(c.has_call_to_action) === 1) || {};
+    const totalPosts = buckets.reduce((s,b)=>s+(b.count||0),0) || hourly.reduce((s,h)=>s+(h.posts||0),0) || 1;
+    const topBucket = [...buckets].sort((a,b)=>(b.count||0)-(a.count||0))[0];
+    const peakHour = [...hourly].sort((a,b)=>(b.posts||0)-(a.posts||0))[0];
+    const topAccount = [...accountTypes].sort((a,b)=>(b.count||0)-(a.count||0))[0];
+    const ctaLift = (ctaYes.avg_engagement_rate && ctaNo.avg_engagement_rate) ? ((ctaYes.avg_engagement_rate - ctaNo.avg_engagement_rate)/Math.max(ctaNo.avg_engagement_rate,0.0001)*100) : 0;
+    const headline = topBucket ? `Most posts sit in “${topBucket.bucket}” — ${Math.round(topBucket.count/totalPosts*100)}% of all posts.` : "Engagement spread across performance tiers.";
+
+    // init glyphs tinted by CTA lift
+    (function initGlyphs(){
+      const layer=document.getElementById("signalGlyphs");
+      if(!layer||prefersReducedMotion) return;
+      layer.innerHTML="";
+      const color = ctaLift>5 ? palette.positive : ctaLift<-5 ? palette.negative : palette.accent2;
+      const symbols=["♥","↻","◎","♥","↻"];
+      for(let i=0;i<12;i++){
+        const el=document.createElement("div");
+        el.className="signal-glyph";
+        el.style.color=color;
+        el.textContent=symbols[i%symbols.length];
+        el.style.left=(Math.random()*96)+"%";
+        el.style.top=(100+Math.random()*20)+"%";
+        el.style.animationDelay=(-Math.random()*16)+"s";
+        el.style.animationDuration=(14+Math.random()*10)+"s";
+        el.style.fontSize=(12+Math.random()*10)+"px";
+        layer.appendChild(el);
+      }
+    })();
 
     content.innerHTML = `
-      <div class="charts-grid">
-        <div class="card reveal chart-panel" style="margin-bottom:0;">
-          <h3>Posts by hour of day</h3>
-          <p class="chart-note">When posts go out, across a 24-hour day.</p>
-          <div class="chart-wrap short"><canvas id="hourChart"></canvas></div>
+      <div class="pulse-card reveal is-visible">
+        <div class="pulse-ring-wrap breathing">
+          ${buildRingSVG(buckets)}
+          <div class="pulse-center">
+            <div class="score" id="heroScore">0</div>
+            <div class="score-label">Total posts</div>
+          </div>
         </div>
-        <div class="card reveal chart-panel" style="margin-bottom:0;">
-          <h3>Posts by day of week</h3>
-          <p class="chart-note">Monday through Sunday.</p>
-          <div class="chart-wrap short"><canvas id="dowChart"></canvas></div>
+        <div class="pulse-side">
+          <h2>Overview</h2>
+          <div class="headline">${escapeHTML(headline)}</div>
+          <div class="pulse-mini-grid">
+            <div class="mini-stat" data-key="${escapeHTML(topBucket?topBucket.bucket:"")}">
+              <div class="label"><span class="swatch" style="background:${palette.accent2}"></span>Top bucket</div>
+              <div class="num" id="ms-bucket">0</div>
+            </div>
+            <div class="mini-stat">
+              <div class="label">Peak hour</div>
+              <div class="num" id="ms-hour">-</div>
+            </div>
+            <div class="mini-stat" data-key="${escapeHTML(topAccount?topAccount.account_type:"")}">
+              <div class="label"><span class="swatch" style="background:#c4b5fd"></span>Top account</div>
+              <div class="num" id="ms-account">0</div>
+            </div>
+            <div class="mini-stat">
+              <div class="label">CTA lift</div>
+              <div class="num" id="ms-cta">0%</div>
+            </div>
+          </div>
         </div>
       </div>
 
-      <div class="charts-grid">
-        <div class="card reveal chart-panel" style="margin-bottom:0;">
-          <h3>Performance bucket distribution</h3>
-          <p class="chart-note">How posts spread across performance tiers.</p>
-          <div class="chart-wrap short"><canvas id="bucketChart"></canvas></div>
+      <div class="tab-nav reveal is-visible" id="tabNav">
+        <div class="tab-indicator"></div>
+        <button class="tab-btn" data-tab="overview" type="button">Overview</button>
+        <button class="tab-btn" data-tab="timing" type="button">Timing</button>
+        <button class="tab-btn" data-tab="audience" type="button">Audience</button>
+      </div>
+
+      <div class="panel tab-panel" data-tab-panel="overview">
+        <div class="charts-grid">
+          <div class="card chart-panel" style="margin-bottom:0;">
+            <h3>Performance bucket distribution</h3>
+            <p class="chart-note">How posts spread across performance tiers.</p>
+            <div class="chart-wrap short"><canvas id="bucketChart"></canvas></div>
+          </div>
+          <div class="card chart-panel" style="margin-bottom:0;">
+            <h3>Call-to-action performance</h3>
+            <p class="chart-note">Posts with an explicit CTA vs. without.</p>
+            <div class="cta-compare">
+              <div class="cta-box">
+                <div class="cta-title">Without CTA</div>
+                <div class="cta-stat"><span>Posts</span><b>${formatCompact(ctaNo.posts)}</b></div>
+                <div class="cta-stat"><span>Avg engagement rate</span><b>${ctaNo.avg_engagement_rate ?? "-"}%</b></div>
+                <div class="cta-stat"><span>Avg reach</span><b>${formatCompact(ctaNo.avg_reach)}</b></div>
+              </div>
+              <div class="cta-box">
+                <div class="cta-title">With CTA</div>
+                <div class="cta-stat"><span>Posts</span><b>${formatCompact(ctaYes.posts)}</b></div>
+                <div class="cta-stat"><span>Avg engagement rate</span><b>${ctaYes.avg_engagement_rate ?? "-"}%</b></div>
+                <div class="cta-stat"><span>Avg reach</span><b>${formatCompact(ctaYes.avg_reach)}</b></div>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="card reveal chart-panel" style="margin-bottom:0;">
+      </div>
+
+      <div class="panel tab-panel" data-tab-panel="timing">
+        <div class="charts-grid">
+          <div class="card chart-panel" style="margin-bottom:0;">
+            <h3>Posts by hour of day</h3>
+            <p class="chart-note">When posts go out, across a 24-hour day.</p>
+            <div class="chart-wrap short"><canvas id="hourChart"></canvas></div>
+          </div>
+          <div class="card chart-panel" style="margin-bottom:0;">
+            <h3>Posts by day of week</h3>
+            <p class="chart-note">Monday through Sunday.</p>
+            <div class="chart-wrap short"><canvas id="dowChart"></canvas></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel tab-panel" data-tab-panel="audience">
+        <div class="card chart-panel" style="margin-bottom:0;">
           <h3>Account type distribution</h3>
           <p class="chart-note">Who's posting - brand, creator, and beyond.</p>
           <div class="chart-wrap short"><canvas id="accountChart"></canvas></div>
         </div>
       </div>
-
-      <div class="card reveal chart-panel" style="margin-bottom:0;">
-        <h3>Call-to-action performance</h3>
-        <p class="chart-note">Posts with an explicit CTA vs. without.</p>
-        <div class="cta-compare">
-          <div class="cta-box">
-            <div class="cta-title">Without CTA</div>
-            <div class="cta-stat"><span>Posts</span><b>${formatCompact(ctaNo.posts)}</b></div>
-            <div class="cta-stat"><span>Avg engagement rate</span><b>${ctaNo.avg_engagement_rate ?? "-"}%</b></div>
-            <div class="cta-stat"><span>Avg reach</span><b>${formatCompact(ctaNo.avg_reach)}</b></div>
-          </div>
-          <div class="cta-box">
-            <div class="cta-title">With CTA</div>
-            <div class="cta-stat"><span>Posts</span><b>${formatCompact(ctaYes.posts)}</b></div>
-            <div class="cta-stat"><span>Avg engagement rate</span><b>${ctaYes.avg_engagement_rate ?? "-"}%</b></div>
-            <div class="cta-stat"><span>Avg reach</span><b>${formatCompact(ctaYes.avg_reach)}</b></div>
-          </div>
-        </div>
-      </div>
     `;
 
     initReveal();
+    animateCount(document.getElementById("heroScore"), totalPosts, {duration:900});
+    animateCount(document.getElementById("ms-bucket"), topBucket?topBucket.count:0, {duration:900});
+    document.getElementById("ms-hour").textContent = peakHour ? peakHour.hour + ":00" : "-";
+    animateCount(document.getElementById("ms-account"), topAccount?topAccount.count:0, {duration:900});
+    const ctaEl=document.getElementById("ms-cta");
+    animateCount(ctaEl, Math.abs(ctaLift), {duration:900, decimals:1, suffix:"%", prefix: ctaLift>=0?"+":"-"});
 
-    new Chart(document.getElementById("hourChart"), {
-      type: "bar",
-      data: {
-        labels: hours.map(h => h + ":00"),
-        datasets: [{ data: hours.map(h => hourlyByHour[h] || 0), backgroundColor: palette.accent2, borderRadius: 4 }],
-      },
-      options: {
-        responsive: true, maintainAspectRatio: false,
-        plugins: { legend: { display: false } },
-        scales: { x: { ticks: { maxTicksLimit: 12 } }, y: { beginAtZero: true } },
-      },
+    // hover mini-stat highlights ring segment
+    document.querySelectorAll(".mini-stat[data-key]").forEach(el=>{
+      const key=el.dataset.key;
+      if(!key) return;
+      el.addEventListener("mouseenter", ()=>{
+        el.classList.add("active");
+        document.querySelectorAll(".ring-seg").forEach(s=>{
+          const is=s.dataset.key===key;
+          s.style.opacity=is?"1":"0.28";
+          s.style.strokeWidth=is?"17":"14";
+        });
+      });
+      el.addEventListener("mouseleave", ()=>{
+        el.classList.remove("active");
+        document.querySelectorAll(".ring-seg").forEach(s=>{s.style.opacity="1"; s.style.strokeWidth="14";});
+      });
     });
 
-    new Chart(document.getElementById("dowChart"), {
-      type: "bar",
-      data: {
-        labels: dowSorted.map(d => d.day),
-        datasets: [{ data: dowSorted.map(d => d.posts), backgroundColor: palette.accent2, borderRadius: 6 }],
-      },
-      options: {
-        responsive: true, maintainAspectRatio: false,
-        plugins: { legend: { display: false } },
-        scales: { y: { beginAtZero: true } },
-      },
-    });
+    const panels={
+      overview: document.querySelector('[data-tab-panel="overview"]'),
+      timing: document.querySelector('[data-tab-panel="timing"]'),
+      audience: document.querySelector('[data-tab-panel="audience"]')
+    };
+    const created={};
 
-    new Chart(document.getElementById("bucketChart"), {
-      type: "doughnut",
-      data: {
-        labels: buckets.map(b => b.bucket),
-        datasets: [{
-          data: buckets.map(b => b.count),
-          backgroundColor: [palette.accent2, "rgba(139,92,246,0.55)", "rgba(139,92,246,0.32)", "rgba(196,181,253,0.6)", "rgba(109,40,217,0.55)"],
-          borderColor: palette.bg, borderWidth: 3,
-        }],
-      },
-      options: { responsive: true, maintainAspectRatio: false, cutout: "68%", plugins: { legend: { position: "bottom" } } },
-    });
+    function showOverview(){
+      if(created.overview) return; created.overview=true;
+      new Chart(document.getElementById("bucketChart"), {
+        type: "doughnut",
+        data: {
+          labels: buckets.map(b => b.bucket),
+          datasets: [{
+            data: buckets.map(b => b.count),
+            backgroundColor: [palette.accent2, "rgba(139,92,246,0.55)", "rgba(139,92,246,0.32)", "rgba(196,181,253,0.6)", "rgba(109,40,217,0.55)"],
+            borderColor: palette.bg, borderWidth: 3,
+          }],
+        },
+        options: { responsive: true, maintainAspectRatio: false, cutout: "68%", plugins: { legend: { position: "bottom" } },
+          onClick: (e, els)=>{
+            if(!els.length) return;
+            const idx=els[0].index;
+            const b=buckets[idx];
+            // highlight mini-stat
+            document.querySelectorAll(".mini-stat[data-key]").forEach(m=>m.classList.toggle("active", m.dataset.key===b.bucket));
+          }
+        },
+      });
+    }
+    function showTiming(){
+      if(created.timing) return; created.timing=true;
+      new Chart(document.getElementById("hourChart"), {
+        type: "bar",
+        data: {
+          labels: hours.map(h => h + ":00"),
+          datasets: [{ data: hours.map(h => hourlyByHour[h] || 0), backgroundColor: palette.accent2, borderRadius: 4 }],
+        },
+        options: {
+          responsive: true, maintainAspectRatio: false,
+          plugins: { legend: { display: false } },
+          scales: { x: { ticks: { maxTicksLimit: 12 } }, y: { beginAtZero: true } },
+          onClick: (e, els)=>{
+            if(els.length){ const h=hours[els[0].index]; document.getElementById("ms-hour").textContent=h+":00"; }
+          }
+        },
+      });
+      new Chart(document.getElementById("dowChart"), {
+        type: "bar",
+        data: {
+          labels: dowSorted.map(d => d.day),
+          datasets: [{ data: dowSorted.map(d => d.posts), backgroundColor: palette.accent2, borderRadius: 6 }],
+        },
+        options: {
+          responsive: true, maintainAspectRatio: false,
+          plugins: { legend: { display: false } },
+          scales: { y: { beginAtZero: true } },
+        },
+      });
+    }
+    function showAudience(){
+      if(created.audience) return; created.audience=true;
+      const sortedAccounts = [...accountTypes].sort((a, b) => (b.count || 0) - (a.count || 0));
+      new Chart(document.getElementById("accountChart"), {
+        type: "bar",
+        data: {
+          labels: sortedAccounts.map(a => a.account_type),
+          datasets: [{ data: sortedAccounts.map(a => a.count), backgroundColor: palette.accent2, borderRadius: 6, barThickness: 20 }],
+        },
+        options: {
+          indexAxis: "y", responsive: true, maintainAspectRatio: false,
+          plugins: { legend: { display: false } },
+          scales: { x: { beginAtZero: true }, y: { grid: { display: false } } },
+        },
+      });
+    }
 
-    const sortedAccounts = [...accountTypes].sort((a, b) => (b.count || 0) - (a.count || 0));
-    new Chart(document.getElementById("accountChart"), {
-      type: "bar",
-      data: {
-        labels: sortedAccounts.map(a => a.account_type),
-        datasets: [{ data: sortedAccounts.map(a => a.count), backgroundColor: palette.accent2, borderRadius: 6, barThickness: 20 }],
-      },
-      options: {
-        indexAxis: "y", responsive: true, maintainAspectRatio: false,
-        plugins: { legend: { display: false } },
-        scales: { x: { beginAtZero: true }, y: { grid: { display: false } } },
-      },
-    });
+    function initTabsSimple(){
+      const nav=document.getElementById("tabNav");
+      if(!nav) return;
+      const btns=Array.from(nav.querySelectorAll(".tab-btn"));
+      const indicator=nav.querySelector(".tab-indicator");
+      const panelsMap={overview: panels.overview, timing: panels.timing, audience: panels.audience};
+      function place(btn){ if(!indicator) return; indicator.style.width=btn.offsetWidth+"px"; indicator.style.transform="translateX("+btn.offsetLeft+"px)"; }
+      function activate(id){
+        btns.forEach(b=>b.classList.toggle("active", b.dataset.tab===id));
+        Object.keys(panelsMap).forEach(k=> panelsMap[k].classList.toggle("active", k===id));
+        const btn=btns.find(b=>b.dataset.tab===id);
+        if(btn) place(btn);
+        if(id==="overview") showOverview(); else if(id==="timing") showTiming(); else if(id==="audience") showAudience();
+      }
+      btns.forEach(b=>b.addEventListener("click", ()=>activate(b.dataset.tab)));
+      window.addEventListener("resize", ()=>{
+        const a=btns.find(b=>b.classList.contains("active"));
+        if(a) place(a);
+      });
+      requestAnimationFrame(()=>activate("overview"));
+    }
+    initTabsSimple();
 
     renderLimitationsBanner(document.getElementById("limitations"), "/api/instagram/limitations");
   }

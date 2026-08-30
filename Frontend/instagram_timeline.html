@@ -236,6 +236,34 @@ footer.site-footer { position: relative; z-index: 2; padding: 40px 0 60px 0; tex
 .media-legend span { display: inline-flex; align-items: center; gap: 6px; }
 .media-legend .dot { width: 9px; height: 9px; border-radius: 3px; display: inline-block; }
 
+
+/* ——— Expandable long text (propagation / timeline) ——— */
+.data-table td.expandable{cursor:pointer;position:relative;transition:background var(--dur-fast) var(--ease)}
+.data-table td.expandable .trunc{display:block;max-width:360px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;transition:all var(--dur-med) var(--ease)}
+.data-table td.expandable.expanded .trunc{white-space:normal;max-width:620px;overflow:visible;text-overflow:clip}
+.data-table td.expandable::after{content:"↗";position:absolute;top:8px;right:8px;font-size:10px;color:var(--accent-2);opacity:0;transition:opacity var(--dur-fast) var(--ease)}
+.data-table td.expandable:hover::after{opacity:0.9}
+.data-table tr.expanded-row td{background:rgba(139,92,246,0.07)}
+.data-table td.expandable.expanded::after{content:"↙"}
+.table-toolbar{display:flex;gap:10px;align-items:center;margin:0 0 12px 0;flex-wrap:wrap}
+.table-search{flex:1;min-width:180px;max-width:320px;padding:8px 12px;border-radius:999px;border:1px solid var(--border);background:var(--surface-2);color:var(--text);font-size:13px;outline:none;transition:border-color var(--dur-fast) var(--ease)}
+.table-search:focus{border-color:var(--accent)}
+.table-search::placeholder{color:var(--text-dim)}
+.expand-hint{font-size:11px;color:var(--text-dim);margin-top:4px;display:none}
+.data-table td.expandable.expanded .expand-hint{display:block}
+
+
+/* tweet modal */
+.tweet-modal{position:fixed;inset:0;z-index:80;display:none;align-items:center;justify-content:center;padding:20px;background:rgba(6,6,10,.62);backdrop-filter:blur(6px)}
+.tweet-modal.open{display:flex;animation:modalIn var(--dur-med) var(--ease) both}
+@keyframes modalIn{from{opacity:0}to{opacity:1}}
+.tweet-modal-card{max-width:560px;width:100%;max-height:80vh;overflow:auto;background:linear-gradient(160deg,var(--surface),var(--surface-2));border:1px solid var(--border);border-radius:18px;padding:22px 20px;position:relative}
+.tweet-modal-card .modal-head{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent-2);margin-bottom:10px}
+.tweet-modal-card .modal-text{font-size:15px;line-height:1.6;color:var(--text);white-space:pre-wrap;word-break:break-word}
+.tweet-modal-card .modal-meta{margin-top:14px;display:flex;gap:10px;flex-wrap:wrap;font-size:12px;color:var(--text-dim)}
+.tweet-modal-card .modal-meta span{padding:6px 10px;border-radius:999px;border:1px solid var(--border);background:var(--surface)}
+.tweet-modal-close{position:absolute;top:12px;right:12px;width:28px;height:28px;border-radius:50%;border:1px solid var(--border);background:transparent;color:var(--text-dim);cursor:pointer}
+
 </style>
 </head>
 <body>
@@ -664,13 +692,110 @@ function initPageTransition() {
       },
     });
 
+    makeExpandable(content);
     renderLimitationsBanner(document.getElementById("limitations"), "/api/instagram/limitations");
   }
+
+
+function makeExpandable(root){
+  root = root || document;
+  const tables=root.querySelectorAll(".data-table");
+  tables.forEach(tbl=>{
+    const searchWrap=document.createElement("div");
+    searchWrap.className="table-toolbar";
+    const input=document.createElement("input");
+    input.className="table-search";
+    input.placeholder="Filter rows…";
+    input.type="search";
+    searchWrap.appendChild(input);
+    const hint=document.createElement("span");
+    hint.className="expand-hint";
+    hint.textContent="Click a truncated cell to expand • click again to collapse";
+    // only add toolbar if table has many rows?
+    tbl.parentElement.insertBefore(searchWrap, tbl);
+    // search filter
+    input.addEventListener("input", ()=>{
+      const q=input.value.trim().toLowerCase();
+      tbl.querySelectorAll("tbody tr").forEach(tr=>{
+        const txt=tr.textContent.toLowerCase();
+        tr.style.display = q && !txt.includes(q) ? "none" : "";
+      });
+    });
+    // expand logic
+    tbl.querySelectorAll("td.truncate").forEach(td=>{
+      td.classList.add("expandable");
+      const full=td.textContent;
+      // wrap inner in .trunc for animation
+      const inner=document.createElement("span");
+      inner.className="trunc";
+      inner.textContent=full;
+      td.textContent="";
+      td.appendChild(inner);
+      const hint2=document.createElement("div");
+      hint2.className="expand-hint";
+      hint2.textContent="Click to " + (full.length>80 ? "expand • long press to view modal" : "toggle");
+      td.appendChild(hint2);
+      td.addEventListener("click", (e)=>{
+        const wasExpanded=td.classList.contains("expanded");
+        // collapse others in same row?
+        td.classList.toggle("expanded");
+        td.parentElement.classList.toggle("expanded-row", !wasExpanded);
+      });
+      // long-press / double-click for modal
+      let pressTimer=null;
+      td.addEventListener("mousedown", ()=>{ pressTimer=setTimeout(()=>openTweetModal(full, td), 500); });
+      td.addEventListener("mouseup", ()=>clearTimeout(pressTimer));
+      td.addEventListener("mouseleave", ()=>clearTimeout(pressTimer));
+      td.addEventListener("dblclick", ()=>openTweetModal(full, td));
+    });
+  });
+}
+function openTweetModal(text, td){
+  const modal=document.getElementById("tweetModal");
+  const head=document.getElementById("tweetModalHead");
+  const body=document.getElementById("tweetModalText");
+  const meta=document.getElementById("tweetModalMeta");
+  if(!modal) return;
+  body.textContent=text;
+  // try to infer meta from row
+  const tr=td ? td.closest("tr") : null;
+  let metaHtml="";
+  if(tr){
+    const cells=[...tr.querySelectorAll("td")].map(c=>c.textContent.trim().slice(0,40));
+    metaHtml=cells.slice(0,3).map(c=>`<span>${escapeHTML(c)}</span>`).join("");
+  }
+  meta.innerHTML=metaHtml;
+  head.textContent="Full text • " + text.length + " chars";
+  modal.classList.add("open");
+  modal.setAttribute("aria-hidden","false");
+}
+(function initTweetModal(){
+  const modal=document.getElementById("tweetModal");
+  const close=document.getElementById("tweetModalClose");
+  if(!modal||!close) return;
+  const shut=()=>{ modal.classList.remove("open"); modal.setAttribute("aria-hidden","true"); };
+  close.addEventListener("click", shut);
+  modal.addEventListener("click", (e)=>{ if(e.target===modal) shut(); });
+  document.addEventListener("keydown", (e)=>{ if(e.key==="Escape") shut(); });
+})();
+
+// timeline chart -> table highlight
+function linkTimelineChart(){
+  const chartEl=document.getElementById("volumeChart");
+  if(!chartEl) return;
+  // Chart.js onClick already not set, add a simple click listener to highlight top interval
+  chartEl.addEventListener("click", ()=>{
+    const tbl=document.querySelector(".data-table tbody");
+    if(tbl) tbl.querySelectorAll("tr").forEach((tr,i)=>{ tr.style.background = i===0 ? "rgba(139,92,246,0.12)" : ""; setTimeout(()=>tr.style.background="", 1200); });
+  });
+}
+setTimeout(linkTimelineChart, 800);
 
   load();
 })();
 
 </script>
+<div id="tweetModal" class="tweet-modal" aria-hidden="true"><div class="tweet-modal-card"><button class="tweet-modal-close" id="tweetModalClose" type="button">×</button><div class="modal-head" id="tweetModalHead">Post detail</div><div class="modal-text" id="tweetModalText"></div><div class="modal-meta" id="tweetModalMeta"></div></div></div>
 </body>
 </html>
 

@@ -105,8 +105,8 @@ p{color:var(--text-dim);margin:0 0 1em 0}
 .reveal.is-visible{opacity:1;transform:translateY(0)}
 
 /* ---------------- Capabilities ---------------- */
-.capabilities{position:relative;padding:36px 0 30px 0;overflow:hidden}
-.cap-field{position:absolute;inset:-40px 0 -20px 0;pointer-events:none;overflow:hidden;z-index:0}
+.capabilities{position:relative;padding:36px 0 44px 0;overflow:visible}
+.cap-field{position:absolute;inset:-20px 0 0 0;pointer-events:none;overflow:visible;z-index:0}
 .cap-chip{position:absolute;padding:6px 12px;border:1px solid var(--border);border-radius:999px;background:rgba(23,19,36,.5);color:var(--text-dim);font-size:11.5px;letter-spacing:.02em;white-space:nowrap;opacity:0;animation:chip-drift 16s ease-in-out infinite}
 @keyframes chip-drift{0%{opacity:0;transform:translate(0,10px)}10%{opacity:.5}50%{opacity:.7;transform:translate(var(--dx,14px),-8px)}90%{opacity:.4}100%{opacity:0;transform:translate(0,10px)}}
 .capabilities h2,.capabilities .cap-sub{position:relative;z-index:1}
@@ -126,8 +126,8 @@ p{color:var(--text-dim);margin:0 0 1em 0}
 .wave-line{fill:none;stroke:url(#waveGrad);stroke-width:1.6;stroke-linecap:round}
 
 /* ---------------- Chooser ---------------- */
-.chooser{position:relative;padding:60px 0 48px 0;overflow:hidden}
-.chooser-field{position:absolute;inset:0;pointer-events:none;overflow:hidden;z-index:0;-webkit-mask-image:linear-gradient(to bottom, black 60%, transparent 92%);mask-image:linear-gradient(to bottom, black 60%, transparent 92%)}
+.chooser{position:relative;padding:60px 0 48px 0;overflow:visible}
+.chooser-field{position:absolute;inset:-24px 0 0 0;pointer-events:none;overflow:visible;z-index:0;-webkit-mask-image:linear-gradient(to bottom, black 0%, black 72%, transparent 96%);mask-image:linear-gradient(to bottom, black 0%, black 72%, transparent 96%)}
 .chooser-orb{position:absolute;border-radius:50%;background:radial-gradient(circle at 30% 30%,rgba(168,85,247,.35),rgba(139,92,246,.05) 70%);filter:blur(1px);animation:orb-drift 22s ease-in-out infinite}
 @keyframes orb-drift{0%,100%{transform:translate(0,0)}50%{transform:translate(18px,-22px)}}
 .chooser h2,.chooser .chooser-sub{position:relative;z-index:1}
@@ -522,9 +522,9 @@ footer.site-footer{position:relative;z-index:1;padding:40px 0 60px 0;text-align:
     if (!field) return;
     const terms = ["#trending", "@mention", "#sentiment", "RT ↻", "#dataviz", "♥ 482", "#signal", "#reach"];
     const positions = [
-      { top: "6%", left: "4%" }, { top: "14%", left: "82%" }, { top: "58%", left: "2%" },
-      { top: "70%", left: "88%" }, { top: "2%", left: "46%" }, { top: "80%", left: "40%" },
-      { top: "40%", left: "92%" }, { top: "46%", left: "10%" },
+      { top: "6%", left: "4%" }, { top: "14%", left: "74%" }, { top: "58%", left: "2%" },
+      { top: "68%", left: "78%" }, { top: "2%", left: "46%" }, { top: "78%", left: "40%" },
+      { top: "38%", left: "80%" }, { top: "46%", left: "10%" },
     ];
     terms.forEach((t, i) => {
       const pos = positions[i % positions.length];
@@ -544,9 +544,9 @@ footer.site-footer{position:relative;z-index:1;padding:40px 0 60px 0;text-align:
     const field = document.getElementById("chooserField");
     if (!field) return;
     const specs = [
-      { size: 200, top: "-6%", left: "-4%", delay: "0s" },
-      { size: 140, top: "18%", left: "84%", delay: "-6s" },
-      { size: 110, top: "8%", left: "68%", delay: "-11s" },
+      { size: 200, top: "-4%", left: "-2%", delay: "0s" },
+      { size: 140, top: "16%", left: "76%", delay: "-6s" },
+      { size: 110, top: "6%", left: "62%", delay: "-11s" },
     ];
     specs.forEach((s) => {
       const el = document.createElement("div");

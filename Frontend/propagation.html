@@ -184,6 +184,81 @@
   );
 
   SMI.renderLimitationsBanner(document.getElementById("limitations"));
+
+  // make long tweets expandable + searchable
+  makeExpandable(content);
+})();
+
+function makeExpandable(root){
+  root = root || document;
+  const tables=root.querySelectorAll(".data-table");
+  tables.forEach(tbl=>{
+    const searchWrap=document.createElement("div");
+    searchWrap.className="table-toolbar";
+    const input=document.createElement("input");
+    input.className="table-search";
+    input.placeholder="Filter rows…";
+    input.type="search";
+    searchWrap.appendChild(input);
+    tbl.parentElement.insertBefore(searchWrap, tbl);
+    input.addEventListener("input", ()=>{
+      const q=input.value.trim().toLowerCase();
+      tbl.querySelectorAll("tbody tr").forEach(tr=>{
+        const txt=tr.textContent.toLowerCase();
+        tr.style.display = q && !txt.includes(q) ? "none" : "";
+      });
+    });
+    tbl.querySelectorAll("td.truncate").forEach(td=>{
+      td.classList.add("expandable");
+      const full=td.textContent;
+      const inner=document.createElement("span");
+      inner.className="trunc";
+      inner.textContent=full;
+      td.textContent="";
+      td.appendChild(inner);
+      const hint2=document.createElement("div");
+      hint2.className="expand-hint";
+      hint2.textContent="Click to " + (full.length>80 ? "expand" : "toggle");
+      td.appendChild(hint2);
+      td.addEventListener("click", ()=>{
+        const wasExpanded=td.classList.contains("expanded");
+        td.classList.toggle("expanded");
+        td.parentElement.classList.toggle("expanded-row", !wasExpanded);
+      });
+      let pressTimer=null;
+      td.addEventListener("mousedown", ()=>{ pressTimer=setTimeout(()=>openTweetModal(full, td), 500); });
+      td.addEventListener("mouseup", ()=>clearTimeout(pressTimer));
+      td.addEventListener("mouseleave", ()=>clearTimeout(pressTimer));
+      td.addEventListener("dblclick", ()=>openTweetModal(full, td));
+    });
+  });
+}
+function openTweetModal(text, td){
+  const modal=document.getElementById("tweetModal");
+  const body=document.getElementById("tweetModalText");
+  const meta=document.getElementById("tweetModalMeta");
+  const head=document.getElementById("tweetModalHead");
+  if(!modal) return;
+  body.textContent=text;
+  const tr=td ? td.closest("tr") : null;
+  let metaHtml="";
+  if(tr){
+    const cells=[...tr.querySelectorAll("td")].map(c=>c.textContent.trim().slice(0,40));
+    metaHtml=cells.slice(0,3).map(c=>`<span>${SMI.escapeHTML(c)}</span>`).join("");
+  }
+  if(meta) meta.innerHTML=metaHtml;
+  if(head) head.textContent="Full text \u00b7 " + text.length + " chars";
+  modal.classList.add("open");
+  modal.setAttribute("aria-hidden","false");
+}
+(function initTweetModal(){
+  const modal=document.getElementById("tweetModal");
+  const close=document.getElementById("tweetModalClose");
+  if(!modal||!close) return;
+  const shut=()=>{ modal.classList.remove("open"); modal.setAttribute("aria-hidden","true"); };
+  close.addEventListener("click", shut);
+  modal.addEventListener("click", (e)=>{ if(e.target===modal) shut(); });
+  document.addEventListener("keydown", (e)=>{ if(e.key==="Escape") shut(); });
 })();
 
 function buildNetwork(data) {
@@ -404,5 +479,6 @@ function buildTeamNetwork(container, names) {
   container.appendChild(svg);
 }
 </script>
+<div id="tweetModal" class="tweet-modal" aria-hidden="true"><div class="tweet-modal-card"><button class="tweet-modal-close" id="tweetModalClose" type="button">×</button><div class="modal-head" id="tweetModalHead">Post detail</div><div class="modal-text" id="tweetModalText"></div><div class="modal-meta" id="tweetModalMeta"></div></div></div>
 </body>
 </html>
