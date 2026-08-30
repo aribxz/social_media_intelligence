@@ -1,0 +1,2605 @@
+{
+  "summary": {
+    "total_posts": 29999,
+    "total_reels": 7445,
+    "total_images": 11927,
+    "total_carousels": 10627,
+    "reel_percentage": 24.82,
+    "image_percentage": 39.76,
+    "carousel_percentage": 35.42,
+    "start_date": "2024-11-19",
+    "end_date": "2025-11-19",
+    "peak_date": "2025-02-26",
+    "peak_volume": 110
+  },
+  "timeline": [
+    {
+      "time_bin": "2024-11-19",
+      "total_posts": 78,
+      "reel": 22,
+      "image": 30,
+      "carousel": 26
+    },
+    {
+      "time_bin": "2024-11-20",
+      "total_posts": 97,
+      "reel": 24,
+      "image": 31,
+      "carousel": 42
+    },
+    {
+      "time_bin": "2024-11-21",
+      "total_posts": 85,
+      "reel": 16,
+      "image": 35,
+      "carousel": 34
+    },
+    {
+      "time_bin": "2024-11-22",
+      "total_posts": 70,
+      "reel": 15,
+      "image": 30,
+      "carousel": 25
+    },
+    {
+      "time_bin": "2024-11-23",
+      "total_posts": 89,
+      "reel": 28,
+      "image": 33,
+      "carousel": 28
+    },
+    {
+      "time_bin": "2024-11-24",
+      "total_posts": 84,
+      "reel": 21,
+      "image": 34,
+      "carousel": 29
+    },
+    {
+      "time_bin": "2024-11-25",
+      "total_posts": 98,
+      "reel": 28,
+      "image": 38,
+      "carousel": 32
+    },
+    {
+      "time_bin": "2024-11-26",
+      "total_posts": 85,
+      "reel": 19,
+      "image": 39,
+      "carousel": 27
+    },
+    {
+      "time_bin": "2024-11-27",
+      "total_posts": 79,
+      "reel": 23,
+      "image": 26,
+      "carousel": 30
+    },
+    {
+      "time_bin": "2024-11-28",
+      "total_posts": 71,
+      "reel": 15,
+      "image": 25,
+      "carousel": 31
+    },
+    {
+      "time_bin": "2024-11-29",
+      "total_posts": 89,
+      "reel": 20,
+      "image": 35,
+      "carousel": 34
+    },
+    {
+      "time_bin": "2024-11-30",
+      "total_posts": 79,
+      "reel": 25,
+      "image": 29,
+      "carousel": 25
+    },
+    {
+      "time_bin": "2024-12-01",
+      "total_posts": 83,
+      "reel": 24,
+      "image": 34,
+      "carousel": 25
+    },
+    {
+      "time_bin": "2024-12-02",
+      "total_posts": 89,
+      "reel": 19,
+      "image": 39,
+      "carousel": 31
+    },
+    {
+      "time_bin": "2024-12-03",
+      "total_posts": 88,
+      "reel": 21,
+      "image": 32,
+      "carousel": 35
+    },
+    {
+      "time_bin": "2024-12-04",
+      "total_posts": 78,
+      "reel": 24,
+      "image": 27,
+      "carousel": 27
+    },
+    {
+      "time_bin": "2024-12-05",
+      "total_posts": 88,
+      "reel": 20,
+      "image": 28,
+      "carousel": 40
+    },
+    {
+      "time_bin": "2024-12-06",
+      "total_posts": 88,
+      "reel": 24,
+      "image": 34,
+      "carousel": 30
+    },
+    {
+      "time_bin": "2024-12-07",
+      "total_posts": 99,
+      "reel": 24,
+      "image": 35,
+      "carousel": 40
+    },
+    {
+      "time_bin": "2024-12-08",
+      "total_posts": 83,
+      "reel": 23,
+      "image": 23,
+      "carousel": 37
+    },
+    {
+      "time_bin": "2024-12-09",
+      "total_posts": 84,
+      "reel": 21,
+      "image": 37,
+      "carousel": 26
+    },
+    {
+      "time_bin": "2024-12-10",
+      "total_posts": 86,
+      "reel": 14,
+      "image": 36,
+      "carousel": 36
+    },
+    {
+      "time_bin": "2024-12-11",
+      "total_posts": 85,
+      "reel": 20,
+      "image": 29,
+      "carousel": 36
+    },
+    {
+      "time_bin": "2024-12-12",
+      "total_posts": 79,
+      "reel": 20,
+      "image": 27,
+      "carousel": 32
+    },
+    {
+      "time_bin": "2024-12-13",
+      "total_posts": 79,
+      "reel": 24,
+      "image": 26,
+      "carousel": 29
+    },
+    {
+      "time_bin": "2024-12-14",
+      "total_posts": 85,
+      "reel": 21,
+      "image": 29,
+      "carousel": 35
+    },
+    {
+      "time_bin": "2024-12-15",
+      "total_posts": 83,
+      "reel": 9,
+      "image": 38,
+      "carousel": 36
+    },
+    {
+      "time_bin": "2024-12-16",
+      "total_posts": 75,
+      "reel": 15,
+      "image": 31,
+      "carousel": 29
+    },
+    {
+      "time_bin": "2024-12-17",
+      "total_posts": 75,
+      "reel": 17,
+      "image": 33,
+      "carousel": 25
+    },
+    {
+      "time_bin": "2024-12-18",
+      "total_posts": 77,
+      "reel": 20,
+      "image": 31,
+      "carousel": 26
+    },
+    {
+      "time_bin": "2024-12-19",
+      "total_posts": 81,
+      "reel": 11,
+      "image": 35,
+      "carousel": 35
+    },
+    {
+      "time_bin": "2024-12-20",
+      "total_posts": 73,
+      "reel": 16,
+      "image": 32,
+      "carousel": 25
+    },
+    {
+      "time_bin": "2024-12-21",
+      "total_posts": 81,
+      "reel": 20,
+      "image": 38,
+      "carousel": 23
+    },
+    {
+      "time_bin": "2024-12-22",
+      "total_posts": 73,
+      "reel": 12,
+      "image": 37,
+      "carousel": 24
+    },
+    {
+      "time_bin": "2024-12-23",
+      "total_posts": 85,
+      "reel": 23,
+      "image": 33,
+      "carousel": 29
+    },
+    {
+      "time_bin": "2024-12-24",
+      "total_posts": 81,
+      "reel": 14,
+      "image": 38,
+      "carousel": 29
+    },
+    {
+      "time_bin": "2024-12-25",
+      "total_posts": 71,
+      "reel": 20,
+      "image": 27,
+      "carousel": 24
+    },
+    {
+      "time_bin": "2024-12-26",
+      "total_posts": 87,
+      "reel": 19,
+      "image": 35,
+      "carousel": 33
+    },
+    {
+      "time_bin": "2024-12-27",
+      "total_posts": 73,
+      "reel": 19,
+      "image": 22,
+      "carousel": 32
+    },
+    {
+      "time_bin": "2024-12-28",
+      "total_posts": 83,
+      "reel": 28,
+      "image": 30,
+      "carousel": 25
+    },
+    {
+      "time_bin": "2024-12-29",
+      "total_posts": 82,
+      "reel": 24,
+      "image": 31,
+      "carousel": 27
+    },
+    {
+      "time_bin": "2024-12-30",
+      "total_posts": 72,
+      "reel": 16,
+      "image": 30,
+      "carousel": 26
+    },
+    {
+      "time_bin": "2024-12-31",
+      "total_posts": 86,
+      "reel": 18,
+      "image": 36,
+      "carousel": 32
+    },
+    {
+      "time_bin": "2025-01-01",
+      "total_posts": 76,
+      "reel": 20,
+      "image": 31,
+      "carousel": 25
+    },
+    {
+      "time_bin": "2025-01-02",
+      "total_posts": 98,
+      "reel": 25,
+      "image": 47,
+      "carousel": 26
+    },
+    {
+      "time_bin": "2025-01-03",
+      "total_posts": 92,
+      "reel": 32,
+      "image": 33,
+      "carousel": 27
+    },
+    {
+      "time_bin": "2025-01-04",
+      "total_posts": 92,
+      "reel": 24,
+      "image": 42,
+      "carousel": 26
+    },
+    {
+      "time_bin": "2025-01-05",
+      "total_posts": 89,
+      "reel": 20,
+      "image": 47,
+      "carousel": 22
+    },
+    {
+      "time_bin": "2025-01-06",
+      "total_posts": 79,
+      "reel": 14,
+      "image": 31,
+      "carousel": 34
+    },
+    {
+      "time_bin": "2025-01-07",
+      "total_posts": 66,
+      "reel": 13,
+      "image": 24,
+      "carousel": 29
+    },
+    {
+      "time_bin": "2025-01-08",
+      "total_posts": 78,
+      "reel": 21,
+      "image": 30,
+      "carousel": 27
+    },
+    {
+      "time_bin": "2025-01-09",
+      "total_posts": 78,
+      "reel": 14,
+      "image": 33,
+      "carousel": 31
+    },
+    {
+      "time_bin": "2025-01-10",
+      "total_posts": 82,
+      "reel": 18,
+      "image": 34,
+      "carousel": 30
+    },
+    {
+      "time_bin": "2025-01-11",
+      "total_posts": 76,
+      "reel": 17,
+      "image": 28,
+      "carousel": 31
+    },
+    {
+      "time_bin": "2025-01-12",
+      "total_posts": 102,
+      "reel": 27,
+      "image": 30,
+      "carousel": 45
+    },
+    {
+      "time_bin": "2025-01-13",
+      "total_posts": 85,
+      "reel": 19,
+      "image": 33,
+      "carousel": 33
+    },
+    {
+      "time_bin": "2025-01-14",
+      "total_posts": 94,
+      "reel": 24,
+      "image": 26,
+      "carousel": 44
+    },
+    {
+      "time_bin": "2025-01-15",
+      "total_posts": 71,
+      "reel": 32,
+      "image": 18,
+      "carousel": 21
+    },
+    {
+      "time_bin": "2025-01-16",
+      "total_posts": 87,
+      "reel": 26,
+      "image": 33,
+      "carousel": 28
+    },
+    {
+      "time_bin": "2025-01-17",
+      "total_posts": 83,
+      "reel": 20,
+      "image": 31,
+      "carousel": 32
+    },
+    {
+      "time_bin": "2025-01-18",
+      "total_posts": 78,
+      "reel": 20,
+      "image": 28,
+      "carousel": 30
+    },
+    {
+      "time_bin": "2025-01-19",
+      "total_posts": 82,
+      "reel": 21,
+      "image": 32,
+      "carousel": 29
+    },
+    {
+      "time_bin": "2025-01-20",
+      "total_posts": 85,
+      "reel": 23,
+      "image": 28,
+      "carousel": 34
+    },
+    {
+      "time_bin": "2025-01-21",
+      "total_posts": 63,
+      "reel": 17,
+      "image": 29,
+      "carousel": 17
+    },
+    {
+      "time_bin": "2025-01-22",
+      "total_posts": 71,
+      "reel": 19,
+      "image": 26,
+      "carousel": 26
+    },
+    {
+      "time_bin": "2025-01-23",
+      "total_posts": 79,
+      "reel": 12,
+      "image": 40,
+      "carousel": 27
+    },
+    {
+      "time_bin": "2025-01-24",
+      "total_posts": 95,
+      "reel": 23,
+      "image": 32,
+      "carousel": 40
+    },
+    {
+      "time_bin": "2025-01-25",
+      "total_posts": 78,
+      "reel": 14,
+      "image": 40,
+      "carousel": 24
+    },
+    {
+      "time_bin": "2025-01-26",
+      "total_posts": 78,
+      "reel": 15,
+      "image": 31,
+      "carousel": 32
+    },
+    {
+      "time_bin": "2025-01-27",
+      "total_posts": 104,
+      "reel": 22,
+      "image": 44,
+      "carousel": 38
+    },
+    {
+      "time_bin": "2025-01-28",
+      "total_posts": 80,
+      "reel": 17,
+      "image": 41,
+      "carousel": 22
+    },
+    {
+      "time_bin": "2025-01-29",
+      "total_posts": 83,
+      "reel": 21,
+      "image": 30,
+      "carousel": 32
+    },
+    {
+      "time_bin": "2025-01-30",
+      "total_posts": 87,
+      "reel": 16,
+      "image": 39,
+      "carousel": 32
+    },
+    {
+      "time_bin": "2025-01-31",
+      "total_posts": 96,
+      "reel": 20,
+      "image": 41,
+      "carousel": 35
+    },
+    {
+      "time_bin": "2025-02-01",
+      "total_posts": 73,
+      "reel": 15,
+      "image": 32,
+      "carousel": 26
+    },
+    {
+      "time_bin": "2025-02-02",
+      "total_posts": 96,
+      "reel": 28,
+      "image": 34,
+      "carousel": 34
+    },
+    {
+      "time_bin": "2025-02-03",
+      "total_posts": 97,
+      "reel": 24,
+      "image": 36,
+      "carousel": 37
+    },
+    {
+      "time_bin": "2025-02-04",
+      "total_posts": 69,
+      "reel": 17,
+      "image": 32,
+      "carousel": 20
+    },
+    {
+      "time_bin": "2025-02-05",
+      "total_posts": 84,
+      "reel": 22,
+      "image": 33,
+      "carousel": 29
+    },
+    {
+      "time_bin": "2025-02-06",
+      "total_posts": 87,
+      "reel": 20,
+      "image": 37,
+      "carousel": 30
+    },
+    {
+      "time_bin": "2025-02-07",
+      "total_posts": 83,
+      "reel": 19,
+      "image": 34,
+      "carousel": 30
+    },
+    {
+      "time_bin": "2025-02-08",
+      "total_posts": 66,
+      "reel": 16,
+      "image": 30,
+      "carousel": 20
+    },
+    {
+      "time_bin": "2025-02-09",
+      "total_posts": 68,
+      "reel": 22,
+      "image": 26,
+      "carousel": 20
+    },
+    {
+      "time_bin": "2025-02-10",
+      "total_posts": 66,
+      "reel": 16,
+      "image": 26,
+      "carousel": 24
+    },
+    {
+      "time_bin": "2025-02-11",
+      "total_posts": 78,
+      "reel": 19,
+      "image": 33,
+      "carousel": 26
+    },
+    {
+      "time_bin": "2025-02-12",
+      "total_posts": 82,
+      "reel": 21,
+      "image": 37,
+      "carousel": 24
+    },
+    {
+      "time_bin": "2025-02-13",
+      "total_posts": 70,
+      "reel": 14,
+      "image": 34,
+      "carousel": 22
+    },
+    {
+      "time_bin": "2025-02-14",
+      "total_posts": 94,
+      "reel": 25,
+      "image": 40,
+      "carousel": 29
+    },
+    {
+      "time_bin": "2025-02-15",
+      "total_posts": 85,
+      "reel": 21,
+      "image": 38,
+      "carousel": 26
+    },
+    {
+      "time_bin": "2025-02-16",
+      "total_posts": 75,
+      "reel": 18,
+      "image": 31,
+      "carousel": 26
+    },
+    {
+      "time_bin": "2025-02-17",
+      "total_posts": 72,
+      "reel": 21,
+      "image": 25,
+      "carousel": 26
+    },
+    {
+      "time_bin": "2025-02-18",
+      "total_posts": 106,
+      "reel": 25,
+      "image": 36,
+      "carousel": 45
+    },
+    {
+      "time_bin": "2025-02-19",
+      "total_posts": 85,
+      "reel": 25,
+      "image": 26,
+      "carousel": 34
+    },
+    {
+      "time_bin": "2025-02-20",
+      "total_posts": 82,
+      "reel": 18,
+      "image": 32,
+      "carousel": 32
+    },
+    {
+      "time_bin": "2025-02-21",
+      "total_posts": 87,
+      "reel": 16,
+      "image": 37,
+      "carousel": 34
+    },
+    {
+      "time_bin": "2025-02-22",
+      "total_posts": 58,
+      "reel": 14,
+      "image": 20,
+      "carousel": 24
+    },
+    {
+      "time_bin": "2025-02-23",
+      "total_posts": 83,
+      "reel": 21,
+      "image": 33,
+      "carousel": 29
+    },
+    {
+      "time_bin": "2025-02-24",
+      "total_posts": 89,
+      "reel": 23,
+      "image": 34,
+      "carousel": 32
+    },
+    {
+      "time_bin": "2025-02-25",
+      "total_posts": 91,
+      "reel": 23,
+      "image": 42,
+      "carousel": 26
+    },
+    {
+      "time_bin": "2025-02-26",
+      "total_posts": 110,
+      "reel": 28,
+      "image": 42,
+      "carousel": 40
+    },
+    {
+      "time_bin": "2025-02-27",
+      "total_posts": 108,
+      "reel": 22,
+      "image": 42,
+      "carousel": 44
+    },
+    {
+      "time_bin": "2025-02-28",
+      "total_posts": 78,
+      "reel": 17,
+      "image": 34,
+      "carousel": 27
+    },
+    {
+      "time_bin": "2025-03-01",
+      "total_posts": 77,
+      "reel": 23,
+      "image": 28,
+      "carousel": 26
+    },
+    {
+      "time_bin": "2025-03-02",
+      "total_posts": 97,
+      "reel": 20,
+      "image": 45,
+      "carousel": 32
+    },
+    {
+      "time_bin": "2025-03-03",
+      "total_posts": 81,
+      "reel": 24,
+      "image": 27,
+      "carousel": 30
+    },
+    {
+      "time_bin": "2025-03-04",
+      "total_posts": 77,
+      "reel": 21,
+      "image": 27,
+      "carousel": 29
+    },
+    {
+      "time_bin": "2025-03-05",
+      "total_posts": 59,
+      "reel": 20,
+      "image": 20,
+      "carousel": 19
+    },
+    {
+      "time_bin": "2025-03-06",
+      "total_posts": 84,
+      "reel": 13,
+      "image": 43,
+      "carousel": 28
+    },
+    {
+      "time_bin": "2025-03-07",
+      "total_posts": 68,
+      "reel": 16,
+      "image": 23,
+      "carousel": 29
+    },
+    {
+      "time_bin": "2025-03-08",
+      "total_posts": 74,
+      "reel": 23,
+      "image": 27,
+      "carousel": 24
+    },
+    {
+      "time_bin": "2025-03-09",
+      "total_posts": 84,
+      "reel": 22,
+      "image": 32,
+      "carousel": 30
+    },
+    {
+      "time_bin": "2025-03-10",
+      "total_posts": 92,
+      "reel": 27,
+      "image": 31,
+      "carousel": 34
+    },
+    {
+      "time_bin": "2025-03-11",
+      "total_posts": 72,
+      "reel": 17,
+      "image": 34,
+      "carousel": 21
+    },
+    {
+      "time_bin": "2025-03-12",
+      "total_posts": 79,
+      "reel": 24,
+      "image": 29,
+      "carousel": 26
+    },
+    {
+      "time_bin": "2025-03-13",
+      "total_posts": 68,
+      "reel": 11,
+      "image": 34,
+      "carousel": 23
+    },
+    {
+      "time_bin": "2025-03-14",
+      "total_posts": 84,
+      "reel": 22,
+      "image": 37,
+      "carousel": 25
+    },
+    {
+      "time_bin": "2025-03-15",
+      "total_posts": 88,
+      "reel": 25,
+      "image": 35,
+      "carousel": 28
+    },
+    {
+      "time_bin": "2025-03-16",
+      "total_posts": 77,
+      "reel": 15,
+      "image": 32,
+      "carousel": 30
+    },
+    {
+      "time_bin": "2025-03-17",
+      "total_posts": 77,
+      "reel": 23,
+      "image": 30,
+      "carousel": 24
+    },
+    {
+      "time_bin": "2025-03-18",
+      "total_posts": 99,
+      "reel": 22,
+      "image": 34,
+      "carousel": 43
+    },
+    {
+      "time_bin": "2025-03-19",
+      "total_posts": 104,
+      "reel": 28,
+      "image": 38,
+      "carousel": 38
+    },
+    {
+      "time_bin": "2025-03-20",
+      "total_posts": 74,
+      "reel": 14,
+      "image": 28,
+      "carousel": 32
+    },
+    {
+      "time_bin": "2025-03-21",
+      "total_posts": 81,
+      "reel": 15,
+      "image": 38,
+      "carousel": 28
+    },
+    {
+      "time_bin": "2025-03-22",
+      "total_posts": 81,
+      "reel": 27,
+      "image": 22,
+      "carousel": 32
+    },
+    {
+      "time_bin": "2025-03-23",
+      "total_posts": 82,
+      "reel": 22,
+      "image": 35,
+      "carousel": 25
+    },
+    {
+      "time_bin": "2025-03-24",
+      "total_posts": 81,
+      "reel": 20,
+      "image": 30,
+      "carousel": 31
+    },
+    {
+      "time_bin": "2025-03-25",
+      "total_posts": 76,
+      "reel": 15,
+      "image": 36,
+      "carousel": 25
+    },
+    {
+      "time_bin": "2025-03-26",
+      "total_posts": 87,
+      "reel": 26,
+      "image": 38,
+      "carousel": 23
+    },
+    {
+      "time_bin": "2025-03-27",
+      "total_posts": 83,
+      "reel": 17,
+      "image": 35,
+      "carousel": 31
+    },
+    {
+      "time_bin": "2025-03-28",
+      "total_posts": 80,
+      "reel": 14,
+      "image": 37,
+      "carousel": 29
+    },
+    {
+      "time_bin": "2025-03-29",
+      "total_posts": 86,
+      "reel": 26,
+      "image": 30,
+      "carousel": 30
+    },
+    {
+      "time_bin": "2025-03-30",
+      "total_posts": 73,
+      "reel": 21,
+      "image": 29,
+      "carousel": 23
+    },
+    {
+      "time_bin": "2025-03-31",
+      "total_posts": 74,
+      "reel": 22,
+      "image": 32,
+      "carousel": 20
+    },
+    {
+      "time_bin": "2025-04-01",
+      "total_posts": 90,
+      "reel": 22,
+      "image": 42,
+      "carousel": 26
+    },
+    {
+      "time_bin": "2025-04-02",
+      "total_posts": 96,
+      "reel": 25,
+      "image": 38,
+      "carousel": 33
+    },
+    {
+      "time_bin": "2025-04-03",
+      "total_posts": 87,
+      "reel": 28,
+      "image": 31,
+      "carousel": 28
+    },
+    {
+      "time_bin": "2025-04-04",
+      "total_posts": 78,
+      "reel": 23,
+      "image": 34,
+      "carousel": 21
+    },
+    {
+      "time_bin": "2025-04-05",
+      "total_posts": 96,
+      "reel": 31,
+      "image": 34,
+      "carousel": 31
+    },
+    {
+      "time_bin": "2025-04-06",
+      "total_posts": 78,
+      "reel": 21,
+      "image": 37,
+      "carousel": 20
+    },
+    {
+      "time_bin": "2025-04-07",
+      "total_posts": 66,
+      "reel": 11,
+      "image": 28,
+      "carousel": 27
+    },
+    {
+      "time_bin": "2025-04-08",
+      "total_posts": 86,
+      "reel": 32,
+      "image": 27,
+      "carousel": 27
+    },
+    {
+      "time_bin": "2025-04-09",
+      "total_posts": 76,
+      "reel": 26,
+      "image": 27,
+      "carousel": 23
+    },
+    {
+      "time_bin": "2025-04-10",
+      "total_posts": 86,
+      "reel": 13,
+      "image": 34,
+      "carousel": 39
+    },
+    {
+      "time_bin": "2025-04-11",
+      "total_posts": 75,
+      "reel": 13,
+      "image": 36,
+      "carousel": 26
+    },
+    {
+      "time_bin": "2025-04-12",
+      "total_posts": 83,
+      "reel": 16,
+      "image": 34,
+      "carousel": 33
+    },
+    {
+      "time_bin": "2025-04-13",
+      "total_posts": 77,
+      "reel": 19,
+      "image": 25,
+      "carousel": 33
+    },
+    {
+      "time_bin": "2025-04-14",
+      "total_posts": 87,
+      "reel": 24,
+      "image": 34,
+      "carousel": 29
+    },
+    {
+      "time_bin": "2025-04-15",
+      "total_posts": 69,
+      "reel": 14,
+      "image": 26,
+      "carousel": 29
+    },
+    {
+      "time_bin": "2025-04-16",
+      "total_posts": 100,
+      "reel": 27,
+      "image": 35,
+      "carousel": 38
+    },
+    {
+      "time_bin": "2025-04-17",
+      "total_posts": 70,
+      "reel": 18,
+      "image": 31,
+      "carousel": 21
+    },
+    {
+      "time_bin": "2025-04-18",
+      "total_posts": 86,
+      "reel": 21,
+      "image": 35,
+      "carousel": 30
+    },
+    {
+      "time_bin": "2025-04-19",
+      "total_posts": 72,
+      "reel": 20,
+      "image": 28,
+      "carousel": 24
+    },
+    {
+      "time_bin": "2025-04-20",
+      "total_posts": 85,
+      "reel": 20,
+      "image": 40,
+      "carousel": 25
+    },
+    {
+      "time_bin": "2025-04-21",
+      "total_posts": 90,
+      "reel": 27,
+      "image": 38,
+      "carousel": 25
+    },
+    {
+      "time_bin": "2025-04-22",
+      "total_posts": 94,
+      "reel": 18,
+      "image": 43,
+      "carousel": 33
+    },
+    {
+      "time_bin": "2025-04-23",
+      "total_posts": 85,
+      "reel": 24,
+      "image": 38,
+      "carousel": 23
+    },
+    {
+      "time_bin": "2025-04-24",
+      "total_posts": 81,
+      "reel": 25,
+      "image": 17,
+      "carousel": 39
+    },
+    {
+      "time_bin": "2025-04-25",
+      "total_posts": 85,
+      "reel": 17,
+      "image": 30,
+      "carousel": 38
+    },
+    {
+      "time_bin": "2025-04-26",
+      "total_posts": 79,
+      "reel": 24,
+      "image": 29,
+      "carousel": 26
+    },
+    {
+      "time_bin": "2025-04-27",
+      "total_posts": 94,
+      "reel": 23,
+      "image": 42,
+      "carousel": 29
+    },
+    {
+      "time_bin": "2025-04-28",
+      "total_posts": 91,
+      "reel": 24,
+      "image": 41,
+      "carousel": 26
+    },
+    {
+      "time_bin": "2025-04-29",
+      "total_posts": 77,
+      "reel": 16,
+      "image": 28,
+      "carousel": 33
+    },
+    {
+      "time_bin": "2025-04-30",
+      "total_posts": 90,
+      "reel": 20,
+      "image": 41,
+      "carousel": 29
+    },
+    {
+      "time_bin": "2025-05-01",
+      "total_posts": 76,
+      "reel": 16,
+      "image": 33,
+      "carousel": 27
+    },
+    {
+      "time_bin": "2025-05-02",
+      "total_posts": 70,
+      "reel": 16,
+      "image": 28,
+      "carousel": 26
+    },
+    {
+      "time_bin": "2025-05-03",
+      "total_posts": 102,
+      "reel": 35,
+      "image": 36,
+      "carousel": 31
+    },
+    {
+      "time_bin": "2025-05-04",
+      "total_posts": 89,
+      "reel": 21,
+      "image": 40,
+      "carousel": 28
+    },
+    {
+      "time_bin": "2025-05-05",
+      "total_posts": 84,
+      "reel": 22,
+      "image": 34,
+      "carousel": 28
+    },
+    {
+      "time_bin": "2025-05-06",
+      "total_posts": 82,
+      "reel": 21,
+      "image": 35,
+      "carousel": 26
+    },
+    {
+      "time_bin": "2025-05-07",
+      "total_posts": 87,
+      "reel": 23,
+      "image": 31,
+      "carousel": 33
+    },
+    {
+      "time_bin": "2025-05-08",
+      "total_posts": 104,
+      "reel": 29,
+      "image": 43,
+      "carousel": 32
+    },
+    {
+      "time_bin": "2025-05-09",
+      "total_posts": 77,
+      "reel": 19,
+      "image": 24,
+      "carousel": 34
+    },
+    {
+      "time_bin": "2025-05-10",
+      "total_posts": 88,
+      "reel": 20,
+      "image": 33,
+      "carousel": 35
+    },
+    {
+      "time_bin": "2025-05-11",
+      "total_posts": 94,
+      "reel": 19,
+      "image": 44,
+      "carousel": 31
+    },
+    {
+      "time_bin": "2025-05-12",
+      "total_posts": 65,
+      "reel": 13,
+      "image": 27,
+      "carousel": 25
+    },
+    {
+      "time_bin": "2025-05-13",
+      "total_posts": 84,
+      "reel": 26,
+      "image": 30,
+      "carousel": 28
+    },
+    {
+      "time_bin": "2025-05-14",
+      "total_posts": 81,
+      "reel": 20,
+      "image": 30,
+      "carousel": 31
+    },
+    {
+      "time_bin": "2025-05-15",
+      "total_posts": 90,
+      "reel": 20,
+      "image": 41,
+      "carousel": 29
+    },
+    {
+      "time_bin": "2025-05-16",
+      "total_posts": 77,
+      "reel": 17,
+      "image": 30,
+      "carousel": 30
+    },
+    {
+      "time_bin": "2025-05-17",
+      "total_posts": 78,
+      "reel": 19,
+      "image": 29,
+      "carousel": 30
+    },
+    {
+      "time_bin": "2025-05-18",
+      "total_posts": 87,
+      "reel": 17,
+      "image": 35,
+      "carousel": 35
+    },
+    {
+      "time_bin": "2025-05-19",
+      "total_posts": 98,
+      "reel": 30,
+      "image": 36,
+      "carousel": 32
+    },
+    {
+      "time_bin": "2025-05-20",
+      "total_posts": 66,
+      "reel": 9,
+      "image": 31,
+      "carousel": 26
+    },
+    {
+      "time_bin": "2025-05-21",
+      "total_posts": 78,
+      "reel": 13,
+      "image": 39,
+      "carousel": 26
+    },
+    {
+      "time_bin": "2025-05-22",
+      "total_posts": 72,
+      "reel": 19,
+      "image": 27,
+      "carousel": 26
+    },
+    {
+      "time_bin": "2025-05-23",
+      "total_posts": 73,
+      "reel": 16,
+      "image": 30,
+      "carousel": 27
+    },
+    {
+      "time_bin": "2025-05-24",
+      "total_posts": 101,
+      "reel": 27,
+      "image": 37,
+      "carousel": 37
+    },
+    {
+      "time_bin": "2025-05-25",
+      "total_posts": 83,
+      "reel": 22,
+      "image": 35,
+      "carousel": 26
+    },
+    {
+      "time_bin": "2025-05-26",
+      "total_posts": 77,
+      "reel": 15,
+      "image": 25,
+      "carousel": 37
+    },
+    {
+      "time_bin": "2025-05-27",
+      "total_posts": 82,
+      "reel": 19,
+      "image": 30,
+      "carousel": 33
+    },
+    {
+      "time_bin": "2025-05-28",
+      "total_posts": 70,
+      "reel": 18,
+      "image": 25,
+      "carousel": 27
+    },
+    {
+      "time_bin": "2025-05-29",
+      "total_posts": 91,
+      "reel": 19,
+      "image": 43,
+      "carousel": 29
+    },
+    {
+      "time_bin": "2025-05-30",
+      "total_posts": 85,
+      "reel": 27,
+      "image": 33,
+      "carousel": 25
+    },
+    {
+      "time_bin": "2025-05-31",
+      "total_posts": 88,
+      "reel": 16,
+      "image": 46,
+      "carousel": 26
+    },
+    {
+      "time_bin": "2025-06-01",
+      "total_posts": 74,
+      "reel": 18,
+      "image": 30,
+      "carousel": 26
+    },
+    {
+      "time_bin": "2025-06-02",
+      "total_posts": 100,
+      "reel": 18,
+      "image": 46,
+      "carousel": 36
+    },
+    {
+      "time_bin": "2025-06-03",
+      "total_posts": 92,
+      "reel": 21,
+      "image": 36,
+      "carousel": 35
+    },
+    {
+      "time_bin": "2025-06-04",
+      "total_posts": 83,
+      "reel": 19,
+      "image": 28,
+      "carousel": 36
+    },
+    {
+      "time_bin": "2025-06-05",
+      "total_posts": 92,
+      "reel": 21,
+      "image": 36,
+      "carousel": 35
+    },
+    {
+      "time_bin": "2025-06-06",
+      "total_posts": 79,
+      "reel": 22,
+      "image": 32,
+      "carousel": 25
+    },
+    {
+      "time_bin": "2025-06-07",
+      "total_posts": 77,
+      "reel": 20,
+      "image": 32,
+      "carousel": 25
+    },
+    {
+      "time_bin": "2025-06-08",
+      "total_posts": 70,
+      "reel": 17,
+      "image": 28,
+      "carousel": 25
+    },
+    {
+      "time_bin": "2025-06-09",
+      "total_posts": 85,
+      "reel": 17,
+      "image": 34,
+      "carousel": 34
+    },
+    {
+      "time_bin": "2025-06-10",
+      "total_posts": 94,
+      "reel": 22,
+      "image": 45,
+      "carousel": 27
+    },
+    {
+      "time_bin": "2025-06-11",
+      "total_posts": 84,
+      "reel": 22,
+      "image": 37,
+      "carousel": 25
+    },
+    {
+      "time_bin": "2025-06-12",
+      "total_posts": 92,
+      "reel": 27,
+      "image": 37,
+      "carousel": 28
+    },
+    {
+      "time_bin": "2025-06-13",
+      "total_posts": 77,
+      "reel": 19,
+      "image": 25,
+      "carousel": 33
+    },
+    {
+      "time_bin": "2025-06-14",
+      "total_posts": 105,
+      "reel": 19,
+      "image": 42,
+      "carousel": 44
+    },
+    {
+      "time_bin": "2025-06-15",
+      "total_posts": 101,
+      "reel": 24,
+      "image": 38,
+      "carousel": 39
+    },
+    {
+      "time_bin": "2025-06-16",
+      "total_posts": 79,
+      "reel": 15,
+      "image": 31,
+      "carousel": 33
+    },
+    {
+      "time_bin": "2025-06-17",
+      "total_posts": 89,
+      "reel": 24,
+      "image": 23,
+      "carousel": 42
+    },
+    {
+      "time_bin": "2025-06-18",
+      "total_posts": 83,
+      "reel": 18,
+      "image": 40,
+      "carousel": 25
+    },
+    {
+      "time_bin": "2025-06-19",
+      "total_posts": 92,
+      "reel": 26,
+      "image": 29,
+      "carousel": 37
+    },
+    {
+      "time_bin": "2025-06-20",
+      "total_posts": 72,
+      "reel": 15,
+      "image": 30,
+      "carousel": 27
+    },
+    {
+      "time_bin": "2025-06-21",
+      "total_posts": 72,
+      "reel": 15,
+      "image": 33,
+      "carousel": 24
+    },
+    {
+      "time_bin": "2025-06-22",
+      "total_posts": 69,
+      "reel": 19,
+      "image": 25,
+      "carousel": 25
+    },
+    {
+      "time_bin": "2025-06-23",
+      "total_posts": 107,
+      "reel": 29,
+      "image": 43,
+      "carousel": 35
+    },
+    {
+      "time_bin": "2025-06-24",
+      "total_posts": 73,
+      "reel": 24,
+      "image": 35,
+      "carousel": 14
+    },
+    {
+      "time_bin": "2025-06-25",
+      "total_posts": 82,
+      "reel": 18,
+      "image": 35,
+      "carousel": 29
+    },
+    {
+      "time_bin": "2025-06-26",
+      "total_posts": 78,
+      "reel": 15,
+      "image": 35,
+      "carousel": 28
+    },
+    {
+      "time_bin": "2025-06-27",
+      "total_posts": 84,
+      "reel": 20,
+      "image": 37,
+      "carousel": 27
+    },
+    {
+      "time_bin": "2025-06-28",
+      "total_posts": 63,
+      "reel": 26,
+      "image": 17,
+      "carousel": 20
+    },
+    {
+      "time_bin": "2025-06-29",
+      "total_posts": 75,
+      "reel": 19,
+      "image": 29,
+      "carousel": 27
+    },
+    {
+      "time_bin": "2025-06-30",
+      "total_posts": 71,
+      "reel": 20,
+      "image": 26,
+      "carousel": 25
+    },
+    {
+      "time_bin": "2025-07-01",
+      "total_posts": 103,
+      "reel": 28,
+      "image": 38,
+      "carousel": 37
+    },
+    {
+      "time_bin": "2025-07-02",
+      "total_posts": 84,
+      "reel": 17,
+      "image": 31,
+      "carousel": 36
+    },
+    {
+      "time_bin": "2025-07-03",
+      "total_posts": 90,
+      "reel": 28,
+      "image": 30,
+      "carousel": 32
+    },
+    {
+      "time_bin": "2025-07-04",
+      "total_posts": 97,
+      "reel": 20,
+      "image": 46,
+      "carousel": 31
+    },
+    {
+      "time_bin": "2025-07-05",
+      "total_posts": 79,
+      "reel": 19,
+      "image": 35,
+      "carousel": 25
+    },
+    {
+      "time_bin": "2025-07-06",
+      "total_posts": 79,
+      "reel": 21,
+      "image": 26,
+      "carousel": 32
+    },
+    {
+      "time_bin": "2025-07-07",
+      "total_posts": 80,
+      "reel": 16,
+      "image": 36,
+      "carousel": 28
+    },
+    {
+      "time_bin": "2025-07-08",
+      "total_posts": 74,
+      "reel": 16,
+      "image": 28,
+      "carousel": 30
+    },
+    {
+      "time_bin": "2025-07-09",
+      "total_posts": 92,
+      "reel": 23,
+      "image": 37,
+      "carousel": 32
+    },
+    {
+      "time_bin": "2025-07-10",
+      "total_posts": 73,
+      "reel": 18,
+      "image": 30,
+      "carousel": 25
+    },
+    {
+      "time_bin": "2025-07-11",
+      "total_posts": 89,
+      "reel": 22,
+      "image": 35,
+      "carousel": 32
+    },
+    {
+      "time_bin": "2025-07-12",
+      "total_posts": 81,
+      "reel": 15,
+      "image": 30,
+      "carousel": 36
+    },
+    {
+      "time_bin": "2025-07-13",
+      "total_posts": 71,
+      "reel": 12,
+      "image": 26,
+      "carousel": 33
+    },
+    {
+      "time_bin": "2025-07-14",
+      "total_posts": 77,
+      "reel": 24,
+      "image": 30,
+      "carousel": 23
+    },
+    {
+      "time_bin": "2025-07-15",
+      "total_posts": 88,
+      "reel": 17,
+      "image": 39,
+      "carousel": 32
+    },
+    {
+      "time_bin": "2025-07-16",
+      "total_posts": 76,
+      "reel": 28,
+      "image": 34,
+      "carousel": 14
+    },
+    {
+      "time_bin": "2025-07-17",
+      "total_posts": 82,
+      "reel": 19,
+      "image": 40,
+      "carousel": 23
+    },
+    {
+      "time_bin": "2025-07-18",
+      "total_posts": 100,
+      "reel": 27,
+      "image": 35,
+      "carousel": 38
+    },
+    {
+      "time_bin": "2025-07-19",
+      "total_posts": 72,
+      "reel": 17,
+      "image": 28,
+      "carousel": 27
+    },
+    {
+      "time_bin": "2025-07-20",
+      "total_posts": 82,
+      "reel": 21,
+      "image": 36,
+      "carousel": 25
+    },
+    {
+      "time_bin": "2025-07-21",
+      "total_posts": 82,
+      "reel": 26,
+      "image": 27,
+      "carousel": 29
+    },
+    {
+      "time_bin": "2025-07-22",
+      "total_posts": 67,
+      "reel": 20,
+      "image": 32,
+      "carousel": 15
+    },
+    {
+      "time_bin": "2025-07-23",
+      "total_posts": 68,
+      "reel": 22,
+      "image": 22,
+      "carousel": 24
+    },
+    {
+      "time_bin": "2025-07-24",
+      "total_posts": 72,
+      "reel": 13,
+      "image": 29,
+      "carousel": 30
+    },
+    {
+      "time_bin": "2025-07-25",
+      "total_posts": 68,
+      "reel": 12,
+      "image": 29,
+      "carousel": 27
+    },
+    {
+      "time_bin": "2025-07-26",
+      "total_posts": 94,
+      "reel": 20,
+      "image": 40,
+      "carousel": 34
+    },
+    {
+      "time_bin": "2025-07-27",
+      "total_posts": 85,
+      "reel": 22,
+      "image": 35,
+      "carousel": 28
+    },
+    {
+      "time_bin": "2025-07-28",
+      "total_posts": 74,
+      "reel": 22,
+      "image": 22,
+      "carousel": 30
+    },
+    {
+      "time_bin": "2025-07-29",
+      "total_posts": 95,
+      "reel": 26,
+      "image": 38,
+      "carousel": 31
+    },
+    {
+      "time_bin": "2025-07-30",
+      "total_posts": 63,
+      "reel": 11,
+      "image": 30,
+      "carousel": 22
+    },
+    {
+      "time_bin": "2025-07-31",
+      "total_posts": 98,
+      "reel": 29,
+      "image": 45,
+      "carousel": 24
+    },
+    {
+      "time_bin": "2025-08-01",
+      "total_posts": 74,
+      "reel": 20,
+      "image": 31,
+      "carousel": 23
+    },
+    {
+      "time_bin": "2025-08-02",
+      "total_posts": 76,
+      "reel": 18,
+      "image": 26,
+      "carousel": 32
+    },
+    {
+      "time_bin": "2025-08-03",
+      "total_posts": 76,
+      "reel": 18,
+      "image": 35,
+      "carousel": 23
+    },
+    {
+      "time_bin": "2025-08-04",
+      "total_posts": 70,
+      "reel": 19,
+      "image": 26,
+      "carousel": 25
+    },
+    {
+      "time_bin": "2025-08-05",
+      "total_posts": 81,
+      "reel": 17,
+      "image": 35,
+      "carousel": 29
+    },
+    {
+      "time_bin": "2025-08-06",
+      "total_posts": 87,
+      "reel": 19,
+      "image": 36,
+      "carousel": 32
+    },
+    {
+      "time_bin": "2025-08-07",
+      "total_posts": 76,
+      "reel": 18,
+      "image": 30,
+      "carousel": 28
+    },
+    {
+      "time_bin": "2025-08-08",
+      "total_posts": 80,
+      "reel": 18,
+      "image": 31,
+      "carousel": 31
+    },
+    {
+      "time_bin": "2025-08-09",
+      "total_posts": 78,
+      "reel": 27,
+      "image": 31,
+      "carousel": 20
+    },
+    {
+      "time_bin": "2025-08-10",
+      "total_posts": 85,
+      "reel": 22,
+      "image": 29,
+      "carousel": 34
+    },
+    {
+      "time_bin": "2025-08-11",
+      "total_posts": 76,
+      "reel": 20,
+      "image": 25,
+      "carousel": 31
+    },
+    {
+      "time_bin": "2025-08-12",
+      "total_posts": 68,
+      "reel": 14,
+      "image": 30,
+      "carousel": 24
+    },
+    {
+      "time_bin": "2025-08-13",
+      "total_posts": 68,
+      "reel": 13,
+      "image": 31,
+      "carousel": 24
+    },
+    {
+      "time_bin": "2025-08-14",
+      "total_posts": 89,
+      "reel": 22,
+      "image": 34,
+      "carousel": 33
+    },
+    {
+      "time_bin": "2025-08-15",
+      "total_posts": 80,
+      "reel": 20,
+      "image": 30,
+      "carousel": 30
+    },
+    {
+      "time_bin": "2025-08-16",
+      "total_posts": 78,
+      "reel": 22,
+      "image": 29,
+      "carousel": 27
+    },
+    {
+      "time_bin": "2025-08-17",
+      "total_posts": 84,
+      "reel": 18,
+      "image": 28,
+      "carousel": 38
+    },
+    {
+      "time_bin": "2025-08-18",
+      "total_posts": 77,
+      "reel": 24,
+      "image": 33,
+      "carousel": 20
+    },
+    {
+      "time_bin": "2025-08-19",
+      "total_posts": 76,
+      "reel": 21,
+      "image": 27,
+      "carousel": 28
+    },
+    {
+      "time_bin": "2025-08-20",
+      "total_posts": 81,
+      "reel": 17,
+      "image": 35,
+      "carousel": 29
+    },
+    {
+      "time_bin": "2025-08-21",
+      "total_posts": 97,
+      "reel": 18,
+      "image": 49,
+      "carousel": 30
+    },
+    {
+      "time_bin": "2025-08-22",
+      "total_posts": 78,
+      "reel": 16,
+      "image": 31,
+      "carousel": 31
+    },
+    {
+      "time_bin": "2025-08-23",
+      "total_posts": 83,
+      "reel": 25,
+      "image": 33,
+      "carousel": 25
+    },
+    {
+      "time_bin": "2025-08-24",
+      "total_posts": 81,
+      "reel": 20,
+      "image": 28,
+      "carousel": 33
+    },
+    {
+      "time_bin": "2025-08-25",
+      "total_posts": 97,
+      "reel": 28,
+      "image": 34,
+      "carousel": 35
+    },
+    {
+      "time_bin": "2025-08-26",
+      "total_posts": 97,
+      "reel": 20,
+      "image": 37,
+      "carousel": 40
+    },
+    {
+      "time_bin": "2025-08-27",
+      "total_posts": 96,
+      "reel": 25,
+      "image": 36,
+      "carousel": 35
+    },
+    {
+      "time_bin": "2025-08-28",
+      "total_posts": 90,
+      "reel": 25,
+      "image": 30,
+      "carousel": 35
+    },
+    {
+      "time_bin": "2025-08-29",
+      "total_posts": 76,
+      "reel": 14,
+      "image": 36,
+      "carousel": 26
+    },
+    {
+      "time_bin": "2025-08-30",
+      "total_posts": 70,
+      "reel": 20,
+      "image": 26,
+      "carousel": 24
+    },
+    {
+      "time_bin": "2025-08-31",
+      "total_posts": 84,
+      "reel": 25,
+      "image": 35,
+      "carousel": 24
+    },
+    {
+      "time_bin": "2025-09-01",
+      "total_posts": 74,
+      "reel": 26,
+      "image": 25,
+      "carousel": 23
+    },
+    {
+      "time_bin": "2025-09-02",
+      "total_posts": 96,
+      "reel": 19,
+      "image": 37,
+      "carousel": 40
+    },
+    {
+      "time_bin": "2025-09-03",
+      "total_posts": 81,
+      "reel": 18,
+      "image": 39,
+      "carousel": 24
+    },
+    {
+      "time_bin": "2025-09-04",
+      "total_posts": 74,
+      "reel": 22,
+      "image": 26,
+      "carousel": 26
+    },
+    {
+      "time_bin": "2025-09-05",
+      "total_posts": 81,
+      "reel": 23,
+      "image": 30,
+      "carousel": 28
+    },
+    {
+      "time_bin": "2025-09-06",
+      "total_posts": 71,
+      "reel": 19,
+      "image": 26,
+      "carousel": 26
+    },
+    {
+      "time_bin": "2025-09-07",
+      "total_posts": 82,
+      "reel": 20,
+      "image": 37,
+      "carousel": 25
+    },
+    {
+      "time_bin": "2025-09-08",
+      "total_posts": 69,
+      "reel": 24,
+      "image": 20,
+      "carousel": 25
+    },
+    {
+      "time_bin": "2025-09-09",
+      "total_posts": 69,
+      "reel": 21,
+      "image": 28,
+      "carousel": 20
+    },
+    {
+      "time_bin": "2025-09-10",
+      "total_posts": 84,
+      "reel": 17,
+      "image": 37,
+      "carousel": 30
+    },
+    {
+      "time_bin": "2025-09-11",
+      "total_posts": 82,
+      "reel": 21,
+      "image": 32,
+      "carousel": 29
+    },
+    {
+      "time_bin": "2025-09-12",
+      "total_posts": 73,
+      "reel": 26,
+      "image": 23,
+      "carousel": 24
+    },
+    {
+      "time_bin": "2025-09-13",
+      "total_posts": 82,
+      "reel": 14,
+      "image": 28,
+      "carousel": 40
+    },
+    {
+      "time_bin": "2025-09-14",
+      "total_posts": 64,
+      "reel": 19,
+      "image": 25,
+      "carousel": 20
+    },
+    {
+      "time_bin": "2025-09-15",
+      "total_posts": 85,
+      "reel": 28,
+      "image": 24,
+      "carousel": 33
+    },
+    {
+      "time_bin": "2025-09-16",
+      "total_posts": 82,
+      "reel": 28,
+      "image": 26,
+      "carousel": 28
+    },
+    {
+      "time_bin": "2025-09-17",
+      "total_posts": 82,
+      "reel": 23,
+      "image": 33,
+      "carousel": 26
+    },
+    {
+      "time_bin": "2025-09-18",
+      "total_posts": 83,
+      "reel": 18,
+      "image": 30,
+      "carousel": 35
+    },
+    {
+      "time_bin": "2025-09-19",
+      "total_posts": 75,
+      "reel": 21,
+      "image": 32,
+      "carousel": 22
+    },
+    {
+      "time_bin": "2025-09-20",
+      "total_posts": 86,
+      "reel": 18,
+      "image": 34,
+      "carousel": 34
+    },
+    {
+      "time_bin": "2025-09-21",
+      "total_posts": 76,
+      "reel": 17,
+      "image": 32,
+      "carousel": 27
+    },
+    {
+      "time_bin": "2025-09-22",
+      "total_posts": 66,
+      "reel": 14,
+      "image": 28,
+      "carousel": 24
+    },
+    {
+      "time_bin": "2025-09-23",
+      "total_posts": 84,
+      "reel": 19,
+      "image": 31,
+      "carousel": 34
+    },
+    {
+      "time_bin": "2025-09-24",
+      "total_posts": 74,
+      "reel": 23,
+      "image": 27,
+      "carousel": 24
+    },
+    {
+      "time_bin": "2025-09-25",
+      "total_posts": 78,
+      "reel": 25,
+      "image": 27,
+      "carousel": 26
+    },
+    {
+      "time_bin": "2025-09-26",
+      "total_posts": 79,
+      "reel": 17,
+      "image": 33,
+      "carousel": 29
+    },
+    {
+      "time_bin": "2025-09-27",
+      "total_posts": 79,
+      "reel": 22,
+      "image": 27,
+      "carousel": 30
+    },
+    {
+      "time_bin": "2025-09-28",
+      "total_posts": 69,
+      "reel": 17,
+      "image": 27,
+      "carousel": 25
+    },
+    {
+      "time_bin": "2025-09-29",
+      "total_posts": 73,
+      "reel": 15,
+      "image": 37,
+      "carousel": 21
+    },
+    {
+      "time_bin": "2025-09-30",
+      "total_posts": 67,
+      "reel": 16,
+      "image": 30,
+      "carousel": 21
+    },
+    {
+      "time_bin": "2025-10-01",
+      "total_posts": 89,
+      "reel": 27,
+      "image": 33,
+      "carousel": 29
+    },
+    {
+      "time_bin": "2025-10-02",
+      "total_posts": 69,
+      "reel": 16,
+      "image": 31,
+      "carousel": 22
+    },
+    {
+      "time_bin": "2025-10-03",
+      "total_posts": 89,
+      "reel": 22,
+      "image": 37,
+      "carousel": 30
+    },
+    {
+      "time_bin": "2025-10-04",
+      "total_posts": 85,
+      "reel": 28,
+      "image": 27,
+      "carousel": 30
+    },
+    {
+      "time_bin": "2025-10-05",
+      "total_posts": 67,
+      "reel": 17,
+      "image": 25,
+      "carousel": 25
+    },
+    {
+      "time_bin": "2025-10-06",
+      "total_posts": 81,
+      "reel": 24,
+      "image": 35,
+      "carousel": 22
+    },
+    {
+      "time_bin": "2025-10-07",
+      "total_posts": 72,
+      "reel": 17,
+      "image": 35,
+      "carousel": 20
+    },
+    {
+      "time_bin": "2025-10-08",
+      "total_posts": 82,
+      "reel": 17,
+      "image": 31,
+      "carousel": 34
+    },
+    {
+      "time_bin": "2025-10-09",
+      "total_posts": 80,
+      "reel": 25,
+      "image": 34,
+      "carousel": 21
+    },
+    {
+      "time_bin": "2025-10-10",
+      "total_posts": 68,
+      "reel": 25,
+      "image": 18,
+      "carousel": 25
+    },
+    {
+      "time_bin": "2025-10-11",
+      "total_posts": 84,
+      "reel": 19,
+      "image": 31,
+      "carousel": 34
+    },
+    {
+      "time_bin": "2025-10-12",
+      "total_posts": 82,
+      "reel": 20,
+      "image": 29,
+      "carousel": 33
+    },
+    {
+      "time_bin": "2025-10-13",
+      "total_posts": 79,
+      "reel": 21,
+      "image": 31,
+      "carousel": 27
+    },
+    {
+      "time_bin": "2025-10-14",
+      "total_posts": 85,
+      "reel": 20,
+      "image": 36,
+      "carousel": 29
+    },
+    {
+      "time_bin": "2025-10-15",
+      "total_posts": 81,
+      "reel": 21,
+      "image": 33,
+      "carousel": 27
+    },
+    {
+      "time_bin": "2025-10-16",
+      "total_posts": 81,
+      "reel": 22,
+      "image": 38,
+      "carousel": 21
+    },
+    {
+      "time_bin": "2025-10-17",
+      "total_posts": 81,
+      "reel": 18,
+      "image": 31,
+      "carousel": 32
+    },
+    {
+      "time_bin": "2025-10-18",
+      "total_posts": 82,
+      "reel": 22,
+      "image": 38,
+      "carousel": 22
+    },
+    {
+      "time_bin": "2025-10-19",
+      "total_posts": 91,
+      "reel": 15,
+      "image": 39,
+      "carousel": 37
+    },
+    {
+      "time_bin": "2025-10-20",
+      "total_posts": 90,
+      "reel": 19,
+      "image": 42,
+      "carousel": 29
+    },
+    {
+      "time_bin": "2025-10-21",
+      "total_posts": 92,
+      "reel": 25,
+      "image": 42,
+      "carousel": 25
+    },
+    {
+      "time_bin": "2025-10-22",
+      "total_posts": 82,
+      "reel": 16,
+      "image": 33,
+      "carousel": 33
+    },
+    {
+      "time_bin": "2025-10-23",
+      "total_posts": 84,
+      "reel": 22,
+      "image": 26,
+      "carousel": 36
+    },
+    {
+      "time_bin": "2025-10-24",
+      "total_posts": 81,
+      "reel": 23,
+      "image": 29,
+      "carousel": 29
+    },
+    {
+      "time_bin": "2025-10-25",
+      "total_posts": 89,
+      "reel": 22,
+      "image": 36,
+      "carousel": 31
+    },
+    {
+      "time_bin": "2025-10-26",
+      "total_posts": 79,
+      "reel": 21,
+      "image": 33,
+      "carousel": 25
+    },
+    {
+      "time_bin": "2025-10-27",
+      "total_posts": 85,
+      "reel": 22,
+      "image": 29,
+      "carousel": 34
+    },
+    {
+      "time_bin": "2025-10-28",
+      "total_posts": 82,
+      "reel": 21,
+      "image": 37,
+      "carousel": 24
+    },
+    {
+      "time_bin": "2025-10-29",
+      "total_posts": 75,
+      "reel": 10,
+      "image": 39,
+      "carousel": 26
+    },
+    {
+      "time_bin": "2025-10-30",
+      "total_posts": 81,
+      "reel": 16,
+      "image": 38,
+      "carousel": 27
+    },
+    {
+      "time_bin": "2025-10-31",
+      "total_posts": 84,
+      "reel": 21,
+      "image": 34,
+      "carousel": 29
+    },
+    {
+      "time_bin": "2025-11-01",
+      "total_posts": 96,
+      "reel": 23,
+      "image": 44,
+      "carousel": 29
+    },
+    {
+      "time_bin": "2025-11-02",
+      "total_posts": 68,
+      "reel": 10,
+      "image": 32,
+      "carousel": 26
+    },
+    {
+      "time_bin": "2025-11-03",
+      "total_posts": 91,
+      "reel": 29,
+      "image": 34,
+      "carousel": 28
+    },
+    {
+      "time_bin": "2025-11-04",
+      "total_posts": 79,
+      "reel": 22,
+      "image": 30,
+      "carousel": 27
+    },
+    {
+      "time_bin": "2025-11-05",
+      "total_posts": 88,
+      "reel": 16,
+      "image": 39,
+      "carousel": 33
+    },
+    {
+      "time_bin": "2025-11-06",
+      "total_posts": 90,
+      "reel": 27,
+      "image": 33,
+      "carousel": 30
+    },
+    {
+      "time_bin": "2025-11-07",
+      "total_posts": 75,
+      "reel": 24,
+      "image": 26,
+      "carousel": 25
+    },
+    {
+      "time_bin": "2025-11-08",
+      "total_posts": 75,
+      "reel": 11,
+      "image": 35,
+      "carousel": 29
+    },
+    {
+      "time_bin": "2025-11-09",
+      "total_posts": 70,
+      "reel": 15,
+      "image": 28,
+      "carousel": 27
+    },
+    {
+      "time_bin": "2025-11-10",
+      "total_posts": 92,
+      "reel": 24,
+      "image": 35,
+      "carousel": 33
+    },
+    {
+      "time_bin": "2025-11-11",
+      "total_posts": 84,
+      "reel": 16,
+      "image": 30,
+      "carousel": 38
+    },
+    {
+      "time_bin": "2025-11-12",
+      "total_posts": 75,
+      "reel": 15,
+      "image": 29,
+      "carousel": 31
+    },
+    {
+      "time_bin": "2025-11-13",
+      "total_posts": 95,
+      "reel": 23,
+      "image": 38,
+      "carousel": 34
+    },
+    {
+      "time_bin": "2025-11-14",
+      "total_posts": 97,
+      "reel": 23,
+      "image": 35,
+      "carousel": 39
+    },
+    {
+      "time_bin": "2025-11-15",
+      "total_posts": 82,
+      "reel": 23,
+      "image": 31,
+      "carousel": 28
+    },
+    {
+      "time_bin": "2025-11-16",
+      "total_posts": 80,
+      "reel": 21,
+      "image": 30,
+      "carousel": 29
+    },
+    {
+      "time_bin": "2025-11-17",
+      "total_posts": 76,
+      "reel": 16,
+      "image": 29,
+      "carousel": 31
+    },
+    {
+      "time_bin": "2025-11-18",
+      "total_posts": 82,
+      "reel": 27,
+      "image": 28,
+      "carousel": 27
+    },
+    {
+      "time_bin": "2025-11-19",
+      "total_posts": 82,
+      "reel": 21,
+      "image": 35,
+      "carousel": 26
+    }
+  ],
+  "top_intervals": [
+    {
+      "time_bin": "2025-02-26",
+      "total_posts": 110
+    },
+    {
+      "time_bin": "2025-02-27",
+      "total_posts": 108
+    },
+    {
+      "time_bin": "2025-06-23",
+      "total_posts": 107
+    },
+    {
+      "time_bin": "2025-02-18",
+      "total_posts": 106
+    },
+    {
+      "time_bin": "2025-06-14",
+      "total_posts": 105
+    }
+  ],
+  "peak": {
+    "peak_date": "2025-02-26",
+    "peak_post_count": 110
+  }
+}

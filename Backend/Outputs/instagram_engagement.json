@@ -1,0 +1,172 @@
+{
+  "performance_buckets": [
+    {
+      "bucket": "viral",
+      "count": 7500
+    },
+    {
+      "bucket": "high",
+      "count": 7500
+    },
+    {
+      "bucket": "low",
+      "count": 7500
+    },
+    {
+      "bucket": "medium",
+      "count": 7499
+    }
+  ],
+  "hourly_distribution": [
+    {
+      "hour": 0,
+      "posts": 1277
+    },
+    {
+      "hour": 1,
+      "posts": 1231
+    },
+    {
+      "hour": 2,
+      "posts": 1195
+    },
+    {
+      "hour": 3,
+      "posts": 1256
+    },
+    {
+      "hour": 4,
+      "posts": 1269
+    },
+    {
+      "hour": 5,
+      "posts": 1216
+    },
+    {
+      "hour": 6,
+      "posts": 1225
+    },
+    {
+      "hour": 7,
+      "posts": 1274
+    },
+    {
+      "hour": 8,
+      "posts": 1242
+    },
+    {
+      "hour": 9,
+      "posts": 1251
+    },
+    {
+      "hour": 10,
+      "posts": 1272
+    },
+    {
+      "hour": 11,
+      "posts": 1283
+    },
+    {
+      "hour": 12,
+      "posts": 1263
+    },
+    {
+      "hour": 13,
+      "posts": 1280
+    },
+    {
+      "hour": 14,
+      "posts": 1282
+    },
+    {
+      "hour": 15,
+      "posts": 1277
+    },
+    {
+      "hour": 16,
+      "posts": 1210
+    },
+    {
+      "hour": 17,
+      "posts": 1242
+    },
+    {
+      "hour": 18,
+      "posts": 1235
+    },
+    {
+      "hour": 19,
+      "posts": 1254
+    },
+    {
+      "hour": 20,
+      "posts": 1272
+    },
+    {
+      "hour": 21,
+      "posts": 1199
+    },
+    {
+      "hour": 22,
+      "posts": 1280
+    },
+    {
+      "hour": 23,
+      "posts": 1214
+    }
+  ],
+  "day_of_week_distribution": [
+    {
+      "day": "Monday",
+      "posts": 4279
+    },
+    {
+      "day": "Tuesday",
+      "posts": 4351
+    },
+    {
+      "day": "Wednesday",
+      "posts": 4341
+    },
+    {
+      "day": "Thursday",
+      "posts": 4351
+    },
+    {
+      "day": "Friday",
+      "posts": 4218
+    },
+    {
+      "day": "Saturday",
+      "posts": 4254
+    },
+    {
+      "day": "Sunday",
+      "posts": 4205
+    }
+  ],
+  "account_type_distribution": [
+    {
+      "account_type": "creator",
+      "count": 20944
+    },
+    {
+      "account_type": "brand",
+      "count": 9055
+    }
+  ],
+  "cta_performance": [
+    {
+      "has_call_to_action": 0,
+      "posts": 19536,
+      "avg_engagement_rate": 0.0422,
+      "avg_reach": 6250.4
+    },
+    {
+      "has_call_to_action": 1,
+      "posts": 10463,
+      "avg_engagement_rate": 0.0419,
+      "avg_reach": 6313.7
+    }
+  ]
+}

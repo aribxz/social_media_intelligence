@@ -1,0 +1,14 @@
+{
+  "captions_are_synthetic": true,
+  "sentiment_is_vader_predicted": true,
+  "limited_time_window": true,
+  "geo_data_not_available": true,
+  "notes": [
+    "Instagram captions are synthetic (generated for engagement simulation); sentiment is VADER-predicted and is a polarity proxy, not ground truth.",
+    "The dataset spans a sampled time window, not all of Instagram.",
+    "Reach, impressions and engagement_rate are taken from the dataset as-is and reflect the synthetic captions.",
+    "Propagation metrics describe observable engagement (likes, comments, shares, saves, reach) — not a true follower graph.",
+    "Hashtag/mention trends are derived from the synthetic caption text.",
+    "Trends reflect this dataset and time period, not Instagram as a whole."
+  ]
+}
