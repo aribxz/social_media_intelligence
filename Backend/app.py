@@ -2,7 +2,7 @@
 Flask backend for the SMI prototype.
 
 The heavy Pandas analysis lives in analytics.py (Twitter) and
-instagram_analytics.py (Instagram), and is written to JSON files
+is written to JSON files
 under Outputs/. This server simply loads those JSON files and exposes
 them through stable GET endpoints, so the frontend never touches the
 analysis code.
@@ -14,21 +14,12 @@ Endpoints (Twitter)
     GET /api/sentiment      -> sentiment.json
     GET /api/limitations   -> limitations.json
 
-Endpoints (Instagram)
-    GET /api/instagram/timeline    -> instagram_timeline.json
-    GET /api/instagram/trends      -> instagram_trends.json
-    GET /api/instagram/propagation -> instagram_propagation.json
-    GET /api/instagram/sentiment   -> instagram_sentiment.json
-    GET /api/instagram/engagement  -> instagram_engagement.json
-    GET /api/instagram/limitations -> instagram_limitations.json
-
 Endpoints (shared)
     GET /api/health        -> {"status": "ok"}
     GET /                   -> endpoint listing
 
 Run:
     python analytics.py            # Twitter outputs
-    python instagram_analytics.py  # Instagram outputs
     python app.py
 """
 
@@ -50,12 +41,6 @@ FILES = {
     "propagation": "propagation.json",
     "sentiment": "sentiment.json",
     "limitations": "limitations.json",
-    "instagram_timeline": "instagram_timeline.json",
-    "instagram_trends": "instagram_trends.json",
-    "instagram_propagation": "instagram_propagation.json",
-    "instagram_sentiment": "instagram_sentiment.json",
-    "instagram_engagement": "instagram_engagement.json",
-    "instagram_limitations": "instagram_limitations.json",
 }
 
 # HELPER FUNCTION
@@ -116,36 +101,6 @@ def sentiment():
 @app.get("/api/limitations")
 def limitations():
     return jsonify(load_output("limitations"))
-
-
-@app.get("/api/instagram/timeline")
-def instagram_timeline():
-    return jsonify(load_output("instagram_timeline"))
-
-
-@app.get("/api/instagram/trends")
-def instagram_trends():
-    return jsonify(load_output("instagram_trends"))
-
-
-@app.get("/api/instagram/propagation")
-def instagram_propagation():
-    return jsonify(load_output("instagram_propagation"))
-
-
-@app.get("/api/instagram/sentiment")
-def instagram_sentiment():
-    return jsonify(load_output("instagram_sentiment"))
-
-
-@app.get("/api/instagram/engagement")
-def instagram_engagement():
-    return jsonify(load_output("instagram_engagement"))
-
-
-@app.get("/api/instagram/limitations")
-def instagram_limitations():
-    return jsonify(load_output("instagram_limitations"))
 
 # FRONTEND
 @app.get("/")
