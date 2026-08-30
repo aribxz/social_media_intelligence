@@ -126,8 +126,8 @@ p{color:var(--text-dim);margin:0 0 1em 0}
 .wave-line{fill:none;stroke:url(#waveGrad);stroke-width:1.6;stroke-linecap:round}
 
 /* ---------------- Chooser ---------------- */
-.chooser{position:relative;padding:60px 0 90px 0;overflow:hidden}
-.chooser-field{position:absolute;inset:0;pointer-events:none;overflow:hidden;z-index:0}
+.chooser{position:relative;padding:60px 0 48px 0;overflow:hidden}
+.chooser-field{position:absolute;inset:0;pointer-events:none;overflow:hidden;z-index:0;-webkit-mask-image:linear-gradient(to bottom, black 60%, transparent 92%);mask-image:linear-gradient(to bottom, black 60%, transparent 92%)}
 .chooser-orb{position:absolute;border-radius:50%;background:radial-gradient(circle at 30% 30%,rgba(168,85,247,.35),rgba(139,92,246,.05) 70%);filter:blur(1px);animation:orb-drift 22s ease-in-out infinite}
 @keyframes orb-drift{0%,100%{transform:translate(0,0)}50%{transform:translate(18px,-22px)}}
 .chooser h2,.chooser .chooser-sub{position:relative;z-index:1}
@@ -210,7 +210,6 @@ footer.site-footer{position:relative;z-index:1;padding:40px 0 60px 0;text-align:
   </p>
 
   <div class="hero-actions hero-in" style="--d:0.42s">
-    <a class="btn" href="twitter.html">Explore Twitter analytics</a>
     <span class="hero-meta">15,000 tweets &middot; 81-minute window &middot; model-predicted sentiment</span>
   </div>
 
@@ -545,9 +544,9 @@ footer.site-footer{position:relative;z-index:1;padding:40px 0 60px 0;text-align:
     const field = document.getElementById("chooserField");
     if (!field) return;
     const specs = [
-      { size: 220, top: "-10%", left: "-6%", delay: "0s" },
-      { size: 160, top: "60%", left: "88%", delay: "-6s" },
-      { size: 120, top: "10%", left: "70%", delay: "-11s" },
+      { size: 200, top: "-6%", left: "-4%", delay: "0s" },
+      { size: 140, top: "18%", left: "84%", delay: "-6s" },
+      { size: 110, top: "8%", left: "68%", delay: "-11s" },
     ];
     specs.forEach((s) => {
       const el = document.createElement("div");

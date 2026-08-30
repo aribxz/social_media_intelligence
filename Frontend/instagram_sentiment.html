@@ -1,9 +1,9 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
-<title>Instagram Sentiment Analysis â€” SMI</title>
+<title>Instagram Sentiment Analysis -" SMI</title>
 
 <style>
 :root {
@@ -49,15 +49,19 @@ p { color: var(--text-dim); margin: 0 0 1em 0; }
   position: fixed; inset: 0; width: 100%; height: 100%; z-index: 0;
   opacity: 0.4; pointer-events: none;
 }
-.aurora { position: fixed; inset: -15%; z-index: 0; pointer-events: none; filter: blur(70px); overflow: hidden; }
+.aurora { position: fixed; inset: 0 0 auto 0; height: 62vh; z-index: 0; pointer-events: none; filter: blur(72px); overflow: hidden; -webkit-mask-image: linear-gradient(to bottom, black 0%, black 45%, transparent 88%); mask-image: linear-gradient(to bottom, black 0%, black 45%, transparent 88%); }
 .aurora span { position: absolute; border-radius: 50%; opacity: 0.22; mix-blend-mode: screen; }
-.aurora .a1 { width: 42vw; height: 42vw; top: -10%; left: -8%; background: radial-gradient(circle, #8b5cf6, transparent 70%); animation: drift1 24s ease-in-out infinite; }
-.aurora .a2 { width: 36vw; height: 36vw; top: 40%; right: -10%; background: radial-gradient(circle, #a855f7, transparent 70%); animation: drift2 28s ease-in-out infinite; }
+.aurora .a1 { width: 36vw; height: 36vw; top: -5%; left: -5%; background: radial-gradient(circle, #8b5cf6, transparent 70%); animation: drift1 24s ease-in-out infinite; }
+.aurora .a2 { width: 30vw; height: 30vw; top: 35%; right: -5%; background: radial-gradient(circle, #a855f7, transparent 70%); animation: drift2 28s ease-in-out infinite; }
 @keyframes drift1 { 0%,100%{ transform: translate(0,0) scale(1);} 50%{ transform: translate(4%,6%) scale(1.1);} }
 @keyframes drift2 { 0%,100%{ transform: translate(0,0) scale(1);} 50%{ transform: translate(-6%,-4%) scale(1.06);} }
 .noise-overlay {
   position: fixed; inset: 0; z-index: 1; pointer-events: none; opacity: 0.04; mix-blend-mode: overlay;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+body::after {
+  content: ""; position: fixed; bottom: 0; left: 0; right: 0; height: 120px; z-index: 1; pointer-events: none;
+  background: linear-gradient(to top, var(--bg), transparent);
 }
 
 /* ---------------- Header ---------------- */
@@ -339,33 +343,33 @@ body.mood-negative .signal-glyph { color: var(--negative); }
 <div class="modal-backdrop" id="aboutModal" aria-hidden="true">
   <div class="modal-box">
     <h3>About SMI</h3>
-    <p>SMI is a research prototype built for the SIH hackathon internal round. It analyzes Instagram posts â€” 30,000 posts across the sampled window â€” to surface engagement, sentiment and trend signals. Captions are synthetic; sentiment is VADER-predicted, not ground truth.</p>
+    <p>SMI is a research prototype built for the SIH hackathon internal round. It analyzes Instagram posts -" 30,000 posts across the sampled window -" to surface engagement, sentiment and trend signals. Captions are synthetic; sentiment is VADER-predicted, not ground truth.</p>
     <button class="modal-close" id="modalCloseBtn" type="button">Close</button>
   </div>
 </div>
 
 <main class="container">
   <div class="page-title-block reveal">
-    <span class="eyebrow">Instagram Â· Sentiment</span>
+    <span class="eyebrow">Instagram · Sentiment</span>
     <h1>Sentiment Analysis</h1>
-    <p class="sub">VADER-predicted tone of the captions â€” positive, neutral and negative â€” over the observed window.</p>
+    <p class="sub">VADER-predicted tone of the captions -" positive, neutral and negative -" over the observed window.</p>
   </div>
 
   <div id="content">
-    <div class="state-msg"><div class="spinner"></div><div>Loading analyticsâ€¦</div></div>
+    <div class="state-msg"><div class="spinner"></div><div>Loading analytics...</div></div>
   </div>
 
   <div id="limitations"></div>
 </main>
 
 <footer class="site-footer container">
-  SMI prototype â€” Made by IMSEC Students.
+  SMI prototype - Made by IMSEC Students.
 </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
 /* ============================================================
-   SMI â€” shared page helpers (inlined per file, kept identical
+   SMI -" shared page helpers (inlined per file, kept identical
    across pages for consistency)
    ============================================================ */
 const API_BASE = "http://127.0.0.1:5000";
@@ -392,12 +396,12 @@ function escapeHTML(str) {
 }
 
 function formatCompact(n) {
-  if (n === null || n === undefined || isNaN(n)) return "â€”";
+  if (n === null || n === undefined || isNaN(n)) return "-";
   return new Intl.NumberFormat("en-US", { maximumFractionDigits: 0 }).format(n);
 }
 
 function renderLoading(container, messages) {
-  const msgs = messages && messages.length ? messages : ["Loading analyticsâ€¦"];
+  const msgs = messages && messages.length ? messages : ["Loading analytics..."];
   container.innerHTML = '<div class="state-msg"><div class="spinner"></div><div class="loading-msg" id="loadingMsg">' + escapeHTML(msgs[0]) + '</div></div>';
   if (msgs.length > 1 && !prefersReducedMotion) {
     let i = 0;
@@ -663,7 +667,7 @@ function initPageTransition() {
   (function initGlyphs() {
     const layer = document.getElementById("signalGlyphs");
     if (!layer || prefersReducedMotion) return;
-    const symbols = ["+", "â€“", "~", "+", "~"];
+    const symbols = ["+", "-"", "~", "+", "~"];
     for (let i = 0; i < 14; i++) {
       const el = document.createElement("div");
       el.className = "signal-glyph";
@@ -678,7 +682,7 @@ function initPageTransition() {
   })();
 
   async function load() {
-    renderLoading(content, ["Scoring captionsâ€¦", "Aggregating sentimentâ€¦", "Building visualsâ€¦"]);
+    renderLoading(content, ["Scoring captions...", "Aggregating sentiment...", "Building visuals..."]);
     let data;
     try {
       data = await getJSON("/api/instagram/sentiment");
