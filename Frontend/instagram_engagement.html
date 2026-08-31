@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
@@ -240,7 +240,7 @@ footer.site-footer { position: relative; z-index: 2; padding: 40px 0 60px 0; tex
 .cta-box .cta-stat:last-child { border-bottom: none; }
 .cta-box .cta-stat b { color: var(--text); font-weight: 600; }
 
-/* ——— Pulse hero (borrowed from Twitter sentiment, adapted for engagement) ——— */
+/* â€”â€”â€” Pulse hero (borrowed from Twitter sentiment, adapted for engagement) â€”â€”â€” */
 .pulse-card{position:relative;margin:24px 0 32px 0;padding:34px 28px;border-radius:22px;border:1px solid var(--border);background:linear-gradient(160deg,var(--surface),var(--surface-2));overflow:hidden;display:grid;grid-template-columns:220px 1fr;gap:36px;align-items:center}
 .pulse-card::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 85% 20%,rgba(139,92,246,0.12),transparent 60%);pointer-events:none}
 .pulse-ring-wrap{position:relative;width:200px;height:200px;justify-self:center}
@@ -279,7 +279,7 @@ footer.site-footer { position: relative; z-index: 2; padding: 40px 0 60px 0; tex
 
 <main class="container">
   <div class="page-title-block reveal">
-    <span class="eyebrow">Instagram · Engagement</span>
+    <span class="eyebrow">Instagram Â· Engagement</span>
     <h1>Engagement Patterns</h1>
     <p class="sub">When posts go out, how they perform, and what context drives reach.</p>
   </div>
@@ -350,7 +350,7 @@ function renderLoading(container, messages) {
 function renderError(container, opts, retryFn) {
   opts = opts || {};
   const title = opts.title || "Data not available";
-  const hint = opts.hint || "Couldn't reach the backend. Make sure Flask is running on 127.0.0.1:5000 and analytics.py has been run.";
+  const hint = opts.hint || "Couldn't reach the backend at " + API_BASE + ". Make sure the backend is running and analytics outputs are present.";
   container.innerHTML =
     '<div class="state-msg error">' +
       '<div>' + escapeHTML(title) + '</div>' +
@@ -633,7 +633,7 @@ function initPageTransition() {
     const peakHour = [...hourly].sort((a,b)=>(b.posts||0)-(a.posts||0))[0];
     const topAccount = [...accountTypes].sort((a,b)=>(b.count||0)-(a.count||0))[0];
     const ctaLift = (ctaYes.avg_engagement_rate && ctaNo.avg_engagement_rate) ? ((ctaYes.avg_engagement_rate - ctaNo.avg_engagement_rate)/Math.max(ctaNo.avg_engagement_rate,0.0001)*100) : 0;
-    const headline = topBucket ? `Most posts sit in “${topBucket.bucket}” — ${Math.round(topBucket.count/totalPosts*100)}% of all posts.` : "Engagement spread across performance tiers.";
+    const headline = topBucket ? `Most posts sit in â€œ${topBucket.bucket}â€ â€” ${Math.round(topBucket.count/totalPosts*100)}% of all posts.` : "Engagement spread across performance tiers.";
 
     // init glyphs tinted by CTA lift
     (function initGlyphs(){
@@ -641,7 +641,7 @@ function initPageTransition() {
       if(!layer||prefersReducedMotion) return;
       layer.innerHTML="";
       const color = ctaLift>5 ? palette.positive : ctaLift<-5 ? palette.negative : palette.accent2;
-      const symbols=["♥","↻","◎","♥","↻"];
+      const symbols=["â™¥","â†»","â—Ž","â™¥","â†»"];
       for(let i=0;i<12;i++){
         const el=document.createElement("div");
         el.className="signal-glyph";
@@ -883,4 +883,5 @@ function initPageTransition() {
 </script>
 </body>
 </html>
+
 

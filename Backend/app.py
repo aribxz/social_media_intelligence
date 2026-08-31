@@ -2,6 +2,7 @@
 Flask backend for the SMI prototype.
 """
 
+import os
 from pathlib import Path
 
 import json
@@ -207,6 +208,13 @@ def home():
 
 @app.get("/<path:filename>")
 def frontend(filename):
+    # Prevent shadowing unknown API routes — return JSON 404 for /api/*
+    if filename.startswith("api/"):
+        return jsonify({
+            "error": "Not Found",
+            "message": f"Unknown API endpoint '/{filename}'"
+        }), 404
+
     requested_file = FRONTEND_DIR / filename
 
     if not requested_file.is_file():
@@ -240,9 +248,13 @@ def internal_server_error(error):
         )
     }), 500
 
-# RUN SERVER
+# RUN SERVER — Render-ready: binds 0.0.0.0:$PORT, debug off in production
 
 if __name__ == "__main__":
+
+    port = int(os.environ.get("PORT", 5000))
+    debug = os.environ.get("FLASK_DEBUG", "false").lower() in ("1", "true", "yes")
+    host = "0.0.0.0"
 
     print("=" * 60)
     print("SMI Flask Backend")
@@ -251,20 +263,21 @@ if __name__ == "__main__":
     print(f"Backend directory : {BASE_DIR}")
     print(f"Output directory  : {OUTPUT_DIR}")
     print(f"Frontend directory: {FRONTEND_DIR}")
+    print(f"Environment       : {'development' if debug else 'production'}")
 
     print("\nAPI running at:")
-    print("http://127.0.0.1:5000")
+    print(f"http://{host}:{port}")
 
     print("\nHealth check:")
-    print("http://127.0.0.1:5000/api/health")
+    print(f"http://{host}:{port}/api/health")
 
     print("\nAPI documentation:")
-    print("http://127.0.0.1:5000/api")
+    print(f"http://{host}:{port}/api")
 
     print("=" * 60)
 
     app.run(
-        host="127.0.0.1",
-        port=5000,
-        debug=True
+        host=host,
+        port=port,
+        debug=debug
     )

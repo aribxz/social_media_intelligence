@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
@@ -243,14 +243,14 @@ footer.site-footer { position: relative; z-index: 2; padding: 40px 0 60px 0; tex
 .risk-row .risk-count { width: 54px; text-align: right; font-size: 13px; color: var(--text); font-weight: 600; }
 
 
-/* ——— Expandable long text (propagation / timeline) ——— */
+/* â€”â€”â€” Expandable long text (propagation / timeline) â€”â€”â€” */
 .data-table td.expandable{cursor:pointer;position:relative;transition:background var(--dur-fast) var(--ease)}
 .data-table td.expandable .trunc{display:block;max-width:360px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;transition:all var(--dur-med) var(--ease)}
 .data-table td.expandable.expanded .trunc{white-space:normal;max-width:620px;overflow:visible;text-overflow:clip}
-.data-table td.expandable::after{content:"↗";position:absolute;top:8px;right:8px;font-size:10px;color:var(--accent-2);opacity:0;transition:opacity var(--dur-fast) var(--ease)}
+.data-table td.expandable::after{content:"â†—";position:absolute;top:8px;right:8px;font-size:10px;color:var(--accent-2);opacity:0;transition:opacity var(--dur-fast) var(--ease)}
 .data-table td.expandable:hover::after{opacity:0.9}
 .data-table tr.expanded-row td{background:rgba(139,92,246,0.07)}
-.data-table td.expandable.expanded::after{content:"↙"}
+.data-table td.expandable.expanded::after{content:"â†™"}
 .table-toolbar{display:flex;gap:10px;align-items:center;margin:0 0 12px 0;flex-wrap:wrap}
 .table-search{flex:1;min-width:180px;max-width:320px;padding:8px 12px;border-radius:999px;border:1px solid var(--border);background:var(--surface-2);color:var(--text);font-size:13px;outline:none;transition:border-color var(--dur-fast) var(--ease)}
 .table-search:focus{border-color:var(--accent)}
@@ -281,7 +281,7 @@ footer.site-footer { position: relative; z-index: 2; padding: 40px 0 60px 0; tex
 
 <main class="container">
   <div class="page-title-block reveal">
-    <span class="eyebrow">Instagram · Propagation</span>
+    <span class="eyebrow">Instagram Â· Propagation</span>
     <h1>Propagation</h1>
     <p class="sub">How content traveled - reach, the engagement funnel, and what got amplified most.</p>
   </div>
@@ -352,7 +352,7 @@ function renderLoading(container, messages) {
 function renderError(container, opts, retryFn) {
   opts = opts || {};
   const title = opts.title || "Data not available";
-  const hint = opts.hint || "Couldn't reach the backend. Make sure Flask is running on 127.0.0.1:5000 and analytics.py has been run.";
+  const hint = opts.hint || "Couldn't reach the backend at " + API_BASE + ". Make sure the backend is running and analytics outputs are present.";
   container.innerHTML =
     '<div class="state-msg error">' +
       '<div>' + escapeHTML(title) + '</div>' +
@@ -780,12 +780,12 @@ function makeExpandable(root){
     searchWrap.className="table-toolbar";
     const input=document.createElement("input");
     input.className="table-search";
-    input.placeholder="Filter rows…";
+    input.placeholder="Filter rowsâ€¦";
     input.type="search";
     searchWrap.appendChild(input);
     const hint=document.createElement("span");
     hint.className="expand-hint";
-    hint.textContent="Click a truncated cell to expand • click again to collapse";
+    hint.textContent="Click a truncated cell to expand â€¢ click again to collapse";
     // only add toolbar if table has many rows?
     tbl.parentElement.insertBefore(searchWrap, tbl);
     // search filter
@@ -808,7 +808,7 @@ function makeExpandable(root){
       td.appendChild(inner);
       const hint2=document.createElement("div");
       hint2.className="expand-hint";
-      hint2.textContent="Click to " + (full.length>80 ? "expand • long press to view modal" : "toggle");
+      hint2.textContent="Click to " + (full.length>80 ? "expand â€¢ long press to view modal" : "toggle");
       td.appendChild(hint2);
       td.addEventListener("click", (e)=>{
         const wasExpanded=td.classList.contains("expanded");
@@ -840,7 +840,7 @@ function openTweetModal(text, td){
     metaHtml=cells.slice(0,3).map(c=>`<span>${escapeHTML(c)}</span>`).join("");
   }
   meta.innerHTML=metaHtml;
-  head.textContent="Full text • " + text.length + " chars";
+  head.textContent="Full text â€¢ " + text.length + " chars";
   modal.classList.add("open");
   modal.setAttribute("aria-hidden","false");
 }
@@ -858,7 +858,8 @@ function openTweetModal(text, td){
 })();
 
 </script>
-<div id="tweetModal" class="tweet-modal" aria-hidden="true"><div class="tweet-modal-card"><button class="tweet-modal-close" id="tweetModalClose" type="button">×</button><div class="modal-head" id="tweetModalHead">Post detail</div><div class="modal-text" id="tweetModalText"></div><div class="modal-meta" id="tweetModalMeta"></div></div></div>
+<div id="tweetModal" class="tweet-modal" aria-hidden="true"><div class="tweet-modal-card"><button class="tweet-modal-close" id="tweetModalClose" type="button">Ã—</button><div class="modal-head" id="tweetModalHead">Post detail</div><div class="modal-text" id="tweetModalText"></div><div class="modal-meta" id="tweetModalMeta"></div></div></div>
 </body>
 </html>
+
 

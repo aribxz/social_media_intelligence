@@ -3,7 +3,7 @@
    ============================================================ */
 
 const SMI = (() => {
-  const API_BASE = "http://127.0.0.1:5000";
+  const API_BASE = (window.location.protocol === "file:") ? "http://127.0.0.1:5000" : window.location.origin;
 
   const prefersReducedMotion =
     window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -25,14 +25,18 @@ const SMI = (() => {
 
   async function getJSON(path) {
     const url = `${API_BASE}${path}`;
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 8000);
     let res;
     try {
-      res = await fetch(url);
+      res = await fetch(url, { signal: controller.signal });
     } catch (err) {
-      throw new Error("network");
+      clearTimeout(timeout);
+      throw new Error(err.name === "AbortError" ? "timeout" : "network: " + err.message);
     }
+    clearTimeout(timeout);
     if (!res.ok) {
-      throw new Error(`http_${res.status}`);
+      throw new Error(`http_${res.status} @ ${path}`);
     }
     return res.json();
   }

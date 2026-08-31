@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
@@ -477,7 +477,7 @@ function renderLoading(container, messages) {
 function renderError(container, opts, retryFn) {
   opts = opts || {};
   const title = opts.title || "Data not available";
-  const hint = opts.hint || "Couldn't reach the backend. Make sure Flask is running on 127.0.0.1:5000 and analytics.py has been run.";
+  const hint = opts.hint || "Couldn't reach the backend at " + API_BASE + ". Make sure the backend is running and analytics outputs are present.";
   container.innerHTML =
     '<div class="state-msg error">' +
       '<div>' + escapeHTML(title) + '</div>' +
@@ -714,3 +714,4 @@ function initPageTransition() {
 </script>
 </body>
 </html>
+

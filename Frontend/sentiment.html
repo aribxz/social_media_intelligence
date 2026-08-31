@@ -199,7 +199,7 @@ footer.site-footer{padding:40px 0 60px 0;text-align:center;color:var(--text-dim)
 (function(){
 "use strict";
 
-const API_BASE = "http://127.0.0.1:5000";
+const API_BASE = (window.location.protocol === "file:") ? "http://127.0.0.1:5000" : window.location.origin;
 const prefersReducedMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 const palette = {
@@ -276,8 +276,13 @@ function animateCount(el,target,opts={}){
 }
 
 async function getJSON(path){
-  const res = await fetch(`${API_BASE}${path}`);
-  if(!res.ok) throw new Error(`http_${res.status}`);
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), 8000);
+  let res;
+  try { res = await fetch(`${API_BASE}${path}`, { signal: controller.signal }); }
+  catch (err) { clearTimeout(timeout); throw new Error(err.name === "AbortError" ? "timeout" : "network: " + err.message); }
+  clearTimeout(timeout);
+  if(!res.ok) throw new Error(`http_${res.status} @ ${path}`);
   return res.json();
 }
 

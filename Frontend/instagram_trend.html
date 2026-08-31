@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
@@ -262,7 +262,7 @@ footer.site-footer { position: relative; z-index: 2; padding: 40px 0 60px 0; tex
 
 <main class="container">
   <div class="page-title-block reveal">
-    <span class="eyebrow">Instagram · Trend</span>
+    <span class="eyebrow">Instagram Â· Trend</span>
     <h1>Trend Analysis</h1>
     <p class="sub">Top hashtags, mentions, content categories, media types, and posting patterns.</p>
   </div>
@@ -333,7 +333,7 @@ function renderLoading(container, messages) {
 function renderError(container, opts, retryFn) {
   opts = opts || {};
   const title = opts.title || "Data not available";
-  const hint = opts.hint || "Couldn't reach the backend. Make sure Flask is running on 127.0.0.1:5000 and analytics.py has been run.";
+  const hint = opts.hint || "Couldn't reach the backend at " + API_BASE + ". Make sure the backend is running and analytics outputs are present.";
   container.innerHTML =
     '<div class="state-msg error">' +
       '<div>' + escapeHTML(title) + '</div>' +
@@ -806,4 +806,5 @@ function initPageTransition() {
 </script>
 </body>
 </html>
+
 

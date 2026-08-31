@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
@@ -332,13 +332,7 @@ body.mood-negative .signal-glyph { color: var(--negative); }
 <div class="signal-glyphs" id="signalGlyphs" aria-hidden="true"></div>
 <div class="noise-overlay" aria-hidden="true"></div>
 
-<header class="site-header">
-  <a class="brand" href="index.html"><span class="dot"></span><span>SMI</span></a>
-  <div class="header-nav-right">
-    <a class="nav-text-link active" href="index.html">Home</a>
-    <button class="nav-btn" id="aboutBtn" type="button">About</button>
-  </div>
-</header>
+<header class="site-header" id="header"></header>
 
 <div class="modal-backdrop" id="aboutModal" aria-hidden="true">
   <div class="modal-box">
@@ -350,7 +344,7 @@ body.mood-negative .signal-glyph { color: var(--negative); }
 
 <main class="container">
   <div class="page-title-block reveal">
-    <span class="eyebrow">Instagram · Sentiment</span>
+    <span class="eyebrow">Instagram Â· Sentiment</span>
     <h1>Sentiment Analysis</h1>
     <p class="sub">VADER-predicted tone of the captions - positive, neutral and negative - over the observed window.</p>
   </div>
@@ -421,7 +415,7 @@ function renderLoading(container, messages) {
 function renderError(container, opts, retryFn) {
   opts = opts || {};
   const title = opts.title || "Data not available";
-  const hint = opts.hint || "Couldn't reach the backend. Make sure Flask is running on 127.0.0.1:5000 and analytics.py has been run.";
+  const hint = opts.hint || "Couldn't reach the backend at " + API_BASE + ". Make sure the backend is running and analytics outputs are present.";
   container.innerHTML =
     '<div class="state-msg error">' +
       '<div>' + escapeHTML(title) + '</div>' +
@@ -659,11 +653,11 @@ function initPageTransition() {
   const modal = document.getElementById("aboutModal");
   const aboutBtn = document.getElementById("aboutBtn");
   const closeBtn = document.getElementById("modalCloseBtn");
-  function openModal() { modal.classList.add("open"); modal.setAttribute("aria-hidden", "false"); }
-  function closeModal() { modal.classList.remove("open"); modal.setAttribute("aria-hidden", "true"); }
-  aboutBtn.addEventListener("click", openModal);
-  closeBtn.addEventListener("click", closeModal);
-  modal.addEventListener("click", (e) => { if (e.target === modal) closeModal(); });
+  function openModal() { if(modal) { modal.classList.add("open"); modal.setAttribute("aria-hidden", "false"); } }
+  function closeModal() { if(modal) { modal.classList.remove("open"); modal.setAttribute("aria-hidden", "true"); } }
+  if(aboutBtn) aboutBtn.addEventListener("click", openModal);
+  if(closeBtn) closeBtn.addEventListener("click", closeModal);
+  if(modal) modal.addEventListener("click", (e) => { if (e.target === modal) closeModal(); });
   document.addEventListener("keydown", (e) => { if (e.key === "Escape") closeModal(); });
 
   /* ---------------- Ambient signal glyphs ---------------- */
@@ -700,7 +694,7 @@ function initPageTransition() {
     } catch (err) {
       renderError(content, {
         title: "Sentiment data not available (" + String(err.message||err) + ")",
-        hint: "Couldn't reach /api/instagram/sentiment. Make sure the Flask backend is running on http://127.0.0.1:5000 and instagram_analytics.py has been run. Try: fetch('http://127.0.0.1:5000/api/instagram/sentiment').then(r=>r.json()).then(console.log)",
+        hint: "Couldn't reach " + API_BASE + "/api/instagram/sentiment. Make sure Flask is running. Error: " + String(err.stack||"").slice(0,400),
       }, load);
       return;
     }
@@ -912,4 +906,5 @@ function initPageTransition() {
 </script>
 </body>
 </html>
+
 
